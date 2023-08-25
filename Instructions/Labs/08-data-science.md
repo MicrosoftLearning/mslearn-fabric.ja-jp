@@ -10,16 +10,16 @@ lab:
 
 このラボは完了するまで、約 **45** 分かかります。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 使用版ライセンスを有効にする方法の詳細については、[Fabric の開始](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "学校" または "職場" アカウントが必要です。** ** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成します。
+Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択します。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; のようになります)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
-4. 開いた新しいワークスペースは次のように空のはずです。
+1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
+2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
+4. 新しいワークスペースを開くと次に示すように空のはずです。
 
     ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
 
@@ -209,8 +209,8 @@ MLflow でモデルをトレーニングして追跡したら、MLflow ライブ
 
 Microsoft Fabric では、すべての実験を追跡し、それらを視覚的に調べることができます。
 
-1. **[Data Science]** ホーム ページに移動します。
-1. `experiment-churn` 実験を選択して開きます。
+1. 左側のペインで、ワークスペースに移動します。
+1. 一覧から `experiment-churn` 実験を選択します。
 
     > **ヒント:** ログに記録された実験の実行が表示されない場合は、ページを最新の情報に更新します。
 
