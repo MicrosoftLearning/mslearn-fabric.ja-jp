@@ -10,9 +10,9 @@ lab:
 
 このラボは完了するまで、約 **30** 分かかります。
 
-このエクスペリエンスでは、複数のノートブックのコード セル間でコードをビルドします。これは、お使いの環境内での方法とは異なる場合がありますが、デバッグに役立つ可能性があります。
+このエクスペリエンスでは、複数のノートブックのコード セルにわたってコードをビルドします。これは、お使いの環境内での方法を反映したものではないかもしれませんが、デバッグに役立つ可能性があります。
 
-サンプル データセットも使用しているため、最適化の内容が大規模な運用環境に反映されない可能性があります。それでも、改善は確認できます。ミリ秒単位を重要視する場合は、最適化が重要になります。
+サンプル データセットを使用していることもあり、この最適化は大規模な運用環境で目にする可能性があるものを反映したものではありません。しかし、改善が確認できることに違いはなく、ミリ秒が重要となる場面では、最適化が鍵となります。
 
 > **注**: この演習を完了するには、**Microsoft Fabric ライセンス**が必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。
 >
@@ -22,7 +22,7 @@ lab:
 
 まず、Fabric の試用版が有効になっているワークスペース、新しいレイクハウス、およびレイクハウス内の宛先フォルダーを作成します。
 
-1. [Microsoft Fabric](https://app.fabric.microsoft.com) (`https://app.fabric.microsoft.com`) にサインインし、**Synapse Data Engineering** エクスペリエンスを選択します。
+1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、**Data Engineering** エクスペリエンスを選択します。
 
     ![Synapse Data Engineering エクスペリエンスのスクリーンショット](Images/data-engineering-home.png)
 
@@ -36,7 +36,7 @@ lab:
 
 1. ワークスペースから **[+ 新規] > [レイクハウス]** を選択し、名前を指定して、 **[作成]** を選択します。
 
-    > :memo: **注:** **テーブル**や**ファイル**がない新しいレイクハウスを作成するには数分かかる場合があります。
+    > **注:** **テーブル**や**ファイル**がない新しいレイクハウスを作成するには数分かかる場合があります。
 
     ![新しいレイクハウスのスクリーンショット](Images/new-lakehouse.png)
 
@@ -54,14 +54,14 @@ lab:
 
 1. レイクハウスの上部のメニューから、 **[ノートブックを開く] > [新しいノートブック]** を選択します。これは、作成後に開きます。
 
-    > :bulb: **ヒント:** レイクハウス エクスプローラーにはこのノートブック内からアクセスできます。また、最新の情報に更新すると、この演習を完了するまでの進行状況を確認できます。
+    >  **ヒント:** レイクハウス エクスプローラーにはこのノートブック内からアクセスできます。また、この演習を完了した時に更新を行い進行状況を確認できます。
 
 1. 既定のセルで、コードが **PySpark (Python)** に設定されていることに注目してください。
 
 1. 次のコードをコード セルに挿入します。次を行います。
-    1. 接続文字列のパラメーターを宣言する
-    1. 接続文字列をビルドする
-    1. DataFrame にデータを読み取る
+    - 接続文字列のパラメーターを宣言する
+    - 接続文字列をビルドする
+    - DataFrame にデータを読み取る
 
     ```Python
     # Azure Blob Storage access info
@@ -81,7 +81,7 @@ lab:
 
     **予想される結果:** コマンドは成功し、`wasbs://nyctlc@azureopendatastorage.blob.core.windows.net/yellow` と印刷されます
 
-    > :memo: **注:** Spark セッションは最初のコード実行で開始されるため、完了までに時間がかかる場合があります。
+    > **注:** Spark セッションは最初のコード実行で開始されるため、完了までに時間がかかる場合があります。
 
 1. ファイルにデータを書き込むには、 **[RawData]** フォルダーの **ABFS パス**が必要になります。
 
@@ -99,9 +99,9 @@ lab:
         blob_df.limit(1000).write.mode("overwrite").parquet(output_parquet_path)
     ```
 
-1. **output_parquet_path** は次のようになります。`abfss://Spark@onelake.dfs.fabric.microsoft.com/DPDemo.Lakehouse/Files/RawData/yellow_taxi`
+1. **RawData** ABFS パスを追加し、 **[&#9655; セルの実行]** を選択して、yellow_taxi.parquet ファイルに 1000 行を書き込みます。
 
-1. コード セルの横にある **&#9655; [セルの実行]** を選択して、yellow_taxi.parquet ファイルに 1000 行を書き込みます。
+1. **output_parquet_path** は次のようになります。`abfss://Spark@onelake.dfs.fabric.microsoft.com/DPDemo.Lakehouse/Files/RawData/yellow_taxi`
 
 1. レイクハウス エクスプローラーからのデータの読み込みを確認するには、 **[ファイル] > [...] > [最新の情報に更新]** を選択します。
 
@@ -115,6 +115,9 @@ lab:
 
     ```python
     from pyspark.sql.functions import col, to_timestamp, current_timestamp, year, month
+    
+    # Read the parquet data from the specified path
+    raw_df = spark.read.parquet(output_parquet_path)   
     
     # Add dataload_datetime column with current timestamp
     filtered_df = raw_df.withColumn("dataload_datetime", current_timestamp())
@@ -132,10 +135,10 @@ lab:
 
 1. コード セルの横にある **&#9655; [セルの実行]** を選択します。
 
-    * これにより、データがデルタ テーブルに読み込まれたときにログするタイムスタンプ列 **dataload_datetime** が追加されます
-    * **storeAndFwdFlag** で NULL 値をフィルター処理します
-    * フィルター処理されたデータをデルタ テーブルに読み込みます
-    * 検証のために 1 つの行を表示します
+    - これにより、データがデルタ テーブルに読み込まれたときにログするタイムスタンプ列 **dataload_datetime** が追加されます
+    - **storeAndFwdFlag** で NULL 値をフィルター処理します
+    - フィルター処理されたデータをデルタ テーブルに読み込みます
+    - 検証のために 1 つの行を表示します
 
 1. 次の図のような、表示された結果をレビューして確認します。
 
@@ -151,10 +154,10 @@ lab:
 
     ```python
     from pyspark.sql.functions import col, to_timestamp, current_timestamp, year, month
-    
+ 
     # Read the parquet data from the specified path
-    raw_df = spark.read.parquet("**InsertYourABFSPathHere**")
-    
+    raw_df = spark.read.parquet(output_parquet_path)    
+
     # Add dataload_datetime column with current timestamp
     opt_df = raw_df.withColumn("dataload_datetime", current_timestamp())
     
@@ -174,8 +177,6 @@ lab:
     # Display results
     display(opt_df.limit(1))
     ```
-
-1. **ABFS パス**をもう一度取得し、セルを実行する**前に**、ブロック内のコードを更新します。
 
 1. 最適化コードの前と同じ結果になっていることを確認します。
 
@@ -216,29 +217,16 @@ lab:
     opttable_df = spark.sql('SELECT * FROM yellow_taxi_opt')
     
     # Display results
-    display(opttable_df.limit(3))
+    display(opttable_df.limit(10))
     ```
 
-1. 次に、上部のメニュー バーで **[すべて実行]** を選択します。
+1. 次に、これら 2 つのクエリの最初の **[セルの実行]** ボタンの横にある &#9660; 矢印を選択し、ドロップダウンから **[このセル以下を実行]** を選択します。
 
-これにより、すべてのコード セルが実行され、完全なプロセスを最初から最後まで確認できます。 最適化されたコード ブロックと非コード ブロックの間の実行時間を確認できます。
+    これにより、最後の 2 つのコード セルが実行されます。 最適化されていないデータを含むテーブルと、最適化されたデータを含むテーブルのクエリを実行した時の実行時間の違いに注目してください。
 
 ## リソースをクリーンアップする
 
-この演習では、以下の作成方法を学習しました。
-
-* Workspaces
-* レイクハウス
-* Fabric ノートブック
-* PySpark コードは次を行います。
-  * 外部データ ソースに接続する
-  * DataFrame にデータを読み取る
-  * DataFrame データを parquet ファイルに書き込む
-  * Parquet ファイルからデータを読み取る
-  * DataFrame 内のデータを変換する
-  * DataFrame データをデルタ テーブルに読み込む
-  * デルタ テーブルの書き込みを最適化する
-  * SQL を使用してデルタ テーブルのデータにクエリを実行する
+この演習では、Fabric の PySpark でノートブックを使用してデータを読み込み、それを Parquet に保存しました。 その後、その Parquet ファイルを使用してデータをさらに変換し、Delta テーブルの書き込みを最適化しました。 最後に、SQL を使用して Delta テーブルのクエリを実行しました。
 
 探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
