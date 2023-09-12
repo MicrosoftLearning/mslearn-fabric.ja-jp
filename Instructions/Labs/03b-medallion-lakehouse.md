@@ -365,7 +365,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     # Display the first 10 rows of the dataframe to preview your data
 
-    display(dfdimDate_gold.head(10))
+    display(dfdimCustomer_silver .head(10))
     ```
 
      ここでは、重複の削除、特定の列の選択、"CustomerName" 列を分割して "First" と "Last" の名前列を作成するなど、さまざまな変換を実行して、新しい DataFrame dfdimCustomer_silver を作成しました。 その結果、"CustomerName" 列から抽出された個別の "First" と "Last" の名前列を含む、クリーンで構造化された顧客データを含む DataFrame になりました。
@@ -385,7 +385,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     # Display the first 10 rows of the dataframe to preview your data
 
-    display(dfdimDate_gold.head(10))
+    display(dfdimCustomer_gold.head(10))
     ```
 
     ここでは、左の反結合を実行して dimCustomer_gold テーブルに既に存在する重複を除外し、monotonically_increasing_id() 関数を使用して一意の CustomerID 値を生成することで、顧客データ (dfdimCustomer_silver) をクリーニングして変換します。
@@ -473,13 +473,13 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 14. 他のディメンションで行ったことと同様に、新しいデータが入力されるたびに製品テーブルが最新の状態に保たれるようにする必要があります。 **新しいコード ブロックで**、次を貼り付けて実行します。
 
     ```python
-       from delta.tables import *
+    from delta.tables import *
     
-       deltaTable = DeltaTable.forPath(spark, 'Tables/dimproduct_gold')
+    deltaTable = DeltaTable.forPath(spark, 'Tables/dimproduct_gold')
             
-      dfUpdates = dfdimProduct_gold
+    dfUpdates = dfdimProduct_gold
             
-      deltaTable.alias('silver') \
+    deltaTable.alias('silver') \
       .merge(
             dfUpdates.alias('updates'),
             'silver.ItemName = updates.ItemName AND silver.ItemInfo = updates.ItemInfo'
