@@ -8,7 +8,7 @@ lab:
 
 この演習では、ノートブックを使用して Fabric レイクハウスにメダリオン アーキテクチャを構築します。 ワークスペースの作成、レイクハウスの作成、ブロンズ レイヤーへのデータのアップロード、データの変換とシルバー Delta テーブルへの読み込み、追加のデータ変換とゴールド Delta テーブルへの読み込み、データセットの探索とリレーションシップの作成を行います。
 
-この演習の所要時間は約 **40** 分です
+この演習の完了に要する時間は約 **45** 分です
 
 > **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
@@ -21,7 +21,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
 4. 新しいワークスペースを開くと次に示すように空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace-medallion.png)
+   ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace-medallion.png)
 5. ワークスペースの設定に移動し、 **[Data model editing] (データ モデル編集)** プレビュー機能を有効にします。 これにより、Power BI データセットを使用して、レイクハウス内のテーブル間のリレーションシップを作成できるようになります。
 
     ![Power BI のワークスペース設定ページのスクリーンショット。](./Images/workspace-settings.png)
@@ -32,18 +32,18 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 ワークスペースが用意できたので、次に Fabric ポータルで *Data Engineering* エクスペリエンスに切り替えて、分析するデータのデータ レイクハウスを作成します。
 
-1. Power BI ポータルの左下にある **[Power BI]** アイコンを選択し、 **[Data Engineering]** エクスペリエンスに切り替えます。
+1. Power BI ポータルの左下にある **[Power BI]** アイコンを選択し、 **[Data Engineering]** エクスペリエンスに切り替えます。 Data Engineering エクスペリエンスが表示されない場合は、Fabric 管理者に問い合わせ、[Fabric を有効にする](https://learn.microsoft.com/fabric/admin/fabric-switch)ようリクエストします。
 
-2. **Synapse Data Engineering** のホーム ページで、任意の名前を指定して新しい**レイクハウス**を作成します。
+2. **Synapse Data Engineering** のホーム ページで、**Sales** という名前の新しい**レイクハウス**を作成します。
 
-    1 分ほど経つと、新しい空のレイクハウスが表示されます。 分析のために、データ レイクハウスにいくつかのデータを取り込む必要があります。 これを行うには複数の方法がありますが、この演習では、テキスト ファイルをローカル コンピューター (または、該当する場合はラボ VM) にダウンロードし、レイクハウスにアップロードするだけです。
+    1 分ほどすると、新しい空のレイクハウスが作成されます。 分析のために、データ レイクハウスにいくつかのデータを取り込む必要があります。 これを行うには複数の方法がありますが、この演習では、テキスト ファイルをローカル コンピューター (または、該当する場合はラボ VM) にダウンロードし、レイクハウスにアップロードするだけです。
 
 3. `https://github.com/MicrosoftLearning/dp-data/blob/main/orders.zip` からこの演習用のデータ ファイルをダウンロードして抽出します。 ファイルを抽出し、元の名前でローカル コンピューター (または該当する場合はラボ VM) に保存します。 3 年間の売上データを含む 3 つのファイル (2019.csv、2020.csv、2021.csv) が含まれているはずです。
 
 4. レイクハウスの Web ブラウザー タブに戻り、**エクスプローラー** ペインの **Files** フォルダーの **[...]** メニューで、 **[新しいサブフォルダー]** を選択し、**bronze** という名前のフォルダーを作成します。
 
 5. **bronze** フォルダーの **[...]** メニューで、 **[アップロード]** 、 **[ファイルのアップロード]** の順に選択し、3 つのファイル (2019.csv、2020.csv、2021.csv) をローカル コンピューター (または、該当する場合はラボ VM) からレイクハウスにアップロードします。 3 つのファイルすべてを一度にアップロードするには Shift キーを使用します。
-   
+
 6. ファイルがアップロードされたら、**bronze** フォルダーを選びます。そして、次に示すように、ファイルがアップロードされていることを確認します。
 
     ![レイクハウスにアップロードされた products.csv ファイルのスクリーンショット。](./Images/bronze-files.png)
@@ -58,13 +58,13 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 2. ノートブックが開いたら、ノートブックの左上にある **[Notebook xxxx]** テキストを選択し、新しい名前を入力して、名前を「**シルバー用にデータを変換する**」に変更します。
 
-    ![Transform data for silver という名前の新しいノートブックのスクリーンショット。](./Images/sales-notebook-rename.png)
+    ![シルバー用にデータを変換するという名前の新しいノートブックのスクリーンショット。](./Images/sales-notebook-rename.png)
 
-2. ノートブック内の既存のセルを選択します。このセルには、いくつかの単純なコメントアウト コードが含まれています。 これら 2 つの行を強調表示して削除します。このコードは必要ありません。
-   
+3. ノートブック内の既存のセルを選択します。このセルには、いくつかの単純なコメントアウト コードが含まれています。 これら 2 つの行を強調表示して削除します。このコードは必要ありません。
+
    > **注**: ノートブックを使用すると、Python、Scala、SQL など、さまざまな言語でコードを実行できます。 この演習では、PySpark と SQL を使用します。 マークダウン セルを追加して、コードを文書化するための書式設定されたテキストと画像を指定することもできます。
 
-3. 次のコードをセルに**貼り付け**ます。
+4. 次のコードをセルに**貼り付け**ます。
 
     ```python
     from pyspark.sql.types import *
@@ -89,23 +89,23 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     display(df.head(10))
     ```
 
-4. セルの左側にある ****&#9655;** (セルの実行)** ボタンを使ってコードを実行します。**
+5. セルの左側にある ****&#9655;** ( *[セルの実行]* )** ボタンを使ってコードを実行します。
 
     > **注**: このノートブック内で Spark コードを実行したのはこれが最初であるため、Spark セッションを起動する必要があります。 これは、最初の実行が完了するまで 1 分ほどかかる場合があることを意味します。 それ以降は、短時間で実行できます。
 
-5. セル コマンドが完了したら、セルの下にある**出力を確認**します。これは次のようになるはずです。
+6. セル コマンドが完了したら、セルの下にある**出力を確認**します。これは次のようになるはずです。
 
     | インデックス | SalesOrderNumber | SalesOrderLineNumber | OrderDate | CustomerName | Email | Item | Quantity | UnitPrice | 税 |
     | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
     | 1 | SO49172 | 1 | 2021-01-01 | Brian Howard | brian23@adventure-works.com | Road-250 Red, 52 | 1 | 2443.35 | 195.468 |
-    | 2 |  SO49173 | 1 | 2021-01-01 | Linda Alvarez | Mountain-200 Silver, 38 | 1 | 2071.4197 | 165.7136 |
+    | 2 |  SO49173 | 1 | 2021-01-01 | Linda Alvarez | linda19@adventure-works.com | Mountain-200 Silver, 38 | 1 | 2071.4197 | 165.7136 |
     | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... |
 
     実行したコードは、**bronze** フォルダー内の CSV ファイルから Spark データフレームにデータを読み込み、データフレームの最初の数行を表示しました。
 
     > **注**: 出力ウィンドウの左上にある **[...]** メニューを選択すると、セル出力の内容をクリア、非表示、自動サイズ変更できます。
 
-6. 次に、PySpark データフレームを使用して列を追加し、既存の列の一部の値を更新して、**データ検証とクリーンアップ用の列を追加**します。 [+] ボタンを使用して**新しいコード ブロックを追加**し、次のコードをセルに追加します。
+7. 次に、PySpark データフレームを使用して列を追加し、既存の列の一部の値を更新して、**データ検証とクリーンアップ用の列を追加**します。 [+] ボタンを使用して**新しいコード ブロックを追加**し、次のコードをセルに追加します。
 
     ```python
     from pyspark.sql.functions import when, lit, col, current_timestamp, input_file_name
@@ -120,14 +120,14 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     ```
 
     コードの最初の行により、PySpark から必要な関数がインポートされます。 次に、データフレームに新しい列を追加して、ソース ファイル名、注文が該当の会計年度の前にフラグが付けられたかどうか、行がいつ作成および変更されたかを追跡できるようにします。
-    
+
     また、CustomerID と ItemID の列も追加します。これは後で設定されます。
-    
+
     最後に、CustomerName 列が null 値または空の場合は、"Unknown" に更新します。
 
-7. セルを実行し、****&#9655;** (セルの実行)** ボタンを使用してコードを実行します。**
+8. セルを実行し、****&#9655;** ( *[セルの実行]* )** ボタンを使用してコードを実行します。
 
-8. 次に、Delta Lake 形式を使用して、販売データベースの **sales_silver** テーブルのスキーマを定義します。 新しいコード ブロックを作成し、セルに次のコードを追加します。
+9. 次に、Delta Lake 形式を使用して、販売データベースの **sales_silver** テーブルのスキーマを定義します。 新しいコード ブロックを作成し、セルに次のコードを追加します。
 
     ```python
     # Define the schema for the sales_silver table
@@ -151,16 +151,17 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
         .addColumn("CreatedTS", DateType()) \
         .addColumn("ModifiedTS", DateType()) \
         .execute()
-        ```
-9. Run the cell to execute the code using the ****&#9655;** (*Run cell*)** button.
+    ```
 
-10. Select the **...** in the Tables section of the lakehouse explorer pane and select **Refresh**. You should now see the new **sales_silver** table listed. The **&#9650;** (triangle icon) indicates that it's a Delta table.
+10. セルを実行し、****&#9655;** ( *[セルの実行]* )** ボタンを使用してコードを実行します。
 
-    ![Screenshot of the sales_silver table in a lakehouse.](./Images/sales-silver-table.png)
+11. レイクハウス エクスプローラー ペインの [テーブル] セクションで **[...]** を選択し、 **[更新]** を選択します。 新しい **sales_silver** テーブルが一覧表示されます。 **&#9650;** (三角形のアイコン) は、これが Delta テーブルであることを示します。
 
-    > **Note**: If you don't see the new table, wait a few seconds and then select **Refresh** again, or refresh the entire browser tab.
+    ![レイクハウスの sales_silver テーブルのスクリーンショット。](./Images/sales-silver-table.png)
 
-11. Now you're going to perform an **upsert operation** on a Delta table, updating existing records based on specific conditions and inserting new records when no match is found. Add a new code block and paste the following code:
+    > **注**: 新しいテーブルが表示されない場合は、数秒待ってからもう一度 **[更新]** を選択するか、ブラウザー タブ全体を更新してください。
+
+12. 次に、Delta テーブルに対して**アップサート操作**を実行し、特定の条件に基づいて既存のレコードを更新し、一致するものが見つからない場合は新しいレコードを挿入します。 新しいコード ブロックを追加し、次のコードを貼り付けます。
 
     ```python
     # Update existing records and insert new ones based on a condition defined by the columns SalesOrderNumber, OrderDate, CustomerName, and Item.
@@ -200,23 +201,24 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
       ) \
       .execute()
     ```
+
     この操作は、特定の列の値に基づいてテーブル内の既存のレコードを更新し、一致するものが見つからない場合に新しいレコードを挿入できるようにするため、重要です。 これは、既存のレコードの更新と新しいレコードを含む可能性があるデータをソース システムから読み込む場合の一般的な要件です。
 
 これで、データがシルバー Delta テーブルに追加され、追加の変換とモデリングを行う準備ができました。
 
 ## SQL エンドポイントを使用してシルバー レイヤー内のデータを探索する
 
-シルバー レイヤーにデータが用意されたので、SQL エンドポイントを使用してデータを探索し、基本的な分析を実行できます。 これは、SQL に精通している人がデータの基本的な探索を行いたい場合に便利なオプションです。 この演習では、Fabric の SQL エンドポイント ビューを使用していますが、SQL Server Management Studio (SSMS) や Azure Data Explorer などのツールも使用できることに注意してください。
+シルバー レイヤーにデータが用意されたので、SQL エンドポイントを使用してデータを探索し、基本的な分析を実行できます。 これは、SQL に精通している人がデータの基本的な探索を行いたい場合に便利なオプションです。 この演習では、Fabric の SQL エンドポイント ビューを使用していますが、SQL Server Management Studio (SSMS) や Azure Data Explorer などのツールも使用できます。
 
 1. ワークスペースに戻り、いくつかの資産が一覧表示されていることを確認します。 **[SQL エンドポイント]** を選択して、SQL エンドポイント ビューでレイクハウスを開きます。
 
     ![レイクハウス内の SQL エンドポイントのスクリーンショット。](./Images/sql-endpoint-item.png)
 
-1. リボンから **[新しい SQL クエリ]** を選択すると、SQL クエリ エディターが開きます。 レイクハウス エクスプローラー ペインの既存のクエリ名の横にある **[...]** メニュー項目を使用して、クエリの名前を変更できることに注意してください。
+2. リボンから **[新しい SQL クエリ]** を選択すると、SQL クエリ エディターが開きます。 レイクハウス エクスプローラー ペインの既存のクエリ名の横にある **[...]** メニュー項目を使用して、クエリの名前を変更できます。
 
    2 つの SQL クエリを実行して、データを探索します。
 
-1. 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
+3. 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
 
     ```sql
     SELECT YEAR(OrderDate) AS Year
@@ -230,15 +232,16 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     ![レイクハウスでの SQL クエリの結果のスクリーンショット。](./Images/total-sales-sql.png)
 
-  1. 次は、(数量の観点から) 最も多く購入している顧客を見つけます。 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
+4. 次は、(数量の観点から) 最も多く購入している顧客を見つけます。 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
 
-        ```sql
-        SELECT TOP 10 CustomerName, SUM(Quantity) AS TotalQuantity
-        FROM sales_silver
-        GROUP BY CustomerName
-        ORDER BY TotalQuantity DESC
-        ```
-        このクエリでは、sales_silver テーブルで各顧客が購入した品目の合計数量を計算し、数量の観点から上位 10 人の顧客を返します。
+    ```sql
+    SELECT TOP 10 CustomerName, SUM(Quantity) AS TotalQuantity
+    FROM sales_silver
+    GROUP BY CustomerName
+    ORDER BY TotalQuantity DESC
+    ```
+
+      このクエリでは、sales_silver テーブルで各顧客が購入した品目の合計数量を計算し、数量の観点から上位 10 人の顧客を返します。
 
 シルバー レイヤーでのデータ探索は基本的な分析に役立ちますが、データをさらに変換し、それをスター スキーマにモデル化して、より高度な分析とレポートを可能にする必要があります。 これは、次のセクションで行います。
 
@@ -252,14 +255,14 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 2. レイクハウス エクスプローラー ウィンドウで、 **[追加]** を選択し、前に作成した **Sales** レイクハウスを選択して、**Sales** レイクハウスを追加します。 エクスプローラー ウィンドウの **[テーブル]** セクションに **sales_silver** テーブルが表示されます。
 
-3. 既存のコード ブロックの定型テキストを削除し、**次のコードを追加して**データフレームにデータを読み込み、スター スキーマの構築を開始します。
+3. 既存のコード ブロックで、定型テキストを削除し、データをデータフレームに読み込み、スター スキーマの構築を開始するための**次のコードを追加**してから、それを実行します。
 
-    ```python
+   ```python
     # Load data to the dataframe as a starting point to create the gold layer
     df = spark.read.table("Sales.sales_silver")
     ```
 
-4. **新しいコード ブロックを追加**し、次のコードを貼り付けて日付ディメンション テーブルを作成します。
+4. **新しいコード ブロックを追加**し、日付ディメンション テーブルを作成するための次のコードを貼り付けて、それを実行します。
 
     ```python
     from pyspark.sql.types import *
@@ -276,9 +279,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
         .addColumn("yyyymm", StringType()) \
         .execute()
     ```
+
     > **注**: `display(df)` コマンドはいつでも実行して、作業の進行状況をチェックできます。 この場合は、'display(dfdimDate_gold)' を実行して、dimDate_gold データフレームの内容を表示します。
 
-1. 新しいコード ブロックで、**次のコードを追加して**、日付ディメンション (**dimdate_gold**) のデータフレームを作成します。
+5. 新しいコード ブロックで、日付ディメンション (**dimdate_gold**) のデータフレームを作成するための**次のコードを追加して実行します**。
 
     ```python
     from pyspark.sql.functions import col, dayofmonth, month, year, date_format
@@ -293,8 +297,12 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
             date_format(col("OrderDate"), "yyyyMM").alias("yyyymm"), \
         ).orderBy("OrderDate")
 
+    # Display the first 10 rows of the dataframe to preview your data
 
-2. You're separating the code out into new code blocks so that you can understand and watch what's happening in the notebook as you transform the data. In another new code block, **add the following code** to update the date dimension as new data comes in:
+    display(dfdimDate_gold.head(10))
+    ```
+
+6. データを変換するときにノートブックで何が起こっているかを理解して観察できるように、コードを新しいコード ブロックに分割します。 別の新しいコード ブロックで、新しいデータが入ってきたら日付ディメンションを更新するための**次のコードを追加して実行します**。
 
     ```python
     from delta.tables import *
@@ -325,8 +333,9 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
       ) \
       .execute()
     ```
+
     おめでとうございます! 日付ディメンションがすべて設定されました。 次に、顧客ディメンションを作成します。
-3. 顧客ディメンション テーブルを構築するには、**新しいコード ブロックを追加**し、次のコードを貼り付けます。
+7. 顧客ディメンション テーブルを構築するには、**新しいコード ブロックを追加**し、次のコードを貼り付けて実行します。
 
     ```python
     from pyspark.sql.types import *
@@ -342,7 +351,8 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
         .addColumn("CustomerID", LongType()) \
         .execute()
     ```
-1. 新しいコード ブロックで、**次のコードを追加して**、重複する顧客を削除し、特定の列を選択し、"CustomerName" 列を分割して "First" と "Last" の名前の列を作成します。
+
+8. 新しいコード ブロックで、重複する顧客を削除し、特定の列を選択し、"CustomerName" 列を分割して "First" と "Last" の名前列を作成するための**次のコードを追加して実行します**。
 
     ```python
     from pyspark.sql.functions import col, split
@@ -351,12 +361,16 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     dfdimCustomer_silver = df.dropDuplicates(["CustomerName","Email"]).select(col("CustomerName"),col("Email")) \
         .withColumn("First",split(col("CustomerName"), " ").getItem(0)) \
-        .withColumn("Last",split(col("CustomerName"), " ").getItem(1)) \
+        .withColumn("Last",split(col("CustomerName"), " ").getItem(1)) 
+    
+    # Display the first 10 rows of the dataframe to preview your data
+
+    display(dfdimCustomer_silver .head(10))
     ```
 
      ここでは、重複の削除、特定の列の選択、"CustomerName" 列を分割して "First" と "Last" の名前列を作成するなど、さまざまな変換を実行して、新しい DataFrame dfdimCustomer_silver を作成しました。 その結果、"CustomerName" 列から抽出された個別の "First" と "Last" の名前列を含む、クリーンで構造化された顧客データを含む DataFrame になりました。
 
-2. 次に、**顧客の ID 列を作成**します。 新しいコード ブロックに、次を貼り付けます。
+9. 次に、**顧客の ID 列を作成**します。 新しいコード ブロックで、次を貼り付けて実行します。
 
     ```python
     from pyspark.sql.functions import monotonically_increasing_id, col, when, coalesce, max, lit
@@ -368,10 +382,15 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     dfdimCustomer_gold = dfdimCustomer_silver.join(dfdimCustomer_temp,(dfdimCustomer_silver.CustomerName == dfdimCustomer_temp.CustomerName) & (dfdimCustomer_silver.Email == dfdimCustomer_temp.Email), "left_anti")
     
     dfdimCustomer_gold = dfdimCustomer_gold.withColumn("CustomerID",monotonically_increasing_id() + MAXCustomerID + 1)
+
+    # Display the first 10 rows of the dataframe to preview your data
+
+    display(dfdimCustomer_gold.head(10))
     ```
+
     ここでは、左の反結合を実行して dimCustomer_gold テーブルに既に存在する重複を除外し、monotonically_increasing_id() 関数を使用して一意の CustomerID 値を生成することで、顧客データ (dfdimCustomer_silver) をクリーニングして変換します。
 
-1. 次に、新しいデータが入力されると、顧客テーブルが最新の状態に保たれるようにします。 **新しいコード ブロックに**、次を貼り付けます。
+10. 次に、新しいデータが入力されると、顧客テーブルが最新の状態に保たれるようにします。 **新しいコード ブロックで**、次を貼り付けて実行します。
 
     ```python
     from delta.tables import *
@@ -401,7 +420,8 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
       ) \
       .execute()
     ```
-2. 次に、**これらの手順を繰り返して製品ディメンションを作成します**。 新しいコード ブロックに、次を貼り付けます。
+
+11. ここで、**これらの手順を繰り返して製品ディメンションを作成します**。 新しいコード ブロックで、次を貼り付けて実行します。
 
     ```python
     from pyspark.sql.types import *
@@ -413,9 +433,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
         .addColumn("ItemID", LongType()) \
         .addColumn("ItemInfo", StringType()) \
         .execute()
-    ```    
-3.  **別のコード ブロックを追加して**、**customer_gold** データフレームを作成します。 これは、後で Sales の結合で使用します。
-    
+    ```
+
+12. **別のコード ブロックを追加して**、**customer_gold** データフレームを作成します。 これは、後で Sales の結合で使用します。
+  
     ```python
     from pyspark.sql.functions import col, split, lit
     
@@ -423,10 +444,14 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     dfdimProduct_silver = df.dropDuplicates(["Item"]).select(col("Item")) \
         .withColumn("ItemName",split(col("Item"), ", ").getItem(0)) \
-        .withColumn("ItemInfo",when((split(col("Item"), ", ").getItem(1).isNull() | (split(col("Item"), ", ").getItem(1)=="")),lit("")).otherwise(split(col("Item"), ", ").getItem(1))) \
+        .withColumn("ItemInfo",when((split(col("Item"), ", ").getItem(1).isNull() | (split(col("Item"), ", ").getItem(1)=="")),lit("")).otherwise(split(col("Item"), ", ").getItem(1))) 
+    
+    # Display the first 10 rows of the dataframe to preview your data
+
+    display(dfdimProduct_silver.head(10))
        ```
 
-4.  次に、**dimProduct_gold テーブル**の ID を作成します。 新しいコード ブロックに次の構文を追加します。
+13. 次に、**dimProduct_gold テーブル**の ID を作成します。 新しいコード ブロックに次の構文を追加してそれを実行します。
 
     ```python
     from pyspark.sql.functions import monotonically_increasing_id, col, lit, max, coalesce
@@ -439,40 +464,46 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     dfdimProduct_gold = dfdimProduct_silver.join(dfdimProduct_temp,(dfdimProduct_silver.ItemName == dfdimProduct_temp.ItemName) & (dfdimProduct_silver.ItemInfo == dfdimProduct_temp.ItemInfo), "left_anti")
     
     dfdimProduct_gold = dfdimProduct_gold.withColumn("ItemID",monotonically_increasing_id() + MAXProductID + 1)
-    ```
-5.   他のディメンションで行ったことと同様に、新しいデータが入力されるたびに製品テーブルが最新の状態に保たれるようにする必要があります。 **新しいコード ブロックに**、次を貼り付けます。
-        ```python
-        from delta.tables import *
+    
+    # Display the first 10 rows of the dataframe to preview your data
 
-        deltaTable = DeltaTable.forPath(spark, 'Tables/dimproduct_gold')
-        
-        dfUpdates = dfdimProduct_gold
-        
-        deltaTable.alias('silver') \
-          .merge(
+    display(dfdimProduct_gold.head(10))
+    ```
+
+14. 他のディメンションで行ったことと同様に、新しいデータが入力されるたびに製品テーブルが最新の状態に保たれるようにする必要があります。 **新しいコード ブロックで**、次を貼り付けて実行します。
+
+    ```python
+    from delta.tables import *
+    
+    deltaTable = DeltaTable.forPath(spark, 'Tables/dimproduct_gold')
+            
+    dfUpdates = dfdimProduct_gold
+            
+    deltaTable.alias('silver') \
+      .merge(
             dfUpdates.alias('updates'),
             'silver.ItemName = updates.ItemName AND silver.ItemInfo = updates.ItemInfo'
-          ) \
-           .whenMatchedUpdate(set =
+            ) \
+            .whenMatchedUpdate(set =
             {
-              
+               
             }
-          ) \
-         .whenNotMatchedInsert(values =
-            {
+            ) \
+            .whenNotMatchedInsert(values =
+             {
               "ItemName": "updates.ItemName",
               "ItemInfo": "updates.ItemInfo",
               "ItemID": "updates.ItemID"
-            }
-          ) \
-          .execute()
-        ```
+              }
+              ) \
+              .execute()
+      ```
 
-        これにより、テーブル内の現在のデータに基づいて次に使用可能な製品 ID が計算され、これらの新しい ID が製品に割り当てられ、更新された製品情報が表示されます (表示コマンドがコメント解除されている場合)。
+      これにより、テーブル内の現在のデータに基づいて次に使用可能な製品 ID が計算され、これらの新しい ID が製品に割り当てられ、更新された製品情報が表示されます (表示コマンドがコメント解除されている場合)。
 
-        **ディメンションが構築されたので、最後の手順ではファクト テーブルを作成します。**
+      **ディメンションが構築されたので、最後の手順ではファクト テーブルを作成します。**
 
-1.  **新しいコード ブロックで**、次のコードを貼り付けて**ファクト テーブル**を作成します。
+15. **新しいコード ブロックで**、**ファクト テーブル**を作成するための次のコードを貼り付けて実行します。
 
     ```python
     from pyspark.sql.types import *
@@ -488,7 +519,8 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
         .addColumn("Tax", FloatType()) \
         .execute()
     ```
-2.  **新しいコード ブロックで**、次のコードを貼り付けて**新しいデータフレーム**を作成し、売上データを顧客 ID、品目 ID、注文日、数量、単価、税を含む顧客と製品の情報と結合します。
+
+16. **新しいコード ブロックで**、**新しいデータフレーム**を作成し、売上データを顧客 ID、品目 ID、注文日、数量、単価、税を含む顧客と製品の情報と結合するための次のコードを貼り付けて実行します。
 
     ```python
     from pyspark.sql.functions import col
@@ -511,9 +543,14 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
             , col("df1.UnitPrice") \
             , col("df1.Tax") \
         ).orderBy(col("df1.OrderDate"), col("df2.CustomerID"), col("df3.ItemID"))
+    
+    # Display the first 10 rows of the dataframe to preview your data
+    
+    display(dffactSales_gold.head(10))
     ```
 
-3.  次に、**新しいコード ブロック**で次のコードを実行して、売上データを最新の状態に保つようにします。
+17. 次に、**新しいコード ブロック**で次のコードを実行して、売上データを最新の状態に保つようにします。
+
     ```python
     from delta.tables import *
     
@@ -543,9 +580,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
       ) \
       .execute()
     ```
+
      ここでは、Delta Lake のマージ操作を使用して、factsales_gold テーブルを新しい売上データ (dffactSales_gold) と同期して更新します。 この操作では、注文日、顧客 ID、および項目 ID が既存のデータ (シルバー テーブル) と新しいデータ (更新 DataFrame) の間で比較され、一致するレコードが更新され、必要に応じて新しいレコードが挿入されます。
 
-**これで、キュレーションおよびモデル化されたゴールド レイヤーが作成され、レポートと分析に使用できるようになりました。**
+これで、レポートと分析に使用できるキュレーションおよびモデル化された**ゴールド** レイヤーが手に入りました。
 
 ## データセットを作成する
 
@@ -561,7 +599,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
    - dimproduct_gold
    - factsales_gold
 
-    これにより、Fabric でデータセットが開き、リレーションシップとメジャーを作成できます。
+    これにより、Fabric でデータセットが開き、そこで次に示すようにリレーションシップとメジャーを作成できます。
 
     ![Fabric のデータセットのスクリーンショット。](./Images/dataset-relationships.png)
 
