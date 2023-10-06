@@ -1,7 +1,7 @@
 ---
 lab:
-  title: Microsoft Fabric での Real-Time Analytics の概要
-  module: Get started with Real-Time Analytics in Microsoft Fabric
+  title: Real Time Analytics と Microsoft Fabric での Eventstream の概要
+  module: Get started with Eventstream in Real-Time Analytics and Microsoft Fabric
 ---
 # Real Time Analytics (RTA) での Eventstream の概要
 
