@@ -6,9 +6,9 @@ lab:
 
 # Microsoft Fabric でノートブックを使用してデータを探索する
 
-このラボでは、データ探索のためにノートブックを使用します。 ノートブックは、対話形式でデータを探索および分析するための強力なツールです。 この演習では、ノートブックを作成し、それを使用して、データセットの探索、概要統計情報の生成、データをより詳細に理解するための視覚化の作成を行う方法について説明します。 このラボを終了すると、ノートブックを使用してデータの探索と分析を行う方法を確実に理解できるようになります。
+このラボでは、データ探索のためにノートブックを使います。 ノートブックは、対話形式でデータを探索および分析するための強力なツールです。 この演習では、ノートブックを作成し、それを使用して、データセットの探索、概要統計情報の生成、データをより詳細に理解するための視覚化の作成を行う方法について説明します。 このラボを終了すると、ノートブックを使ってデータの探索と分析を行う方法を確実に理解できます。
 
-このラボは完了するまで、約 **45** 分かかります。
+このラボの所要時間は約 **30** 分です。
 
 > **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
@@ -27,7 +27,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 モデルをトレーニングするために、''*ノートブック*'' を作成できます。 ノートブックでは、''実験'' として (複数の言語で) コードを記述して実行できる対話型環境が提供されます。**
 
-1. Power BI ポータルの左下にある **[Data Engineering]** アイコンを選択し、 **[Data Science]** エクスペリエンスに切り替えます。
+1. Power BI ポータルの左下にある **[Power BI]** アイコンを選び、 **[Data Science]** エクスペリエンスに切り替えます。
 
 1. **[Data Science]** ホーム ページで、新しい**ノートブック**を作成します。
 
@@ -49,7 +49,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 これで、データを取得するコードを実行する準備ができました。 Azure Open Datasets から [**Diabetes データセット**](https://learn.microsoft.com/azure/open-datasets/dataset-diabetes?tabs=azureml-opendatasets?azure-portal=true)を操作します。 データを読み込んだ後、データを Pandas データフレームに変換します。これは、行と列でデータを操作するための一般的な構造です。
 
-1. ノートブックで、最新のセルの下にある **[+ コード]** アイコンを使用して、新しいコード セルをノートブックに追加します。 それに次のコードを入力します。
+1. ノートブックで、最新のセルの下にある **[+ コード]** アイコンを使用して、新しいコード セルをノートブックに追加します。 データセットをデータフレームに読み込むには、次のコードを入力します。
 
     ```python
     # Azure storage access info for open dataset diabetes
@@ -138,7 +138,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     print(desc_stats)
     ```
 
-    平均 `age` は約 48.5 歳で、標準偏差は 13.1 歳です。 最年少の個人は 19 歳で、最高齢者は 79 歳です。 平均 `BMI` は約 26.4 で、**WHO 基準**に従って[過体重](https://www.who.int/health-topics/obesity#tab=tab_1)のカテゴリに分類されます。 最小 `BMI` は 18 で、最大は 42.2 です。
+    平均年齢は約 48.5 歳であり、標準偏差は 13.1 歳です。 最年少の個人は 19 歳で、最高齢者は 79 歳です。 平均 `BMI` は約 26.4 で、**WHO 基準**に従って[過体重](https://www.who.int/health-topics/obesity#tab=tab_1)のカテゴリに分類されます。 最小 `BMI` は 18 で、最大は 42.2 です。
 
 ## データ分布をプロットする
 
@@ -152,12 +152,12 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     import numpy as np
     
     # Calculate the mean, median of the BMI variable
-    mean = df_pnd['BMI'].mean()
-    median = df_pnd['BMI'].median()
+    mean = df['BMI'].mean()
+    median = df['BMI'].median()
     
     # Histogram of the BMI variable
     plt.figure(figsize=(8, 6))
-    plt.hist(df_pnd['BMI'], bins=20, color='skyblue', edgecolor='black')
+    plt.hist(df['BMI'], bins=20, color='skyblue', edgecolor='black')
     plt.title('BMI Distribution')
     plt.xlabel('BMI')
     plt.ylabel('Frequency')
@@ -203,7 +203,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     fig, ax = plt.subplots(figsize=(7, 5))
     
     # Replace numeric values with labels
-    df_pnd['SEX'] = df_pnd['SEX'].replace({1: 'Male', 2: 'Female'})
+    df['SEX'] = df['SEX'].replace({1: 'Male', 2: 'Female'})
     
     sns.boxplot(x='SEX', y='BP', data=df, ax=ax)
     ax.set_title('Blood pressure across Gender')
