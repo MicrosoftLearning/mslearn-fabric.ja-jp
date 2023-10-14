@@ -1,7 +1,7 @@
 ---
 lab:
-  title: Real Time Analytics と Microsoft Fabric での Eventstream の概要
-  module: Get started with Eventstream in Real-Time Analytics and Microsoft Fabric
+  title: Microsoft Fabric での Real-Time Analytics の概要
+  module: Get started with Real-Time Analytics in Microsoft Fabric
 ---
 # Real Time Analytics (RTA) での Eventstream の概要
 
@@ -63,38 +63,38 @@ For "enable data copy to OneLake" - are you adding a lakehouse as a destination?
 
 1. **Real-Time Analytics** で、 **[KQL データベース]** ボックスを選択します。
 
-   ![KQL データベースを選択する](./Images/select-kqldatabase.png)
+   ![KQL データベースの選択の画像](./Images/select-kqldatabase.png)
 
 2. KQL データベースに**名前を付ける**ダイアログが表示されます
 
-   ![KQL データベースに名前を付ける](./Images/name-kqldatabase.png)
+   ![KQL データベースの名前付けの画像](./Images/name-kqldatabase.png)
 
 3. KQL データベースに、覚えやすい名前 (**MyStockData** など) を指定し、 **[作成]** を押します。
 
 1. **[データベースの詳細]** パネルで、鉛筆アイコンを選択して OneLake で可用性を有効にします。
 
-   ![OneLake を有効にする](./Images/enable-onelake-availability.png)
+   ![OneLake の有効化の画像](./Images/enable-onelake-availability.png)
 
 2. ボタンを **[アクティブ]** に切り替えてから、 **[完了]** を選択してください。
 
-   ![OneLake トグルを有効にする](./Images/enable-onelake-toggle.png)
+   ![OneLake トグルの有効化の画像](./Images/enable-onelake-toggle.png)
 
 ## Eventstream を作成する
 
 1. メニュー バーで **[Real-Time Analytics]** を選択します (アイコンは ![rta ロゴ](./Images/rta_logo.png)に似ています)
 2. **[新規]** で **[Eventstream (プレビュー)]** を選択します
 
-   ![Eventstream を選択する](./Images/select-eventstream.png)
+   ![Eventstream の選択の画像](./Images/select-eventstream.png)
 
 3. 使用する Eventstream に**名前を付ける**よう求められます。 Eventstream に覚えやすい名前 (***MyStockES** など) を指定し、 **[作成]** ボタンを押します。
 
-   ![Eventstream に名前を付ける](./Images/name-eventstream.png)
+   ![Eventstream の名前付けの画像](./Images/name-eventstream.png)
 
 ## Eventstream のソースと宛先を確立する
 
 1. Eventstream キャンバスで、ドロップダウン リストから **[新しいソース]** を選択し、 **[サンプル データ]** を選択します。
 
-   ![Eventstream キャンバス](./Images/real-time-analytics-canvas.png)
+   ![Eventstream キャンバスの画像](./Images/real-time-analytics-canvas.png)
 
 2. 次の表に示すように、サンプル データの値を入力し、 **[追加と構成]** を選択します。
 
@@ -105,7 +105,7 @@ For "enable data copy to OneLake" - are you adding a lakehouse as a destination?
 
 3. 次に、 **[新しい宛先]** を選択して宛先を追加してから、 **[KQL データベース]** を選択します
 
-   ![Eventstream の宛先](./Images/new-kql-destination.png)
+   ![Eventstream の宛先の画像](./Images/new-kql-destination.png)
 
 4. KQL データベースの構成で、次の表を使用して構成を完了します。
 
@@ -121,22 +121,22 @@ For "enable data copy to OneLake" - are you adding a lakehouse as a destination?
 
 1. **[データの取り込み]** ダイアログ ページで、 **[新しいテーブル]** を選択し、「MyStockData」と入力します。
 
-   ![在庫データを挿入する](./Images/ingest-stream-data-to-kql.png)
+   ![在庫データの挿入の画像](./Images/ingest-stream-data-to-kql.png)
 
 2. **[Next: Source](次へ: ソース)** を選択します。
 3. **[ソース]** ページで **[データ接続名]** を確認し、 **[次へ: スキーマ]** を選択します。
 
-   ![データ ソース名 (data source name)](./Images/ingest-data.png)
+   ![データ ソース名の画像](./Images/ingest-data.png)
 
 4. サンプル データの場合、受信データは圧縮されないため、圧縮の種類は圧縮解除のままにします。
 5. **[データ形式]** ドロップダウンから **[JSON]** を選択します。
 
-   ![JSON に変更する](./Images/injest-as-json.png)
+   ![JSON への変更の画像](./Images/injest-as-json.png)
 
 6. その後、一部またはすべてのデータ型を受信ストリームから宛先テーブルに変更することが必要になる場合があります。
 7. このタスクを実行するには、**下矢印 > [データ型の変更]** を選択します。 次に、列に正しいデータ型が反映されていることを確認します。
 
-   ![データ型を変更する](./Images/change-data-type-in-es.png)
+   ![データ型の変更の画像](./Images/change-data-type-in-es.png)
 
 8. 終了したら、 **[次へ: 概要]** を選択します
 
@@ -153,15 +153,15 @@ Kusto 照会言語 (KQL) は、データを処理して結果を返すための�
 1. ***MyStockData*** という名前の、新しく作成され、ハイドレートされた KQL データベースを参照します。
 2. データ ツリーで、MyStockData テーブルのその他メニュー [...] を選択します。 次に、[クエリ テーブル] > [100 個のレコードを表示する] を選択します。
 
-   ![KQL クエリ セット](./Images/kql-query-sample.png)
+   ![KQL クエリ セットの画像](./Images/kql-query-sample.png)
 
 3. サンプル クエリは、テーブル コンテキストが既に設定されている **[データを調査する]** ペインで開きます。 この最初のクエリは、take 演算子を使用してサンプル数のレコードを返します。データ構造と使用可能な値を最初に確認すると便利です。 自動設定されたサンプル クエリは自動的に実行されます。 結果ペインでクエリの結果を確認できます。
 
-   ![KQL クエリの結果](./Images/kql-query-results.png)
+   ![KQL クエリ結果の画像](./Images/kql-query-results.png)
 
 4. データ ツリーに戻り、次のクエリを選択します。このクエリは、where 演算子と between 演算子を使用して、過去 24 時間以内に取り込まれたレコードを返します。
 
-   ![過去 24 時間の KQL クエリの結果](./Images/kql-query-results-last24.png)
+   ![過去 24 時間の KQL クエリの結果の画像](./Images/kql-query-results-last24.png)
 
 > **注**: ストリーミング データのボリュームがクエリの制限を超えていることに注目してください。 この動作は、データベースにストリーミングされるデータの量によって異なる場合があります。
 
@@ -173,11 +173,11 @@ Kusto 照会言語 (KQL) は、データを処理して結果を返すための�
 
 1. データ ツリーに戻り、MyStockData テーブルで**その他メニュー** [...] を選択します。 **[クエリ テーブル] > [SQL] > [100 個のレコードを表示する]** を選択します。
 
-   ![SQL クエリのサンプル](./Images/sql-query-sample.png)
+   ![SQL クエリ サンプルの画像](./Images/sql-query-sample.png)
 
 2. クエリ内のどこかにカーソルを置き、 **[実行]** を選択するか、**Shift キーを押しながら Enter キー**を押します。
 
-   ![SQL クエリの結果](./Images/sql-query-results.png)
+   ![SQL クエリ結果の画像](./Images/sql-query-results.png)
 
 引き続き、組み込みの関数の使用を試すことで、SQL または KQL を使用したデータを理解することができます。 これでレッスンは終了です。
 
