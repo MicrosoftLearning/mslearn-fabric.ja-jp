@@ -8,6 +8,8 @@ KQL クエリセットは、KQL データベースからのクエリの実行、
 
 KQL クエリセットは、多くの SQL 関数と互換性のある Kusto 照会言語を使用してクエリを作成します。 [Kusto 照会言語 (KQL)](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/?context=%2Ffabric%2Fcontext%2Fcontext) の詳細については、 
 
+このラボは完了するまで、約 **25** 分かかります。
+
 ## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
@@ -21,6 +23,35 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 このラボでは、Fabric の Real-Time Analytics (RTA) を使用して、サンプル イベントストリームから KQL データベースを作成します。 Real-Time Analytics には、RTA の機能を探索するために使用できる便利なサンプル データセットが用意されています。 このサンプル データを使用して、一部のリアルタイム データを分析し、ダウンストリーム プロセスでの追加利用を可能にする KQL | SQL クエリとクエリセットを作成します。
 
+## KQL データベースを作成する
+
+1. **Real-Time Analytics** で、 **[KQL データベース]** ボックスを選択します。
+
+   ![KQL データベースの選択の画像](./Images/select-kqldatabase.png)
+
+2. KQL データベースに**名前を付ける**ダイアログが表示されます
+
+   ![KQL データベースの名前付けの画像](./Images/name-kqldatabase.png)
+
+3. KQL データベースに、覚えやすい名前 (**MyStockData** など) を指定し、 **[作成]** を押します。
+
+4. **[データベースの詳細]** パネルで、鉛筆アイコンを選択して OneLake で可用性を有効にします。
+
+   ![OneLake の有効化の画像](./Images/enable-onelake-availability.png)
+
+5. ***[データの取得から開始]*** のオプションから **[サンプル データ]** ボックスを選択します。
+ 
+   ![サンプル データが強調表示されている選択オプションの画像](./Images/load-sample-data.png)
+
+6. サンプル データのオプションから **[メトリック分析]** ボックスを選びます。
+
+   ![ラボの分析データを選ぶ画像](./Images/create-sample-data.png)
+
+7. データが読み込まれると、データが KQL データベースに読み込まれたことを確認します。 これを実現するには、テーブルの右側にある省略記号を選択し、 **[クエリ テーブル]** に移動し、 **[100 件のレコードを表示する]** を選択します。
+
+    <div><video controls src="./Images/check-kql-sample-dataset.mp4" muted="false" autoplay loop></video></div>
+
+> **注**: これを初めて実行するときは、コンピューティング リソースの割り当てに数秒かかる場合があります。
 
 ## シナリオ
 このシナリオでは、あなたは、Fabric 環境から実装するサンプル データセットのクエリを実行するアナリストです。
