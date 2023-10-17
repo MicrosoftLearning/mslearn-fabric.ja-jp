@@ -134,8 +134,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. セル出力の下にある **[+ コード]** アイコンを使用して、ノートブックに新しいコード セルを追加し、次のコードを入力します。
 
     ```python
-    desc_stats = df.describe()
-    print(desc_stats)
+    df.describe()
     ```
 
     平均年齢は約 48.5 歳であり、標準偏差は 13.1 歳です。 最年少の個人は 19 歳で、最高齢者は 79 歳です。 平均 `BMI` は約 26.4 で、**WHO 基準**に従って[過体重](https://www.who.int/health-topics/obesity#tab=tab_1)のカテゴリに分類されます。 最小 `BMI` は 18 で、最大は 42.2 です。
