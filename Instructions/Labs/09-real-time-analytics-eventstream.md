@@ -7,14 +7,6 @@ lab:
 
 Eventstream とは、コードなしのエクスペリエンスでリアルタイム イベントをキャプチャし、変換し、さまざまな宛先にルーティングする Microsoft Fabric の機能です。 変換が必要な場合は、イベントのデータ ソース、ルーティング先、イベント プロセッサを Eventstream に追加できます。 Microsoft Fabric の EventStore は、クラスターからのイベントを維持し、特定の時点でのクラスターまたはワークロードの状態を理解できるようにする監視オプションです。 EventStore サービスでは、クラスター内のエンティティとエンティティ型のそれぞれで使用できるイベントのクエリを実行できます。 つまり、クラスター、ノード、アプリケーション、サービス、パーティション、パーティション レプリカなど、さまざまなレベルのイベントにクエリを実行できます。 EventStore サービスは、クラスター内のイベントを関連付ける機能も備えています。 EventStore サービスは、相互に影響を与えた可能性がある異なるエンティティから同時に書き込まれたイベントを調べてそれらのイベントをリンクし、クラスター内で発生したアクティビティの原因の識別に役立てることができます。 Microsoft Fabric クラスターの監視と診断を行うもう 1 つのオプションが、EventFlow を使用したイベントの集計と収集です。
 
-<!--
-
-SL comments - I can't find anything in the documentation about **EventStore** or **EventFlow**. Is this a feature that isn't released yet? Here's the doc I referred to for monitoring event streams: https://learn.microsoft.com/fabric/real-time-analytics/event-streams/monitor
-
-Does that fit here?
-
--->
-
 このラボの所要時間は約 **30** 分です。
 
 > **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
@@ -39,12 +31,6 @@ Fabric Eventstream を使用すると、イベント データを 1 か所で簡
 
 リアルタイム分析のストリーミングおよびクエリ機能を使用して、株価統計に関する重要な質問に答えます。 このシナリオでは、KQL データベースなどの一部のコンポーネントを個別に手動で作成する代わりに、ウィザードを最大限に活用します。
 
-<!--
-
-I removed the piece on Power BI reports because we don't have them do that in this lab.
-
--->
-
 このチュートリアルで学習する内容は次のとおりです。
 
 - KQL データベースを作成する
@@ -52,12 +38,6 @@ I removed the piece on Power BI reports because we don't have them do that in th
 - Eventstream を作成する
 - Eventstream から KQL データベースにデータをストリーミングする
 - KQL と SQL を使用してデータを探索する
-
-<!--
-
-For "enable data copy to OneLake" - are you adding a lakehouse as a destination? The word copy confuses me.
-
--->
 
 ## KQL データベースを作成する
 
@@ -187,11 +167,3 @@ Kusto 照会言語 (KQL) は、データを処理して結果を返すための�
 1. 左側のバーで、ワークスペースのアイコンを選択します。
 2. ツール バーの [...] メニューで、 [ワークスペースの設定] を選択します。
 3. [その他] セクションで、 [このワークスペースの削除] を選択してください。
-
-<!--
-
-Overall notes: 
-- screenshot alt text needs to be more descriptive and start with the words "screenshot of"
-- 
-
--->
