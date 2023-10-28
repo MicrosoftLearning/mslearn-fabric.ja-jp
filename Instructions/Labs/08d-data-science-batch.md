@@ -10,7 +10,7 @@ lab:
 
 このラボを完了すると、予測の生成と結果の視覚化に関するハンズオン経験が得られます。
 
-このラボは完了するまで、約 **45** 分かかります。
+このラボは完了するまで、約 **20** 分かかります。
 
 > **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
@@ -29,13 +29,13 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 
 データの取り込み、モデルのトレーニング、登録を行うには、ノートブックでセルを実行します。 ノートブックをワークスペースにアップロードできます。
 
-1. Fabric ポータルの左下で、 **[Data Engineering]** アイコンを選択し、 **[Data Science]** エクスペリエンスに切り替えます。
+1. 新しいブラウザー タブで、[Generate-Predictions](https://github.com/MicrosoftLearning/mslearn-fabric/blob/main/Allfiles/Labs/08/Generate-Predictions.ipynb) ノートブックに移動し、それを任意のフォルダーにダウンロードします。
+1. Fabric ブラウザー タブに戻り、Fabric ポータルの左下にある **[Power BI]** アイコンを選択し、 **[データ サイエンス]** エクスペリエンスに切り替えます。
 1. **[データ サイエンス]** ホーム ページで、 **[ノートブックのインポート]** を選択します。
 
     ノートブックが正常にインポートされると、通知を受け取ります。
 
 1. `Generate-Predictions` という名前のインポートされたノートブックに移動します。
-
 1. ノートブック内の指示を注意深く読み、各セルを個別に実行します。
 
 ## リソースをクリーンアップする
