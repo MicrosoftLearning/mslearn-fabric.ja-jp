@@ -107,7 +107,6 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
     ```python
     from sklearn.model_selection import train_test_split
     
-    print("Splitting data...")
     X, y = df[['AGE','SEX','BMI','BP','S1','S2','S3','S4','S5','S6']].values, df['Y'].values
     
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
@@ -207,13 +206,13 @@ MLflow でモデルをトレーニングして追跡したら、MLflow ライブ
 
     出力は次の画像のようになるはずです。
 
-    ![プロットされた評価メトリックのスクリーンショット。](./Images/plotted-metrics.png)
+    ![プロットされた評価メトリックのスクリーンショット。](./Images/data-science-metrics.png)
 
 ## 実験を調べる
 
 Microsoft Fabric では、すべての実験を追跡し、それらを視覚的に調べることができます。
 
-1. 左側のハブ メニュー バーからワークスペースに移動します。
+1. 左側のメニュー バーからワークスペースに移動します。
 1. `experiment-diabetes` 実験を選択して開きます。
 
     > **ヒント:** ログに記録された実験の実行が表示されない場合は、ページを最新の情報に更新します。
@@ -221,7 +220,9 @@ Microsoft Fabric では、すべての実験を追跡し、それらを視覚的
 1. **[表示]** タブを選択します。
 1. **[実行リスト]** を選択します。
 1. 各ボックスをオンにして、最新の 2 つの実行を選択します。
+
     その結果、最後の 2 つの実行が **[メトリック比較]** ペインで相互に比較されます。 既定では、メトリックは実行名でプロットされます。
+
 1. 各実行の平均絶対誤差を視覚化するグラフの **[&#128393;]** (編集) ボタンを選択します。
 1. **視覚化の種類**を `bar` に変更します。
 1. **X 軸**を `estimator` に変更します。
