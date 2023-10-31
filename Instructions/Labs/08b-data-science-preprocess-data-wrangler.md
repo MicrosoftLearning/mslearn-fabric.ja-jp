@@ -43,7 +43,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
    # Perform data exploration for data science
 
    Use the code in this notebook to perform data exploration for data science.
-    ``` 
+    ```
 
 ## データフレームにデータを読み込む
 
@@ -91,13 +91,13 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. セル コマンドが完了したら、セルの下にある出力を確認します。これは次のようになるはずです。
 
-    ```
-        WeekStarting    Store   Brand       Quantity    Advert  Price   Revenue
-    0   1991-10-17      947     minute.maid 13306       1       2.42    32200.52
-    1   1992-03-26      1293    dominicks   18596       1       1.94    36076.24
-    2   1991-08-15      2278    dominicks   17457       1       2.14    37357.98
-    3   1992-09-03      2175    tropicana   9652        1       2.07    19979.64
-    ```
+    |   |WeekStarting|ストア|ブランド|Quantity|Advert|価格|収益|
+    |---|---|---|---|---|---|---|---|
+    |0|1991-10-17|947|minute.maid|13306|1|2.42|32200.52|
+    |1|1992-03-26|1293|dominicks|18596|1|1.94|36076.24|
+    |2|1991-08-15|2278|dominicks|17457|1|2.14|37357.98|
+    |3|1992-09-03|2175|tropicana|9652|1|2.07|19979.64|
+    |...|...|...|...|...|...|...|...|
 
     出力には、OJ Sales データセットの最初の 4 行が表示されます。
 
@@ -107,7 +107,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. ノートブック リボンの **[データ ]** を選択し、 **[Data Wrangler の起動]** ドロップダウンを選択します。
 
-1. `df` データセットを選択します。 Data Wrangler が起動すると、データフレームの説明的な概要が **[概要]** パネルに生成されます。 
+1. `df` データセットを選択します。 Data Wrangler が起動すると、データフレームの説明的な概要が **[概要]** パネルに生成されます。
 
 1. **[Revenue]** 特徴量を選択し、この特徴量のデータ分布を確認します。
 
@@ -125,10 +125,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[操作]** パネルに移動し、 **[検索と置換]** を展開してから、 **[検索と置換]** を選択します。
 
-1. **[検索と置換]** パネルで、次のプロパティを変更します。
-    
-    - **元の値:** "."
-    - **新しい値:** " " (スペース文字)
+1. **[検索と置換]** パネルで、以下のプロパティを変更します。
+
+    - **元の値:** "`.`"
+    - **新しい値:** "` `" (スペース文字)
 
     操作の結果は、表示グリッドに自動的にプレビュー表示されます。
 
@@ -136,19 +136,19 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[操作]** パネルに戻り、 **[書式設定]** を展開します。
 
-1. **[Convert text to capital case] (テキストを大文字に変換する)** を選択します。 **[すべての単語を大文字にする]** トグルを切り替えてから、 **[適用]** を選択します。
+1. **[Capitalize first character](先頭文字を大文字にする)** を選択します。 **[Capitalize all words](すべての単語を大文字にする)** トグルをオンに切り替えてから、 **[適用]** を選択します。
 
-1. **[Add code to notebook] (ノートブックにコードを追加する)** を選択します。 さらに、変換したデータセットを .csv ファイルとして保存することもできます。
+1. **[Add code to notebook] (ノートブックにコードを追加する)** を選択します。 さらに、コードをコピーして、変換したデータセットを CSV ファイルとして保存することもできます。
 
-    >**注:** コードがノートブックのセルに自動的にコピーされ、使用できる状態になっています。 
+    >**注:** コードがノートブックのセルに自動的にコピーされ、使用できる状態になっています。
 
 1. Data Wrangler で生成されたコードは元のデータフレームを上書きしないため、10 行目と 11 行目をコード `df = clean_data(df)` で置き換えます。 最終的なコード ブロックは、次のようになります。
- 
+
     ```python
     def clean_data(df):
         # Replace all instances of "." with " " in column: 'Brand'
         df['Brand'] = df['Brand'].str.replace(".", " ", case=False, regex=False)
-        # Convert text to capital case in column: 'Brand'
+        # Capitalize the first character in column: 'Brand'
         df['Brand'] = df['Brand'].str.title()
         return df
     
@@ -161,7 +161,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     df['Brand'].unique()
     ```
 
-    結果には *、Minute Maid*、*Dominicks*、*Tropicana* が表示されます。
+    結果には、値 *Minute Maid*、*Dominicks*、*Tropicana* が表示されます。
 
 テキスト データをグラフィカルに操作し、Data Wrangler を使用してコードを簡単に生成する方法を説明しました。
 
@@ -175,11 +175,11 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[操作]** パネルで **[数式]** を展開してから、 **[One-hot エンコード]** を選択します。
 
-1. **[One-hot encode] (ワンホット エンコード)** パネルで、 **[適用]** を選択します。
+1. **[One-hot エンコード]** パネルで、 **[適用]** を選択します。
 
     Data Wrangler 表示グリッドの末尾に移動します。 それによって 3 つの新しい特徴量 (`Brand_Dominicks`、`Brand_Minute Maid`、`Brand_Tropicana`) が追加され、`Brand` 特徴量が削除されたことに注意してください。
 
-1. コードを生成せずに Data Wrangler を閉じます。
+1. コードを生成せずに Data Wrangler を終了します。
 
 ## 並べ替えとフィルター処理の操作
 
@@ -192,10 +192,11 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. **[フィルター]** を選択します。
 
 1. **[フィルター]** パネルで、次の条件を追加します。
-    
-    - **ターゲット列:** Store
-    - **操作:** 次の値と等しい
-    - **[値]:** 1227
+
+    - **ターゲット列:** : `Store`
+    - **操作**: `Equal to`
+    - **値**: ****
+    - **アクション**: `Keep matching rows`
 
 1. **[適用]** を選択し、Data Wrangler の表示グリッドの変化に注意してください。
 
@@ -207,10 +208,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[値の並べ替え]** を選択します。
 
-1. **[値の並べ替え]** パネルで、次のプロパティを選択します。
-    
-    - **列名:** Price
-    - **並べ替え順序:** 降順
+1. **[Sort values](値の並べ替え)** パネルで、次のプロパティを選択します。
+
+    - **列の名前**: `Price`
+    - **並べ替え順序**: `Descending`
 
 1. **[適用]** を選択します。
 
@@ -232,7 +233,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     変更が前のステップ (**フィルター** ステップ) まで戻されていることに注意してください。
 
-1. コードを生成せずに Data Wrangler を閉じます。
+1. コードを生成せずに Data Wrangler を終了します。
 
 ## データの集計
 
@@ -242,32 +243,34 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[操作]** パネルに戻り、 **[Group by and aggregate] (グループ化と集計)** を選択します。
 
-1. **[Columns to group by] (グループ化する列)** プロパティで、`Brand` という特徴を選択します。
+1. **[Columns to group by](グループ化する列)** プロパティで、`Brand` 特徴量を選択します。
 
 1. **[集計の追加]** を選択します。
 
 1. **[集計する列]** プロパティで、`Revenue` という特徴を選択します。
 
-1. **[集計の種類]** プロパティでは **[平均]** を選択します。
+1. **[集計の種類]** プロパティでは `Mean` を選択します。
 
 1. **[適用]** を選択します。
 
-1. **[Add code to notebook] (ノートブックにコードを追加する)** を選択します。
+1. **[コードをクリップボードにコピーします]** を選択します。
+
+1. コードを生成せずに Data Wrangler を終了します。
 
 1. `Brand` 変数の変換のコードと、`clean_data(df)` 関数の集計ステップによって生成されたコードを組み合わせます。 最終的なコード ブロックは、次のようになります。
- 
+
     ```python
-    def clean_data(df):
-        # Replace all instances of "." with " " in column: 'Brand'
-        df['Brand'] = df['Brand'].str.replace(".", " ", case=False, regex=False)
-        # Convert text to capital case in column: 'Brand'
+    def clean_data(df):    
+        # Replace all instances of "." with " " in column: 'Brand'    
+        df['Brand'] = df['Brand'].str.replace(".", " ", case=False, regex=False)    
+        # Capitalize the first character in column: 'Brand'    
         df['Brand'] = df['Brand'].str.title()
-
-        # Performed 1 aggregation grouped on column: 'Brand'
-        df = df.groupby(['Brand']).agg(Revenue_mean=('Revenue', 'mean')).reset_index()
-
-        return df
-    
+        
+        # Performed 1 aggregation grouped on column: 'Brand'    
+        df = df.groupby(['Brand']).agg(Revenue_mean=('Revenue', 'mean')).reset_index()    
+        
+        return df    
+        
     df = clean_data(df)
     ```
 
@@ -280,14 +283,14 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     ```
 
     結果:
-    ```
-             Brand  Revenue_mean
-    0    Dominicks  33206.330958
-    1  Minute Maid  33532.999632
-    2    Tropicana  33637.863412
-    ```
 
-一部の前処理操作のコードを生成し、関数としてノートブックに保存し直しました。それを再利用または必要に応じて変更できます。
+    |   |ブランド|Revenue_mean|
+    |---|---|---|
+    |0|Dominicks|33206.330958|
+    |1|Minute Maid|33532.999632|
+    |2|Tropicana|33637.863412|
+
+いくつかの前処理操作用のコードを生成し、そのコードを関数としてノートブックにコピーしました。今後、必要に応じてこれを実行、再利用、または変更できます。
 
 ## ノートブックを保存して Spark セッションを終了する
 
