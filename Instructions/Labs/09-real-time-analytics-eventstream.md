@@ -9,7 +9,7 @@ Eventstream とは、コードなしのエクスペリエンスでリアルタ�
 
 このラボの所要時間は約 **30** 分です。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "学校" または "職場" アカウントが必要です。** ** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
@@ -66,7 +66,7 @@ Fabric Eventstream を使用すると、イベント データを 1 か所で簡
 
    ![Eventstream の選択の画像](./Images/select-eventstream.png)
 
-3. 使用する Eventstream に**名前を付ける**よう求められます。 Eventstream に覚えやすい名前 (***MyStockES** など) を指定し、 **[作成]** ボタンを押します。
+3. 使用する Eventstream に**名前を付ける**よう求められます。 Eventstream に覚えやすい名前 (**MyStockES** など) を指定し、**[作成]** ボタンを押します。
 
    ![Eventstream の名前付けの画像](./Images/name-eventstream.png)
 
@@ -76,7 +76,7 @@ Fabric Eventstream を使用すると、イベント データを 1 か所で簡
 
    ![Eventstream キャンバスの画像](./Images/real-time-analytics-canvas.png)
 
-2. 次の表に示すように、サンプル データの値を入力し、 **[追加と構成]** を選択します。
+2. 次の表に示すように、サンプル データの値を入力し、**[追加]** を選択します。
 
    | フィールド       | 推奨値 |
    | ----------- | ----------------- |
@@ -95,7 +95,7 @@ Fabric Eventstream を使用すると、イベント データを 1 か所で簡
    | ワークスペース        | KQL データベースを作成したワークスペース |
    | KQL データベース     | MyStockData                                    |
 
-3. **[追加と構成]** を選択します。
+3. **[作成して構成する]** を選択します。
 
 ## データ インジェストを構成する
 
@@ -130,7 +130,7 @@ Kusto 照会言語 (KQL) は、データを処理して結果を返すための�
 
 > **注**: KQL エディターには構文と Inellisense 強調表示の両方が付属しています。これにより、Kusto 照会言語 (KQL) に関する知識をすばやく得ることができます。
 
-1. ***MyStockData*** という名前の、新しく作成され、ハイドレートされた KQL データベースを参照します。
+1. **MyStockData** という名前の、新しく作成され、ハイドレートされた KQL データベースを参照します。
 2. データ ツリーで、MyStockData テーブルのその他メニュー [...] を選択します。 次に、[クエリ テーブル] > [100 個のレコードを表示する] を選択します。
 
    ![KQL クエリ セットの画像](./Images/kql-query-sample.png)
@@ -165,5 +165,5 @@ Kusto 照会言語 (KQL) は、データを処理して結果を返すための�
 
 この演習では、KQL データベースを作成し、Eventstream を使用して継続的ストリーミングを設定しました。 その後、KQL と SQL を使用してデータにクエリを実行しました。 KQL データベースの探索が完了したら、この演習用に作成したワークスペースを削除できます。
 1. 左側のバーで、ワークスペースのアイコンを選択します。
-2. ツール バーの [...] メニューで、 [ワークスペースの設定] を選択します。
+2. ツール バーの [...] メニューで、[ワークスペースの設定] を選択します。
 3. [その他] セクションで、 [このワークスペースの削除] を選択してください。
