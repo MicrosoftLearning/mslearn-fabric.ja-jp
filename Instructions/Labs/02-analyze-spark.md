@@ -10,34 +10,32 @@ Apache Spark は、分散データ処理を行うためのオープン ソース
 
 このラボは完了するまで、約 **45** 分かかります。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "学校" または "職場" アカウントが必要です。** ** お持ちでない場合は、[Microsoft Office 365 E3 以上の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の"学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成します。
+Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択します。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; のようになります)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
-4. 開いた新しいワークスペースは次のように空のはずです。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Data Engineering** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## レイクハウスを作成してファイルをアップロードする
 
-ワークスペースが作成されたので、次にポータルで *Data Engineering* エクスペリエンスに切り替えて、分析するデータ ファイル用のデータ レイクハウスを作成します。
+ワークスペースが作成されたので、次に分析するデータ ファイル用のデータ レイクハウスを作成します。
 
-1. Power BI ポータルの左下にある **[Power BI]** アイコンを選択し、 **[Data Engineering]** エクスペリエンスに切り替えます。
-
-2. **Synapse Data Engineering** のホーム ページで、任意の名前を指定して新しい**レイクハウス**を作成します。
+1. **Synapse Data Engineering** のホーム ページで、任意の名前を指定して新しい**レイクハウス**を作成します。
 
     1 分ほどすると、新しい空のレイクハウスが作成されます。 分析のために、データ レイクハウスにいくつかのデータを取り込む必要があります。 これを行う複数の方法がありますが、この演習では、ローカル コンピューター (該当する場合はラボ VM) にテキスト ファイルのフォルダーをダウンロードして抽出し、レイクハウスにアップロードします。
 
-3. [https://github.com/MicrosoftLearning/dp-data/raw/main/orders.zip](https://github.com/MicrosoftLearning/dp-data/raw/main/orders.zip) からこの演習のデータ ファイルをダウンロードして抽出します。
+1. [https://github.com/MicrosoftLearning/dp-data/raw/main/orders.zip](https://github.com/MicrosoftLearning/dp-data/raw/main/orders.zip) からこの演習のデータ ファイルをダウンロードして抽出します。
 
-4. zip 形式のアーカイブを抽出した後、**orders** という名前のフォルダーがあり、**2019.csv**、**2020.csv**、**2021.csv** という名前の CSV ファイルが含まれていることを確認します。
-5. レイクハウスを含む Web ブラウザー タブに戻り、 **[エクスプローラー]** ペインの **Files** フォルダーの **[...]** メニューで **[アップロード]** と **[ファイルのアップロード]** を選択し、ローカル コンピューター (または該当する場合はラボ VM) からレイクハウスに **orders** フォルダーをアップロードします。
-6. ファイルがアップロードされたら、 **[ファイル]** を展開して、**orders** フォルダーを選びます。そして、次に示すように、CSV ファイルがアップロードされていることを確認します。
+1. zip 形式のアーカイブを抽出した後、**orders** という名前のフォルダーがあり、**2019.csv**、**2020.csv**、**2021.csv** という名前の CSV ファイルが含まれていることを確認します。
+1. レイクハウスを含む Web ブラウザー タブに戻り、 **[エクスプローラー]** ペインの **Files** フォルダーの **[...]** メニューで **[アップロード]** と **[ファイルのアップロード]** を選択し、ローカル コンピューター (または該当する場合はラボ VM) からレイクハウスに **orders** フォルダーをアップロードします。
+1. ファイルがアップロードされたら、 **[ファイル]** を展開して、**orders** フォルダーを選びます。そして、次に示すように、CSV ファイルがアップロードされていることを確認します。
 
     ![レイクハウスにアップロードされたファイルのスクリーンショット。](./Images/uploaded-files.png)
 
@@ -157,9 +155,9 @@ Apache Spark でデータを操作するには、"ノートブック" を作成�
 10. データフレームには、**2019.csv** ファイルからのデータのみが含まれます。 ファイル パスで \* ワイルドカードを使うようにコードを変更して、**orders** フォルダー内のすべてのファイルから販売注文データを読み取ります。
 
     ```python
-   from pyspark.sql.types import *
+    from pyspark.sql.types import *
 
-   orderSchema = StructType([
+    orderSchema = StructType([
        StructField("SalesOrderNumber", StringType()),
        StructField("SalesOrderLineNumber", IntegerType()),
        StructField("OrderDate", DateType()),
@@ -171,8 +169,8 @@ Apache Spark でデータを操作するには、"ノートブック" を作成�
        StructField("Tax", FloatType())
        ])
 
-   df = spark.read.format("csv").schema(orderSchema).load("Files/orders/*.csv")
-   display(df)
+    df = spark.read.format("csv").schema(orderSchema).load("Files/orders/*.csv")
+    display(df)
     ```
 
 11. 変更したコード セルを実行して出力を確認します。2019 年、2020 年、2021 年の売上が含まれるようになっているはずです。
@@ -570,7 +568,7 @@ PySpark コードが含まれているセルに SQL ステートメントを埋�
    # Clear the plot area
    plt.clf()
 
-   # Create a bar chart
+   # Create a line chart
    ax = sns.lineplot(x="OrderYear", y="GrossRevenue", data=df_sales)
    plt.show()
     ```
@@ -594,5 +592,5 @@ PySpark コードが含まれているセルに SQL ステートメントを埋�
 レイクハウスの探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
-2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
-3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択します。
+2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択してください。
+3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択してください。
