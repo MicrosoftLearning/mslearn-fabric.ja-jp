@@ -12,26 +12,25 @@ lab:
 
 このラボは完了するまで、約 **20** 分かかります。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の"学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
-Fabric でモデルを操作する前に、有効な Fabric 試用版を使用してワークスペースを作成します。
+Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
-4. 新しいワークスペースを開くと次に示すように空のはずです。
+1. ブラウザーで [https://app.fabric.microsoft.com](https://app.fabric.microsoft.com) の Microsoft Fabric ホーム ページに移動します。
+1. **[Synapse Data Science]** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## ノートブックを作成する
 
 コードを実行するには、"ノートブック" を作成します。** ノートブックは、(複数の言語で) コードを記述して実行できる対話型環境を提供します。
 
-1. Fabric ポータルの左下で **[Power BI]** アイコンを選択し、 **[Data Science]** エクスペリエンスに切り替えます。
-
-1. **[Data Science]** ホーム ページで、新しい**ノートブック**を作成します。
+1. **Synapse Data Science** ホーム ページで、新しい**ノートブック**を作成します。
 
     数秒後に、1 つの ''セル'' を含む新しいノートブックが開きます。** ノートブックは、''コード'' または ''マークダウン'' (書式設定されたテキスト) を含むことができる 1 つまたは複数のセルで構成されます。** **
 
@@ -47,24 +46,24 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 
 ## データを取得する
 
-これで、データを準備してモデルをトレーニングするためのコードを実行する準備ができました。 Azure Open Datasets から [Diabetes データセット](https://learn.microsoft.com/azure/open-datasets/dataset-diabetes?tabs=azureml-opendatasets?azure-portal=true)を操作します。 データを読み込んだ後、データを Pandas データフレームに変換します。これは、行と列でデータを操作するための一般的な構造です。
+これで、データを取得してモデルをトレーニングするためのコードを実行する準備ができました。 Azure Open Datasets から [Diabetes データセット](https://learn.microsoft.com/azure/open-datasets/dataset-diabetes?tabs=azureml-opendatasets?azure-portal=true)を操作します。 データを読み込んだ後、データを Pandas データフレームに変換します。これは、行と列でデータを操作するための一般的な構造です。
 
 1. ノートブックで、最後のセル出力の下にある **[+ コード]** アイコンを使用して、ノートブックに新しいコード セルを追加し、その中に次のコードを入力します。
 
     ```python
-    # Azure storage access info for open dataset diabetes
-    blob_account_name = "azureopendatastorage"
-    blob_container_name = "mlsamples"
-    blob_relative_path = "diabetes"
-    blob_sas_token = r"" # Blank since container is Anonymous access
+   # Azure storage access info for open dataset diabetes
+   blob_account_name = "azureopendatastorage"
+   blob_container_name = "mlsamples"
+   blob_relative_path = "diabetes"
+   blob_sas_token = r"" # Blank since container is Anonymous access
     
-    # Set Spark config to access  blob storage
-    wasbs_path = f"wasbs://%s@%s.blob.core.windows.net/%s" % (blob_container_name, blob_account_name, blob_relative_path)
-    spark.conf.set("fs.azure.sas.%s.%s.blob.core.windows.net" % (blob_container_name, blob_account_name), blob_sas_token)
-    print("Remote blob path: " + wasbs_path)
+   # Set Spark config to access  blob storage
+   wasbs_path = f"wasbs://%s@%s.blob.core.windows.net/%s" % (blob_container_name, blob_account_name, blob_relative_path)
+   spark.conf.set("fs.azure.sas.%s.%s.blob.core.windows.net" % (blob_container_name, blob_account_name), blob_sas_token)
+   print("Remote blob path: " + wasbs_path)
     
-    # Spark read parquet, note that it won't load any data yet by now
-    df = spark.read.parquet(wasbs_path)
+   # Spark read parquet, note that it won't load any data yet by now
+   df = spark.read.parquet(wasbs_path)
     ```
 
 1. セルの左側にある **[&#9655;] (セルの実行)** ボタンを使用して実行します。 または、キーボードで `SHIFT` + `ENTER` キーを押してセルを実行できます。
@@ -74,7 +73,7 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. セル出力の下にある **[+ コード]** アイコンを使用して、ノートブックに新しいコード セルを追加し、次のコードを入力します。
 
     ```python
-    display(df)
+   display(df)
     ```
 
 1. セル コマンドが完了したら、セルの下にある出力を確認します。これは次のようになるはずです。
@@ -105,11 +104,11 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. データは Spark データフレームとして読み込まれます。 Data Wrangler を起動するには、データを Pandas データフレームに変換する必要があります。 ノートブックで次のコードを実行します。
 
     ```python
-    df = df.toPandas()
-    df.head()
+   df = df.toPandas()
+   df.head()
     ```
 
-1. ノートブック リボンの **[データ ]** を選択し、 **[Data Wrangler の起動]** ドロップダウンを選択します。
+1. ノートブック リボンの **[データ ]** を選択し、**[Data Wrangler の起動]** ドロップダウンを選択します。
 1. `df` データセットを選択します。 Data Wrangler が起動すると、データフレームの説明的な概要が **[概要]** パネルに生成されます。
 
     現在、ラベル列は `Y` で、これは連続変数です。 Y を予測する機械学習モデルをトレーニングするには、回帰モデルをトレーニングする必要があります。 Y の (予測された) 値は解釈が困難な場合があります。 代わりに、ある人が糖尿病を発症するリスクが低いか高いかを予測する分類モデルのトレーニングを確認することができます。 分類モデルをトレーニングできるようにするには、`Y` の値に基づいてバイナリ ラベル列を作成する必要があります。
@@ -120,13 +119,13 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
     * **列の名前**: `Risk`
     * **列の数式**: `(df['Y'] > 211.5).astype(int)`
 1. プレビューに追加された新しい列 `Risk` を確認します。 値 `1` を持つ行の数が、すべての行の約 25% となっていることを確認します (これは `Y` の 75 パーセンタイルであるため)。
-1. **[適用]** を選択します。
+1. **適用**を選択します。
 1. **[Add code to notebook] (ノートブックにコードを追加する)** を選択します。
 1. Data Wrangler によって生成されたコードでセルを実行します。
 1. 新しいセルで次のコードを実行して、`Risk` 列が期待どおりの形になっていることを確認します。
 
     ```python
-    df_clean.describe()
+   df_clean.describe()
     ```
 
 ## 機械学習モデルをトレーニングする
@@ -138,19 +137,19 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. 次のコードを実行して、データをトレーニング データセットとテスト データセットに分割し、予測したいラベル `Y` から特徴量を分離します。
 
     ```python
-    from sklearn.model_selection import train_test_split
+   from sklearn.model_selection import train_test_split
     
-    X, y = df_clean[['AGE','SEX','BMI','BP','S1','S2','S3','S4','S5','S6']].values, df_clean['Y'].values
+   X, y = df_clean[['AGE','SEX','BMI','BP','S1','S2','S3','S4','S5','S6']].values, df_clean['Y'].values
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
+   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
     ```
 
 1. ノートブックに新しいコード セルをもう 1 つ追加し、そこに次のコードを入力して実行します。
 
     ```python
-    import mlflow
-    experiment_name = "diabetes-regression"
-    mlflow.set_experiment(experiment_name)
+   import mlflow
+   experiment_name = "diabetes-regression"
+   mlflow.set_experiment(experiment_name)
     ```
 
     このコードでは、`diabetes-regression` という名前の MLflow 実験を作成します。 この実験でモデルが追跡されます。
@@ -158,13 +157,13 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. ノートブックに新しいコード セルをもう 1 つ追加し、そこに次のコードを入力して実行します。
 
     ```python
-    from sklearn.linear_model import LinearRegression
+   from sklearn.linear_model import LinearRegression
     
-    with mlflow.start_run():
-       mlflow.autolog()
+   with mlflow.start_run():
+      mlflow.autolog()
     
-       model = LinearRegression()
-       model.fit(X_train, y_train)
+      model = LinearRegression()
+      model.fit(X_train, y_train)
     ```
 
     このコードは、線形回帰を使用して回帰モデルをトレーニングします。 パラメーター、メトリック、および成果物は、MLflow で自動的にログに記録されます。
@@ -174,19 +173,19 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. 次のコードを実行して、データをトレーニング データセットとテスト データセットに分割し、予測したいラベル `Risk` から特徴量を分離します。
 
     ```python
-    from sklearn.model_selection import train_test_split
+   from sklearn.model_selection import train_test_split
     
-    X, y = df_clean[['AGE','SEX','BMI','BP','S1','S2','S3','S4','S5','S6']].values, df_clean['Risk'].values
+   X, y = df_clean[['AGE','SEX','BMI','BP','S1','S2','S3','S4','S5','S6']].values, df_clean['Risk'].values
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
+   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
     ```
 
 1. ノートブックに新しいコード セルをもう 1 つ追加し、そこに次のコードを入力して実行します。
 
     ```python
-    import mlflow
-    experiment_name = "diabetes-classification"
-    mlflow.set_experiment(experiment_name)
+   import mlflow
+   experiment_name = "diabetes-classification"
+   mlflow.set_experiment(experiment_name)
     ```
 
     このコードでは、`diabetes-classification` という名前の MLflow 実験を作成します。 この実験でモデルが追跡されます。
@@ -194,12 +193,12 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. ノートブックに新しいコード セルをもう 1 つ追加し、そこに次のコードを入力して実行します。
 
     ```python
-    from sklearn.linear_model import LogisticRegression
+   from sklearn.linear_model import LogisticRegression
     
-    with mlflow.start_run():
-        mlflow.sklearn.autolog()
+   with mlflow.start_run():
+       mlflow.sklearn.autolog()
 
-        model = LogisticRegression(C=1/0.1, solver="liblinear").fit(X_train, y_train)
+       model = LogisticRegression(C=1/0.1, solver="liblinear").fit(X_train, y_train)
     ```
 
     このコードでは、ロジスティック回帰を使用して分類モデルをトレーニングします。 パラメーター、メトリック、および成果物は、MLflow で自動的にログに記録されます。
@@ -223,7 +222,7 @@ Microsoft Fabric では、すべての実験を追跡し、それらを視覚的
 
 1. **[モデルとして保存]** ボックスで **[保存]** を選択します。
 1. 新しく開いたポップアップ ウィンドウで **[新しいモデルの作成]** を選択します。
-1. `model` フォルダーを選択します
+1. `model` フォルダーを選択します。
 1. モデルに `model-diabetes` という名前を付け、 **[保存]** を選択します。
 1. モデルの作成時に画面の右上に表示される通知で、 **[モデルの表示]** を選択します。 ウィンドウを最新の情報に更新することもできます。 保存されたモデルは、 **[モデル バージョン]** の下にリンクされています。
 
@@ -245,4 +244,4 @@ Microsoft Fabric では、すべての実験を追跡し、それらを視覚的
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
 2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
-3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択します。
+3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択してください。

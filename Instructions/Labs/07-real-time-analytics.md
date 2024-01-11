@@ -10,27 +10,25 @@ Microsoft Fabric には、Kusto 照会言語 (KQL) を使ってデータの保�
 
 このラボの所要時間は約 **30** 分です。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以上の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成します。
+Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択します。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; のようになります)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
-4. 新しいワークスペースを開くと、次に示すように空です。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Real-Time Analytics** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
-
-5. Power BI ポータルの左下で、 **[Power BI]** アイコンを選択し、**Microsoft Fabric** エクスペリエンスに切り替えます。
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## KQL データベースのファイルをダウンロードする
 
-ワークスペースができたので、ポータルで *Synapse Real-Time Analytics* エクスペリエンスに切り替えて、分析するデータ ファイルをダウンロードします。
+ワークスペースが作成されたので、次に分析するデータ ファイルをダウンロードします。
 
 1. [https://raw.githubusercontent.com/MicrosoftLearning/dp-data/main/sales.csv](https://raw.githubusercontent.com/MicrosoftLearning/dp-data/main/sales.csv) からこの演習用のデータ ファイルをダウンロードし、ローカル コンピューター (または該当する場合はラボ VM) に **sales.csv** として保存します。
-2. **Microsoft Fabric** エクスペリエンスを使用してブラウザー ウィンドウに戻ります。
+1. **Microsoft Fabric** エクスペリエンスが表示されているブラウザー ウィンドウに戻ります。
 
 ## KQL データベースを作成する
 
@@ -45,7 +43,7 @@ Kusto クエリ言語 (KQL) は、KQL データベースで定義されている
     - **[宛先]** :
         - **[データベース]** : *作成したデータベースが既に選択されています*
         - **[テーブル]** : **sales** *という名前の新しいテーブルを作成します。*
-    - **ソース**: 
+    - **ソース**:
         - **ソースの種類**: ファイル
         - **[ファイルのアップロード]** : *前にダウンロードしたファイルをドラッグまたは参照します*
     - **[スキーマ]**:
@@ -123,4 +121,4 @@ KQL データベースの探索が完了したら、この演習用に作成し�
 
 1. 左側のバーで、ワークスペースのアイコンを選択します。
 2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
-3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択します。
+3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択してください。

@@ -10,26 +10,24 @@ Microsoft Fabric では、データフロー (Gen2) でさまざまなデータ 
 
 このラボの目的は、データフロー (Gen2) のさまざまな要素を紹介することであり、エンタープライズに存在する可能性のある複雑なソリューションを作成することではありません。 このラボの所要時間は**約 30 分**です。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
-4. 新しいワークスペースを開くと次に示すように空のはずです。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Data Engineering** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## レイクハウスを作成する
 
-ワークスペースが作成されたので、次にポータルで **Data Engineering** エクスペリエンスに切り替えて、データの取り込み先となるデータ レイクハウスを作成します。
+ワークスペースが作成されたので、次にデータを取り込むデータ レイクハウスを作成します。
 
-1. Power BI ポータルの左下で、 **[Power BI]** アイコンを選択し、**Data Engineering** エクスペリエンスに切り替えます。
-
-2. **[Data Engineering]** ホーム ページで、任意の名前で新しい**レイクハウス**を作成します。
+1. **Synapse Data Engineering** のホーム ページで、任意の名前を指定して新しい**レイクハウス**を作成します。
 
     1 分ほどすると、新しい空のレイクハウスが作成されます。
 
@@ -137,6 +135,6 @@ Microsoft Fabric でのデータフローの調査が完了したら、この演
 
 1. ブラウザーで Microsoft Fabric に移動します。
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
-1. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
+1. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択してください。
 1. **[その他]** セクションで、 **[このワークスペースの削除]** を選択します。
 1. 変更を Power BI Desktop に保存しないでください。既に保存されている場合は、.pbix ファイルを削除してください。
