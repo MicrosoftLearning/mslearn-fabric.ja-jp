@@ -12,7 +12,7 @@ lab:
 
 このラボは完了するまで、約 **20** 分かかります。
 
-> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の"学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
@@ -133,7 +133,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     ```python
    from pyspark.sql.types import IntegerType, DoubleType
 
-   # Create a new daraframe with patient data
+   # Create a new dataframe with patient data
    data = [
        (62, 2, 33.7, 101.0, 157, 93.2, 38.0, 4.0, 4.8598, 87),
        (50, 1, 22.7, 87.0, 183, 103.2, 70.0, 3.0, 3.8918, 69),
@@ -196,7 +196,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     ```
 
 1. コードが完了したら、**[レイクハウス エクスプローラー]** ペインの **[diabetes_test]** テーブルの横にある **[...]** を選択して、**[更新]** を選択します。 新しいフィールド **predictions** が追加されました。
-1. ノートブックに新しいコード セルを追加して **diabetes_test** テーブルをそのセルにドラッグします。 テーブルの内容を表示するために必要なコードが表示されます。 セルを実行してデータを表示します。
+1. ノートブックに新しいコード セルを追加して **diabetes_test** テーブルをそこにドラッグします。 テーブルの内容を表示するために必要なコードが表示されます。 セルを実行してデータを表示します。
 
 ## リソースをクリーンアップする
 
