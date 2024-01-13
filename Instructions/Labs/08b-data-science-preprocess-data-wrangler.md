@@ -10,26 +10,25 @@ lab:
 
 このラボは完了するまで、約 **30** 分かかります。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
-4. 新しいワークスペースを開くと次に示すように空のはずです。
+1. ブラウザーで Microsoft Fabric ホーム ページ `https://app.fabric.microsoft.com` に移動し、必要に応じて Fabric 資格情報でサインインします。
+1. Fabric ホーム ページで、**[Synapse Data Science]** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## ノートブックを作成する
 
 モデルをトレーニングするために、''*ノートブック*'' を作成できます。 ノートブックでは、''実験'' として (複数の言語で) コードを記述して実行できる対話型環境が提供されます。**
 
-1. Power BI ポータルの左下にある **[Power BI]** アイコンを選び、 **[Data Science]** エクスペリエンスに切り替えます。
-
-1. **[Data Science]** ホーム ページで、新しい**ノートブック**を作成します。
+1. **Synapse Data Science** ホーム ページで、新しい**ノートブック**を作成します。
 
     数秒後に、1 つの ''セル'' を含む新しいノートブックが開きます。** ノートブックは、''コード'' または ''マークダウン'' (書式設定されたテキスト) を含むことができる 1 つまたは複数のセルで構成されます。** **
 
@@ -37,7 +36,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     セルがマークダウン セルに変わると、それに含まれるテキストがレンダリングされます。
 
-1. **[&#128393;]** (編集) ボタンを使用してセルを編集モードに切り替え、その内容を削除して次のテキストを入力します。
+1. 必要に応じて、**[&#128393;]** (編集) ボタンを使用してセルを編集モードに切り替えた後、その内容を削除して次のテキストを入力します。
 
     ```text
    # Perform data exploration for data science
@@ -52,19 +51,19 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. ノートブックで、最新のセルの下にある **[+ コード]** アイコンを使用して、新しいコード セルをノートブックに追加します。 データセットをデータフレームに読み込むには、次のコードを入力します。
 
     ```python
-    # Azure storage access info for open dataset diabetes
-    blob_account_name = "azureopendatastorage"
-    blob_container_name = "ojsales-simulatedcontainer"
-    blob_relative_path = "oj_sales_data"
-    blob_sas_token = r"" # Blank since container is Anonymous access
+   # Azure storage access info for open dataset diabetes
+   blob_account_name = "azureopendatastorage"
+   blob_container_name = "ojsales-simulatedcontainer"
+   blob_relative_path = "oj_sales_data"
+   blob_sas_token = r"" # Blank since container is Anonymous access
     
-    # Set Spark config to access  blob storage
-    wasbs_path = f"wasbs://%s@%s.blob.core.windows.net/%s" % (blob_container_name, blob_account_name, blob_relative_path)
-    spark.conf.set("fs.azure.sas.%s.%s.blob.core.windows.net" % (blob_container_name, blob_account_name), blob_sas_token)
-    print("Remote blob path: " + wasbs_path)
+   # Set Spark config to access  blob storage
+   wasbs_path = f"wasbs://%s@%s.blob.core.windows.net/%s" % (blob_container_name, blob_account_name, blob_relative_path)
+   spark.conf.set("fs.azure.sas.%s.%s.blob.core.windows.net" % (blob_container_name, blob_account_name), blob_sas_token)
+   print("Remote blob path: " + wasbs_path)
     
-    # Spark reads csv
-    df = spark.read.csv(wasbs_path, header=True)
+   # Spark reads csv
+   df = spark.read.csv(wasbs_path, header=True)
     ```
 
 1. セルの左側にある **[&#9655;] (セルの実行)** ボタンを使用して実行します。 または、キーボードで `SHIFT` + `ENTER` キーを押してセルを実行できます。
@@ -74,24 +73,24 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. セル出力の下にある **[+ コード]** アイコンを使用して、ノートブックに新しいコード セルを追加し、次のコードを入力します。
 
     ```python
-    import pandas as pd
+   import pandas as pd
 
-    df = df.toPandas()
-    df = df.sample(n=500, random_state=1)
+   df = df.toPandas()
+   df = df.sample(n=500, random_state=1)
     
-    df['WeekStarting'] = pd.to_datetime(df['WeekStarting'])
-    df['Quantity'] = df['Quantity'].astype('int')
-    df['Advert'] = df['Advert'].astype('int')
-    df['Price'] = df['Price'].astype('float')
-    df['Revenue'] = df['Revenue'].astype('float')
+   df['WeekStarting'] = pd.to_datetime(df['WeekStarting'])
+   df['Quantity'] = df['Quantity'].astype('int')
+   df['Advert'] = df['Advert'].astype('int')
+   df['Price'] = df['Price'].astype('float')
+   df['Revenue'] = df['Revenue'].astype('float')
     
-    df = df.reset_index(drop=True)
-    df.head(4)
+   df = df.reset_index(drop=True)
+   df.head(4)
     ```
 
 1. セル コマンドが完了したら、セルの下にある出力を確認します。これは次のようになるはずです。
 
-    |   |WeekStarting|ストア|ブランド|Quantity|Advert|価格|収益|
+    |   |WeekStarting|ストア|ブランド|Quantity|Advert|価格|Revenue|
     |---|---|---|---|---|---|---|---|
     |0|1991-10-17|947|minute.maid|13306|1|2.42|32200.52|
     |1|1992-03-26|1293|dominicks|18596|1|1.94|36076.24|
@@ -105,7 +104,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 データを読み込んだので、次の手順では Data Wrangler を使用して前処理をします。 前処理は、あらゆる機械学習ワークフローの重要なステップです。 これには、データのクリーニングと、機械学習モデルに取り込むことができる形式への変換が含まれます。
 
-1. ノートブック リボンの **[データ ]** を選択し、 **[Data Wrangler の起動]** ドロップダウンを選択します。
+1. ノートブック リボンの **[データ ]** を選択し、**[Data Wrangler の起動]** ドロップダウンを選択します。
 
 1. `df` データセットを選択します。 Data Wrangler が起動すると、データフレームの説明的な概要が **[概要]** パネルに生成されます。
 
@@ -123,7 +122,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **Data Wrangler** ダッシュボードで、グリッド上の `Brand` 特徴量を選択します。
 
-1. **[操作]** パネルに移動し、 **[検索と置換]** を展開してから、 **[検索と置換]** を選択します。
+1. **[操作]** パネルに移動し、**[検索と置換]** を展開してから、**[検索と置換]** を選択します。
 
 1. **[検索と置換]** パネルで、以下のプロパティを変更します。
 
@@ -132,33 +131,33 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     操作の結果は、表示グリッドに自動的にプレビュー表示されます。
 
-1. **[適用]** を選択します。
+1. **適用**を選択します。
 
 1. **[操作]** パネルに戻り、 **[書式設定]** を展開します。
 
-1. **[Capitalize first character](先頭文字を大文字にする)** を選択します。 **[Capitalize all words](すべての単語を大文字にする)** トグルをオンに切り替えてから、 **[適用]** を選択します。
+1. **[Capitalize first character]\(先頭文字を大文字にする\)** を選択します。 **[Capitalize all words]\(すべての単語を大文字にする\)** トグルをオンに切り替えてから、**[適用]** を選択します。
 
 1. **[Add code to notebook] (ノートブックにコードを追加する)** を選択します。 さらに、コードをコピーして、変換したデータセットを CSV ファイルとして保存することもできます。
 
-    >**注:** コードがノートブックのセルに自動的にコピーされ、使用できる状態になっています。
+    >**注:**  コードはノートブック セルに自動的にコピーされ、使用できる状態になっています。
 
 1. Data Wrangler で生成されたコードは元のデータフレームを上書きしないため、10 行目と 11 行目をコード `df = clean_data(df)` で置き換えます。 最終的なコード ブロックは、次のようになります。
 
     ```python
-    def clean_data(df):
-        # Replace all instances of "." with " " in column: 'Brand'
-        df['Brand'] = df['Brand'].str.replace(".", " ", case=False, regex=False)
-        # Capitalize the first character in column: 'Brand'
-        df['Brand'] = df['Brand'].str.title()
-        return df
+   def clean_data(df):
+       # Replace all instances of "." with " " in column: 'Brand'
+       df['Brand'] = df['Brand'].str.replace(".", " ", case=False, regex=False)
+       # Capitalize the first character in column: 'Brand'
+       df['Brand'] = df['Brand'].str.title()
+       return df
     
-    df = clean_data(df)
+   df = clean_data(df)
     ```
 
 1. コード セルを実行し、`Brand` 変数をチェックします。
 
     ```python
-    df['Brand'].unique()
+   df['Brand'].unique()
     ```
 
     結果には、値 *Minute Maid*、*Dominicks*、*Tropicana* が表示されます。
@@ -173,9 +172,9 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. グリッド上の `Brand` 特徴量を選択します。
 
-1. **[操作]** パネルで **[数式]** を展開してから、 **[One-hot エンコード]** を選択します。
+1. **[操作]** パネルで **[数式]** を展開してから、**[One-hot エンコード]** を選択します。
 
-1. **[One-hot エンコード]** パネルで、 **[適用]** を選択します。
+1. **[One-hot エンコード]** パネルで、**[適用]** を選択します。
 
     Data Wrangler 表示グリッドの末尾に移動します。 それによって 3 つの新しい特徴量 (`Brand_Dominicks`、`Brand_Minute Maid`、`Brand_Tropicana`) が追加され、`Brand` 特徴量が削除されたことに注意してください。
 
@@ -187,20 +186,20 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. `df` データフレームで Data Wrangler を起動します。
 
-1. **[操作]** パネルで、 **[並べ替えとフィルター]** を展開します。
+1. **[操作]** パネルで、**[並べ替えとフィルター]** を展開します。
 
-1. **[フィルター]** を選択します。
+1. **フィルター**を選択します。
 
 1. **[フィルター]** パネルで、次の条件を追加します。
 
-    - **ターゲット列:** : `Store`
+    - **ターゲット列:**: `Store`
     - **操作**: `Equal to`
-    - **値**: ****
+    - **値**: `1227`
     - **アクション**: `Keep matching rows`
 
 1. **[適用]** を選択し、Data Wrangler の表示グリッドの変化に注意してください。
 
-1. **[Revenue]** 特徴量を選択し、 **[概要]** サイド パネルの詳細を確認します。
+1. **[Revenue]** 特徴量を選択し、**[概要]** サイド パネルの詳細を確認します。
 
     そこから引き出せる分析情報の一部には何がありますか? 歪度は **-0.751** で、わずかな左スキュー (負のスキュー) を示しています。 これは、分布の左端が右端よりも少し長いことを意味します。 つまり、収益が平均を大幅に下回る期間が多数存在します。
 
@@ -208,12 +207,12 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[値の並べ替え]** を選択します。
 
-1. **[Sort values](値の並べ替え)** パネルで、次のプロパティを選択します。
+1. **[Sort values]\(値の並べ替え\)** パネルで、次のプロパティを選択します。
 
     - **列の名前**: `Price`
     - **並べ替え順序**: `Descending`
 
-1. **[適用]** を選択します。
+1. **適用**を選択します。
 
     店舗 **1227** の最も高い商品価格は **$2.68** です。 レコードの数が少ない場合、最も高い商品価格を特定することは簡単ですが、何千件もの結果を処理する場合の複雑さを考えてみてください。
 
@@ -235,7 +234,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. コードを生成せずに Data Wrangler を終了します。
 
-## データの集計
+## 集計データ
 
 各ブランドによって生成された平均収益を理解する必要があるとします。 以下の手順では、Data Wrangler を使用して、`df` データフレームに対してグループ化操作を実行します。
 
@@ -243,7 +242,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[操作]** パネルに戻り、 **[Group by and aggregate] (グループ化と集計)** を選択します。
 
-1. **[Columns to group by](グループ化する列)** プロパティで、`Brand` 特徴量を選択します。
+1. **[Columns to group by]\(グループ化する列\)** プロパティで、`Brand` 特徴量を選択します。
 
 1. **[集計の追加]** を選択します。
 
@@ -251,7 +250,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[集計の種類]** プロパティでは `Mean` を選択します。
 
-1. **[適用]** を選択します。
+1. **適用**を選択します。
 
 1. **[コードをクリップボードにコピーします]** を選択します。
 
@@ -260,18 +259,18 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. `Brand` 変数の変換のコードと、`clean_data(df)` 関数の集計ステップによって生成されたコードを組み合わせます。 最終的なコード ブロックは、次のようになります。
 
     ```python
-    def clean_data(df):    
-        # Replace all instances of "." with " " in column: 'Brand'    
-        df['Brand'] = df['Brand'].str.replace(".", " ", case=False, regex=False)    
-        # Capitalize the first character in column: 'Brand'    
-        df['Brand'] = df['Brand'].str.title()
+   def clean_data(df):    
+       # Replace all instances of "." with " " in column: 'Brand'    
+       df['Brand'] = df['Brand'].str.replace(".", " ", case=False, regex=False)    
+       # Capitalize the first character in column: 'Brand'    
+       df['Brand'] = df['Brand'].str.title()
         
-        # Performed 1 aggregation grouped on column: 'Brand'    
-        df = df.groupby(['Brand']).agg(Revenue_mean=('Revenue', 'mean')).reset_index()    
+       # Performed 1 aggregation grouped on column: 'Brand'    
+       df = df.groupby(['Brand']).agg(Revenue_mean=('Revenue', 'mean')).reset_index()    
         
-        return df    
+       return df    
         
-    df = clean_data(df)
+   df = clean_data(df)
     ```
 
 1. セル コードを実行します。
@@ -279,7 +278,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. データフレーム内のデータを確認します。
 
     ```python
-    print(df)
+   print(df)
     ```
 
     結果:
@@ -308,4 +307,4 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
 2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
-3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択します。
+3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択してください。

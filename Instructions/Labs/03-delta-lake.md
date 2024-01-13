@@ -10,35 +10,33 @@ Microsoft Fabric のレイクハウスは、Apache Spark のオープンソー�
 
 この演習の所要時間は約 **40** 分です
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の"学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Data Engineering** を選択します。
 2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
-4. 新しいワークスペースを開くと次に示すように空のはずです。
+3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+4. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## レイクハウスを作成してデータをアップロードする
 
-ワークスペースが作成されたので、次にポータルで *Data Engineering* エクスペリエンスに切り替えて、分析するデータのデータ レイクハウスを作成します。
+ワークスペースが作成されたので、次に分析するデータ用のデータ レイクハウスを作成します。
 
-1. Power BI ポータルの左下にある **[Power BI]** アイコンを選択し、 **[Data Engineering]** エクスペリエンスに切り替えます。
-
-2. **Synapse Data Engineering** のホーム ページで、任意の名前を指定して新しい**レイクハウス**を作成します。
+1. **Synapse Data Engineering** ホーム ページで、任意の名前で新しい **Lakehouse** を作成します。
 
     1 分ほど経つと、新しい空のレイクハウスが表示されます。 分析のために、データ レイクハウスにいくつかのデータを取り込む必要があります。 これを行うには複数の方法がありますが、この演習では、テキスト ファイルをローカル コンピューター (または、該当する場合はラボ VM) にダウンロードし、レイクハウスにアップロードするだけです。
 
-3. この演習用のデータ ファイルを `https://github.com/MicrosoftLearning/dp-data/raw/main/products.csv` からダウンロードし、ローカル コンピューター (または、該当する場合はラボ VM) に **products.csv** として保存します。
+1. この演習用のデータ ファイルを `https://github.com/MicrosoftLearning/dp-data/raw/main/products.csv` からダウンロードし、ローカル コンピューター (または、該当する場合はラボ VM) に **products.csv** として保存します。
 
-4. レイクハウスを含む Web ブラウザー タブに戻り、**エクスプローラー** ペインの **Files** フォルダーの **[...]** メニューで、 **[新しいサブフォルダー]** を選択し、**products** という名前のフォルダーを作成します。
+1. レイクハウスを含む Web ブラウザー タブに戻り、**エクスプローラー** ペインの **Files** フォルダーの **[...]** メニューで、 **[新しいサブフォルダー]** を選択し、**products** という名前のフォルダーを作成します。
 
-5. **products** フォルダーの **[...]** メニューで、 **[アップロード]** と **[ファイルのアップロード]** を選択し、**products.csv** ファイルをローカル コンピューター (または、該当する場合はラボ VM) からレイクハウスにアップロードします。
-6. ファイルがアップロードされた後、**products** フォルダーを選択し、次に示すように **products.csv** ファイルがアップロードされたことを確認します。
+1. **products** フォルダーの **[...]** メニューで、 **[アップロード]** と **[ファイルのアップロード]** を選択し、**products.csv** ファイルをローカル コンピューター (または、該当する場合はラボ VM) からレイクハウスにアップロードします。
+1. ファイルがアップロードされた後、**products** フォルダーを選択し、次に示すように **products.csv** ファイルがアップロードされたことを確認します。
 
     ![レイクハウスにアップロードされた products.csv ファイルのスクリーンショット。](./Images/products-file.png)
 
@@ -46,14 +44,14 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. Datalake の **products** フォルダーの内容を表示したまま、 **[ホーム]** ページの **[ノートブックを開く]** メニューで、 **[新しいノートブック]** を選択します。
 
-    数秒後に、1 つの ''セル'' を含む新しいノートブックが開きます。** ノートブックは、''コード'' または ''マークダウン'' (書式設定されたテキスト) を含むことができる 1 つまたは複数のセルで構成されます。** **
+    数秒後に、1 つの ''セル'' を含む新しいノートブックが開きます。** ノートブックは、''コード'' または ''マークダウン'' (書式設定されたテキスト) を含むことができる 1 つ以上のセルで構成されます。** **
 
 2. ノートブック内の既存のセルを選択します。これには単純なコードが含まれています。次に、右上にある **&#128465;** ([削除]) アイコンを使用して削除します。このコードは必要ありません。**
 3. 左側の **レイクハウス エクスプローラー** ペインで、**Files** を展開し、 **[products]** を選択すると、前にアップロードした **products.csv** ファイルを表示した新しいペインが表示されます。
 
-    ![[ファイル] ペインを含むノートブックのスクリーンショット。](./Images/notebook-products.png)
+    ![[Files] ペインを含むノートブックのスクリーンショット。](./Images/notebook-products.png)
 
-4. **products.csv** の **[...]** メニューで、 **[データの読み込み]**  >  **[Spark]** の順に選択します。 次のコードを含む新しいコード セルがノートブックに追加されるはずです。
+4. **products.csv** の **[...]** メニューで、 **[データの読み込み]**  >  **[Spark]** の順に選択します。 次のコードを含む新しいコード セルがノートブックに追加されます。
 
     ```python
    df = spark.read.format("csv").option("header","true").load("Files/products/products.csv")
@@ -61,7 +59,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
    display(df)
     ```
 
-    > **ヒント**: 左側のファイルを含むペインは、その **[<<]**  アイコンを使用して非表示にすることができます。 そうすると、ノートブックに集中するのに役立ちます。
+    > **ヒント**: 左側のファイルを含むペインは、その **[<<]**  アイコンを使用して非表示にすることができます。 そうすることにより、ノートブックに集中できます。
 
 5. セルの左側にある **[&#9655;]** ([セルの実行]) ボタンを使用して実行します。**
 
@@ -99,7 +97,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. 別の新しいセルを追加し、次のコードを追加します。
 
     ```python
-   df.write.format("delta").saveAsTable("external_products", path="<abfs_path>/external_products")
+   df.write.format("delta").saveAsTable("external_products", path="abfs_path/external_products")
     ```
 
 2. **レイクハウス エクスプローラー** ペインで、**Files** フォルダーの **[...]** メニューにある **[ABFS パスのコピー]** を選択します。
@@ -108,7 +106,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     *abfss://workspace@tenant-onelake.dfs.fabric.microsoft.com/lakehousename.Lakehouse/Files*
 
-3. コード セルに入力したコードで、 **<abfs_path>** を、クリップボードにコピーしたパスに置き換えます。これにより、コードを実行すると、**Files** フォルダーの場所にある **external_products** という名前のフォルダーに、データ ファイルと共にデータフレームが外部テーブルとして保存されます。 完全なパスは次のようになります。
+3. コード セルに入力したコードで、**abfs_path** を、クリップボードにコピーしたパスに置き換えます。これにより、コードを実行すると、**Files** フォルダーの場所にある **external_products** という名前のフォルダーに、データ ファイルと共にデータフレームが外部テーブルとして保存されます。 完全なパスは次のようになります。
 
     *abfss://workspace@tenant-onelake.dfs.fabric.microsoft.com/lakehousename.Lakehouse/Files/external_products*
 

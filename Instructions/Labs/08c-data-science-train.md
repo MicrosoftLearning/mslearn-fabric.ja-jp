@@ -12,26 +12,25 @@ lab:
 
 このラボは完了するまで、約 **25** 分かかります。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
-Fabric でモデルを操作する前に、有効な Fabric 試用版を使用してワークスペースを作成します。
+Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
-4. 新しいワークスペースを開くと次に示すように空のはずです。
+1. ブラウザーで Microsoft Fabric ホーム ページ `https://app.fabric.microsoft.com` に移動し、必要に応じて Fabric 資格情報でサインインします。
+1. Fabric ホーム ページで、**[Synapse Data Science]** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## ノートブックを作成する
 
 モデルをトレーニングするために、''*ノートブック*'' を作成できます。 ノートブックは、(複数の言語で) コードを記述して実行できる対話型環境を提供します。
 
-1. Fabric ポータルの左下で **[Power BI]** アイコンを選択し、 **[Data Science]** エクスペリエンスに切り替えます。
-
-1. **[Data Science]** ホーム ページで、新しい**ノートブック**を作成します。
+1. **Synapse Data Science** ホーム ページで、新しい**ノートブック**を作成します。
 
     数秒後に、1 つの ''セル'' を含む新しいノートブックが開きます。** ノートブックは、''コード'' または ''マークダウン'' (書式設定されたテキスト) を含むことができる 1 つまたは複数のセルで構成されます。** **
 
@@ -39,7 +38,7 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 
     セルがマークダウン セルに変わると、それに含まれるテキストがレンダリングされます。
 
-1. **[&#128393;]** (編集) ボタンを使用してセルを編集モードに切り替え、その内容を削除して次のテキストを入力します。
+1. 必要に応じて、**[&#128393;]** (編集) ボタンを使用してセルを編集モードに切り替えた後、その内容を削除して次のテキストを入力します。
 
     ```text
    # Train a machine learning model and track with MLflow
@@ -52,29 +51,29 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. ノートブックで、最後のセル出力の下にある **[+ コード]** アイコンを使用して、ノートブックに新しいコード セルを追加し、その中に次のコードを入力します。
 
     ```python
-    # Azure storage access info for open dataset diabetes
-    blob_account_name = "azureopendatastorage"
-    blob_container_name = "mlsamples"
-    blob_relative_path = "diabetes"
-    blob_sas_token = r"" # Blank since container is Anonymous access
+   # Azure storage access info for open dataset diabetes
+   blob_account_name = "azureopendatastorage"
+   blob_container_name = "mlsamples"
+   blob_relative_path = "diabetes"
+   blob_sas_token = r"" # Blank since container is Anonymous access
     
-    # Set Spark config to access  blob storage
-    wasbs_path = f"wasbs://%s@%s.blob.core.windows.net/%s" % (blob_container_name, blob_account_name, blob_relative_path)
-    spark.conf.set("fs.azure.sas.%s.%s.blob.core.windows.net" % (blob_container_name, blob_account_name), blob_sas_token)
-    print("Remote blob path: " + wasbs_path)
+   # Set Spark config to access  blob storage
+   wasbs_path = f"wasbs://%s@%s.blob.core.windows.net/%s" % (blob_container_name, blob_account_name, blob_relative_path)
+   spark.conf.set("fs.azure.sas.%s.%s.blob.core.windows.net" % (blob_container_name, blob_account_name), blob_sas_token)
+   print("Remote blob path: " + wasbs_path)
     
-    # Spark read parquet, note that it won't load any data yet by now
-    df = spark.read.parquet(wasbs_path)
+   # Spark read parquet, note that it won't load any data yet by now
+   df = spark.read.parquet(wasbs_path)
     ```
 
-1. セルの左側にある **[&#9655;] (セルの実行)** ボタンを使用して実行します。 または、キーボードで `SHIFT` + `ENTER` キーを押してセルを実行できます。
+1. セルの左側にある **[&#9655;] (セルの実行)** ボタンを使用して実行します。 代わりに、キーボードで **SHIFT** + **ENTER** キーを押してセルを実行することもできます。
 
     > **注**: このセッション内で Spark コードを実行したのはこれが最初であるため、Spark プールを起動する必要があります。 これは、セッション内での最初の実行が完了するまで 1 分ほどかかる場合があることを意味します。 それ以降は、短時間で実行できます。
 
 1. セル出力の下にある **[+ コード]** アイコンを使用して、ノートブックに新しいコード セルを追加し、次のコードを入力します。
 
     ```python
-    display(df)
+   display(df)
     ```
 
 1. セル コマンドが完了したら、セルの下にある出力を確認します。これは次のようになるはずです。
@@ -93,9 +92,9 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. データは Spark データフレームとして読み込まれます。 Scikit-learn では、入力データセットが Pandas データフレームであることが想定されます。 データセットを Pandas データフレームに変換するには、次のコードを実行します。
 
     ```python
-    import pandas as pd
-    df = df.toPandas()
-    df.head()
+   import pandas as pd
+   df = df.toPandas()
+   df.head()
     ```
 
 ## 機械学習モデルのトレーニング
@@ -105,11 +104,11 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. 次のコードを実行して、データをトレーニング データセットとテスト データセットに分割し、予測するラベルから特徴量を分離します。
 
     ```python
-    from sklearn.model_selection import train_test_split
+   from sklearn.model_selection import train_test_split
     
-    X, y = df[['AGE','SEX','BMI','BP','S1','S2','S3','S4','S5','S6']].values, df['Y'].values
+   X, y = df[['AGE','SEX','BMI','BP','S1','S2','S3','S4','S5','S6']].values, df['Y'].values
     
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
+   X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
     ```
 
 1. ノートブックに新しいコード セルをもう 1 つ追加し、そこに次のコードを入力して実行します。
@@ -125,34 +124,34 @@ Fabric でモデルを操作する前に、有効な Fabric 試用版を使用�
 1. ノートブックに新しいコード セルをもう 1 つ追加し、そこに次のコードを入力して実行します。
 
     ```python
-    from sklearn.linear_model import LinearRegression
+   from sklearn.linear_model import LinearRegression
     
-    with mlflow.start_run():
-       mlflow.autolog()
+   with mlflow.start_run():
+      mlflow.autolog()
     
-       model = LinearRegression()
-       model.fit(X_train, y_train)
+      model = LinearRegression()
+      model.fit(X_train, y_train)
     
-       mlflow.log_param("estimator", "LinearRegression")
+      mlflow.log_param("estimator", "LinearRegression")
     ```
 
-    このコードは、線形回帰を使用して回帰モデルをトレーニングします。 パラメーター、メトリック、および成果物は、MLflow で自動的にログに記録されます。 さらに、値が `LinearRegression` の `estimator` というパラメーターをログに記録しています。
+    このコードは、線形回帰を使用して回帰モデルをトレーニングします。 パラメーター、メトリック、および成果物は、MLflow で自動的にログに記録されます。 さらに、**estimator** という名前のパラメーターを値 *LinearRegression* でログしています。
 
 1. ノートブックに新しいコード セルをもう 1 つ追加し、そこに次のコードを入力して実行します。
 
     ```python
-    from sklearn.tree import DecisionTreeRegressor
+   from sklearn.tree import DecisionTreeRegressor
     
-    with mlflow.start_run():
-       mlflow.autolog()
+   with mlflow.start_run():
+      mlflow.autolog()
     
-       model = DecisionTreeRegressor(max_depth=5) 
-       model.fit(X_train, y_train)
+      model = DecisionTreeRegressor(max_depth=5) 
+      model.fit(X_train, y_train)
     
-       mlflow.log_param("estimator", "DecisionTreeRegressor")
+      mlflow.log_param("estimator", "DecisionTreeRegressor")
     ```
 
-    このコードは、デシジョン ツリー リグレッサーを使用して回帰モデルをトレーニングします。 パラメーター、メトリック、および成果物は、MLflow で自動的にログに記録されます。 さらに、値が `DecisionTreeRegressor` の `estimator` というパラメーターをログに記録しています。
+    このコードは、デシジョン ツリー リグレッサーを使用して回帰モデルをトレーニングします。 パラメーター、メトリック、および成果物は、MLflow で自動的にログに記録されます。 さらに、**estimator** という名前のパラメーターを値 *DecisionTreeRegressor* でログしています。
 
 ## MLflow を使用して実験を検索および表示する
 
@@ -181,7 +180,7 @@ MLflow でモデルをトレーニングして追跡したら、MLflow ライブ
    mlflow.search_runs(exp.experiment_id)
     ```
 
-1. ジョブの実行と出力をより簡単に比較するために、結果を並べ替える検索を構成できます。 たとえば、次のセルは結果を `start_time` で並べ替え、最大 `2` 個の結果のみを表示します。
+1. ジョブの実行と出力をより簡単に比較するために、結果を並べ替える検索を構成できます。 たとえば、次のセルは結果を *start_time* の順序で並べ替え、最大で 2 個の結果しか表示しません。
 
     ```python
    mlflow.search_runs(exp.experiment_id, order_by=["start_time DESC"], max_results=2)
@@ -213,7 +212,7 @@ MLflow でモデルをトレーニングして追跡したら、MLflow ライブ
 Microsoft Fabric では、すべての実験を追跡し、それらを視覚的に調べることができます。
 
 1. 左側のメニュー バーからワークスペースに移動します。
-1. `experiment-diabetes` 実験を選択して開きます。
+1. **[experiment-diabetes]** 実験を選択してこれを開きます。
 
     > **ヒント:** ログに記録された実験の実行が表示されない場合は、ページを最新の情報に更新します。
 
@@ -224,8 +223,8 @@ Microsoft Fabric では、すべての実験を追跡し、それらを視覚的
     その結果、最後の 2 つの実行が **[メトリック比較]** ペインで相互に比較されます。 既定では、メトリックは実行名でプロットされます。
 
 1. 各実行の平均絶対誤差を視覚化するグラフの **[&#128393;]** (編集) ボタンを選択します。
-1. **視覚化の種類**を `bar` に変更します。
-1. **X 軸**を `estimator` に変更します。
+1. **[視覚化の種類]** を **[バー]** に変更します。
+1. **[X 軸]** を **[estimator]** に変更します。
 1. **[置換]** を選択し、新しいグラフを調べます。
 1. 必要に応じて、 **[メトリック比較]** ペインの他のグラフに対してこれらの手順を繰り返すことができます。
 
@@ -237,12 +236,12 @@ Microsoft Fabric では、すべての実験を追跡し、それらを視覚的
 
 1. 実験の概要で、 **[表示]** タブが選択されていることを確かめます。
 1. **[実行の詳細]** を選択します。
-1. R2 スコアが最も高い実行を選択します。
-1. **[モデルとして保存]** ボックスで **[保存]** を選択します。
+1. トレーニング R2 スコアが最も高い実行を選択します。
+1. **[実行をモデルとして保存]** ボックスで **[保存]** を選択します (これを表示するには、右にスクロールする必要があるかもしれません)。
 1. 新しく開いたポップアップ ウィンドウで **[新しいモデルの作成]** を選択します。
-1. `model` フォルダーを選択します
+1. **model** フォルダーを選択します。
 1. モデルに `model-diabetes` という名前を付け、 **[保存]** を選択します。
-1. モデルの作成時に画面の右上に表示される通知で、 **[モデルの表示]** を選択します。 ウィンドウを最新の情報に更新することもできます。 保存されたモデルは、 **[モデル バージョン]** の下にリンクされています。
+1. モデルが作成されると画面の右上に表示される通知内の **[ML モデルの表示]** を選択します。 ウィンドウを最新の情報に更新することもできます。 保存されたモデルは、 **[モデル バージョン]** の下にリンクされています。
 
 モデル、実験、実験の実行がリンクされていることに注意してください。これにより、モデルのトレーニング方法を確認できます。
 
@@ -262,4 +261,4 @@ Microsoft Fabric では、すべての実験を追跡し、それらを視覚的
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
 2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
-3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択します。
+3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択してください。

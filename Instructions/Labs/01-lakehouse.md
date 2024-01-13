@@ -12,34 +12,30 @@ Microsoft Fabric では、レイクハウスによって *OneLake* ストア (Az
 
 このラボの所要時間は約 **30** 分です。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の"学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
-4. 開いた新しいワークスペースは空のはずです。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Data Engineering** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## レイクハウスを作成する
 
-ワークスペースが作成されたので、次はポータルで *[Data Engineering]* エクスペリエンスに切り替えて、データ ファイルのデータ レイクハウスを作成します。
+ワークスペースが作成されたので、次にデータ ファイル用のデータ レイクハウスを作成します。
 
-1. Power BI ポータルの左下で、 **[Data Engineering]** エクスペリエンスに切り替えます。 Data Engineering エクスペリエンスが表示されない場合は、Fabric 管理者に問い合わせ、[Fabric を有効にする](https://learn.microsoft.com/fabric/admin/fabric-switch)ようリクエストします。
-
-    Data Engineering のホーム ページには、一般的に使用される Data Engineering 資産を作成するためのタイルが含まれています。
-
-2. **[Data Engineering]** ホーム ページで、任意の名前で新しい**レイクハウス**を作成します。
+1. **Synapse Data Engineering** ホーム ページで、任意の名前で新しい **Lakehouse** を作成します。
 
     1 分ほどすると、新しいレイクハウスが作成されます。
 
     ![新しいレイクハウスのスクリーンショット。](./Images/new-lakehouse.png)
 
-3. 新しいレイクハウスを表示します。左側の **[レイクハウス エクスプローラー]** ペインを使用すると、レイクハウス内のテーブルとファイルを参照できることに注意してください。
+1. 新しいレイクハウスを表示します。左側の **[レイクハウス エクスプローラー]** ペインを使用すると、レイクハウス内のテーブルとファイルを参照できることに注意してください。
     - **Tables** フォルダーには、SQL セマンティクスを使用してクエリを実行できるテーブルが含まれています。 Microsoft Fabric レイクハウスのテーブルは、Apache Spark でよく使われるオープンソースの *Delta Lake* ファイル形式に基づいています。
     - **Files** フォルダーには、マネージド デルタ テーブルに関連付けられていないレイクハウスの OneLake ストレージ内のデータ ファイルが含まれています。 このフォルダーに ''ショートカット'' を作成して、外部に格納されているデータを参照することもできます。**
 
@@ -173,5 +169,5 @@ Fabric には、Power Query に基づいてビジュアル ツールを使用し
 レイクハウスの探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
-2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
+2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択してください。
 3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択してください。

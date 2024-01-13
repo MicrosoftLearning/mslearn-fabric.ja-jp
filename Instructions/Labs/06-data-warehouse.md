@@ -10,30 +10,24 @@ Microsoft Fabric では、データ ウェアハウスによって大規模な�
 
 このラボは完了するまで、約 **30** 分かかります。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "学校" または "職場" アカウントが必要です。** ** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
-4. 新しいワークスペースを開くと次に示すように空のはずです。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Data Warehouse** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
 ## データ ウェアハウスの作成
 
-ワークスペースが作成されたので、ポータルで *Data Warehouse* エクスペリエンスに切り替えて、データ ウェアハウスを作成します。
+これでワークスペースが作成されたので、次にデータ ウェアハウスを作成します。 Synapse Data Warehouse のホーム ページには、新しいウェアハウスを作成するためのショートカットがあります。
 
-1. Power BI ポータルの左下で、**Data Warehouse** エクスペリエンスに切り替えます。
-
-    Data Warehouse のホーム ページには、新しいウェアハウスを作成するためのショートカットがあります。
-
-    > **注**: 左下隅にアイコンが表示されない場合、テナントに対して Fabric が有効になっていません。 Fabric は、管理ポータルで Power BI Premium サブスクリプションを持つテナントに対して有効になります。
-
-2. **Data Warehouse** ホーム ページで、新しい**ウェアハウス**を任意の名前を付けて作成してください。
+1. **Synapse Data Warehouse** ホーム ページで、新しい**ウェアハウス**を任意の名前を付けて作成します。
 
     1 分ほどで、新しいレイクハウスが作成されます。
 

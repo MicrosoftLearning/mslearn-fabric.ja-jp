@@ -10,41 +10,40 @@ lab:
 
 この演習の完了に要する時間は約 **45** 分です
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "*学校*" または "*職場*" アカウントが必要です。 お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の"学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
-## ワークスペースを作成し、データ モデルの編集を有効にする
+## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Data Engineering** を選択します。
 2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
-4. 新しいワークスペースを開くと次に示すように空のはずです。
+3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+4. 開いた新しいワークスペースは空のはずです。
 
-   ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace-medallion.png)
+   ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace-medallion.png)
+
 5. ワークスペースの設定に移動し、 **[Data model editing] (データ モデル編集)** プレビュー機能を有効にします。 これにより、Power BI データセットを使用して、レイクハウス内のテーブル間のリレーションシップを作成できるようになります。
 
-    ![Power BI のワークスペース設定ページのスクリーンショット。](./Images/workspace-settings.png)
+    ![Fabric のワークスペース設定ページを示すスクリーンショット。](./Images/workspace-settings.png)
 
     > **注**: プレビュー機能を有効にした後、ブラウザー タブを最新の情報に更新する必要がある場合があります。
 
 ## レイクハウスを作成し、ブロンズ レイヤーにデータをアップロードする
 
-ワークスペースが用意できたので、次に Fabric ポータルで *Data Engineering* エクスペリエンスに切り替えて、分析するデータのデータ レイクハウスを作成します。
+ワークスペースが作成されたので、次に分析するデータ用のデータ レイクハウスを作成します。
 
-1. Power BI ポータルの左下にある **[Power BI]** アイコンを選択し、 **[Data Engineering]** エクスペリエンスに切り替えます。 Data Engineering エクスペリエンスが表示されない場合は、Fabric 管理者に問い合わせ、[Fabric を有効にする](https://learn.microsoft.com/fabric/admin/fabric-switch)ようリクエストします。
-
-2. **Synapse Data Engineering** のホーム ページで、**Sales** という名前の新しい**レイクハウス**を作成します。
+1. **Synapse Data Engineering** のホーム ページで、**Sales** という名前の新しい**レイクハウス**を作成します。
 
     1 分ほどすると、新しい空のレイクハウスが作成されます。 分析のために、データ レイクハウスにいくつかのデータを取り込む必要があります。 これを行うには複数の方法がありますが、この演習では、テキスト ファイルをローカル コンピューター (または、該当する場合はラボ VM) にダウンロードし、レイクハウスにアップロードするだけです。
 
-3. `https://github.com/MicrosoftLearning/dp-data/blob/main/orders.zip` からこの演習用のデータ ファイルをダウンロードして抽出します。 ファイルを抽出し、元の名前でローカル コンピューター (または該当する場合はラボ VM) に保存します。 3 年間の売上データを含む 3 つのファイル (2019.csv、2020.csv、2021.csv) が含まれているはずです。
+1. `https://github.com/MicrosoftLearning/dp-data/blob/main/orders.zip` からこの演習用のデータ ファイルをダウンロードして抽出します。 ファイルを抽出し、元の名前でローカル コンピューター (または該当する場合はラボ VM) に保存します。 3 年間の売上データを含む 3 つのファイル (2019.csv、2020.csv、2021.csv) が含まれているはずです。
 
-4. レイクハウスの Web ブラウザー タブに戻り、**エクスプローラー** ペインの **Files** フォルダーの **[...]** メニューで、 **[新しいサブフォルダー]** を選択し、**bronze** という名前のフォルダーを作成します。
+1. レイクハウスの Web ブラウザー タブに戻り、**エクスプローラー** ペインの **Files** フォルダーの **[...]** メニューで、 **[新しいサブフォルダー]** を選択し、**bronze** という名前のフォルダーを作成します。
 
-5. **bronze** フォルダーの **[...]** メニューで、 **[アップロード]** 、 **[ファイルのアップロード]** の順に選択し、3 つのファイル (2019.csv、2020.csv、2021.csv) をローカル コンピューター (または、該当する場合はラボ VM) からレイクハウスにアップロードします。 3 つのファイルすべてを一度にアップロードするには Shift キーを使用します。
+1. **bronze** フォルダーの **[...]** メニューで、 **[アップロード]** 、 **[ファイルのアップロード]** の順に選択し、3 つのファイル (2019.csv、2020.csv、2021.csv) をローカル コンピューター (または、該当する場合はラボ VM) からレイクハウスにアップロードします。 3 つのファイルすべてを一度にアップロードするには Shift キーを使用します。
 
-6. ファイルがアップロードされたら、**bronze** フォルダーを選びます。そして、次に示すように、ファイルがアップロードされていることを確認します。
+1. ファイルがアップロードされたら、**bronze** フォルダーを選びます。そして、次に示すように、ファイルがアップロードされていることを確認します。
 
     ![レイクハウスにアップロードされた products.csv ファイルのスクリーンショット。](./Images/bronze-files.png)
 
@@ -54,7 +53,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. データレイクの **bronze** フォルダーの内容を表示したまま、 **[ホーム]** ページの **[ノートブックを開く]** メニューで、 **[新しいノートブック]** を選択します。
 
-    数秒後に、1 つの ''セル'' を含む新しいノートブックが開きます。** ノートブックは、''コード'' または ''マークダウン'' (書式設定されたテキスト) を含むことができる 1 つまたは複数のセルで構成されます。** **
+    数秒後に、1 つの ''セル'' を含む新しいノートブックが開きます。** ノートブックは、''コード'' または ''マークダウン'' (書式設定されたテキスト) を含むことができる 1 つ以上のセルで構成されます。** **
 
 2. ノートブックが開いたら、ノートブックの左上にある **[Notebook xxxx]** テキストを選択し、新しい名前を入力して、名前を「**シルバー用にデータを変換する**」に変更します。
 
@@ -95,7 +94,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 6. セル コマンドが完了したら、セルの下にある**出力を確認**します。これは次のようになるはずです。
 
-    | インデックス | SalesOrderNumber | SalesOrderLineNumber | OrderDate | CustomerName | Email | Item | Quantity | UnitPrice | 税 |
+    | Index | SalesOrderNumber | SalesOrderLineNumber | OrderDate | CustomerName | Email | Item | Quantity | UnitPrice | 税 |
     | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
     | 1 | SO49172 | 1 | 2021-01-01 | Brian Howard | brian23@adventure-works.com | Road-250 Red, 52 | 1 | 2443.35 | 195.468 |
     | 2 |  SO49173 | 1 | 2021-01-01 | Linda Alvarez | linda19@adventure-works.com | Mountain-200 Silver, 38 | 1 | 2071.4197 | 165.7136 |
@@ -120,8 +119,6 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     ```
 
     コードの最初の行により、PySpark から必要な関数がインポートされます。 次に、データフレームに新しい列を追加して、ソース ファイル名、注文が該当の会計年度の前にフラグが付けられたかどうか、行がいつ作成および変更されたかを追跡できるようにします。
-
-    また、CustomerID と ItemID の列も追加します。これは後で設定されます。
 
     最後に、CustomerName 列が null 値または空の場合は、"Unknown" に更新します。
 
@@ -228,7 +225,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     ORDER BY YEAR(OrderDate)
     ```
 
-    このクエリでは、sales_silver テーブルの各年の売上合計が計算されます。 次のように表示されます。
+    このクエリでは、sales_silver テーブルの各年の売上合計が計算されます。 結果は次のようになります。
 
     ![レイクハウスでの SQL クエリの結果のスクリーンショット。](./Images/total-sales-sql.png)
 
@@ -357,7 +354,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     ```python
     from pyspark.sql.functions import col, split
     
-    # Create customer_gold dataframe
+    # Create customer_silver dataframe
     
     dfdimCustomer_silver = df.dropDuplicates(["CustomerName","Email"]).select(col("CustomerName"),col("Email")) \
         .withColumn("First",split(col("CustomerName"), " ").getItem(0)) \
@@ -365,7 +362,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     # Display the first 10 rows of the dataframe to preview your data
 
-    display(dfdimCustomer_silver .head(10))
+    display(dfdimCustomer_silver.head(10))
     ```
 
      ここでは、重複の削除、特定の列の選択、"CustomerName" 列を分割して "First" と "Last" の名前列を作成するなど、さまざまな変換を実行して、新しい DataFrame dfdimCustomer_silver を作成しました。 その結果、"CustomerName" 列から抽出された個別の "First" と "Last" の名前列を含む、クリーンで構造化された顧客データを含む DataFrame になりました。
@@ -435,12 +432,12 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
         .execute()
     ```
 
-12. **別のコード ブロックを追加して**、**customer_gold** データフレームを作成します。 これは、後で Sales の結合で使用します。
+12. **別のコード ブロックを追加**して、**product_silver** データフレームを作成します。
   
     ```python
     from pyspark.sql.functions import col, split, lit
     
-    # Create Customer_gold dataframe, this dataframe will be used later on on the Sales join
+    # Create product_silver dataframe
     
     dfdimProduct_silver = df.dropDuplicates(["Item"]).select(col("Item")) \
         .withColumn("ItemName",split(col("Item"), ", ").getItem(0)) \
@@ -470,6 +467,8 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     display(dfdimProduct_gold.head(10))
     ```
 
+      これにより、テーブル内の現在のデータに基づいて次に使用可能な製品 ID が計算され、これらの新しい ID が製品に割り当てられ、更新された製品情報が表示されます。
+
 14. 他のディメンションで行ったことと同様に、新しいデータが入力されるたびに製品テーブルが最新の状態に保たれるようにする必要があります。 **新しいコード ブロックで**、次を貼り付けて実行します。
 
     ```python
@@ -498,8 +497,6 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
               ) \
               .execute()
       ```
-
-      これにより、テーブル内の現在のデータに基づいて次に使用可能な製品 ID が計算され、これらの新しい ID が製品に割り当てられ、更新された製品情報が表示されます (表示コマンドがコメント解除されている場合)。
 
       **ディメンションが構築されたので、最後の手順ではファクト テーブルを作成します。**
 
@@ -614,5 +611,5 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 レイクハウスの探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
-2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
+2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択してください。
 3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択してください。
