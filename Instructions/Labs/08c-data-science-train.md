@@ -119,7 +119,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
    mlflow.set_experiment(experiment_name)
     ```
 
-    このコードでは、`experiment-diabetes` という名前の MLflow 実験を作成します。 この実験でモデルが追跡されます。
+    このコードでは、**experiment-diabetes** という名前の MLflow 実験を作成します。 この実験でモデルが追跡されます。
 
 1. ノートブックに新しいコード セルをもう 1 つ追加し、そこに次のコードを入力して実行します。
 
