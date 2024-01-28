@@ -26,9 +26,10 @@ lab:
 
 ### スターター ファイルをダウンロードする
 
-1. [Sales Analysis スターター ファイル](https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/15/Starter/Sales%20Analysis%20-%20Work%20with%20model%20relationships.pbix)を開き、覚えやすい場所に保存します。
+1. `https://aka.ms/fabric-relationships-starter` から[売上分析スターター ファイル](https://aka.ms/fabric-relationships-starter)をダウンロードし、それをローカル コンピューター (任意のフォルダー) に保存します。
 
-1. ダウンロードしたファイルに移動し、Power BI Desktop で開きます。
+1. ダウンロードしたファイルに移動し、それを Power BI Desktop で開きます。
+    >注:変更の適用を求める警告は無視して閉じます。
 
 ### データ モデルを確認する
 
@@ -165,8 +166,6 @@ lab:
 
 2. 数式バー (リボンの下にあります) で、テキストを次のメジャー定義に置き換え、**Enter** キーを押します。
 
-    *ヒント:すべての数式は、**D:\fabric\Allfiles\Labs\15\Assets\Snippets.txt** からコピーして貼り付けることができます。*
-
     ```DAX
     Sales Shipped =
     CALCULATE (
@@ -213,9 +212,7 @@ lab:
 
     ![](Images/work-with-model-relationships-image27.png)
 
-3. 削除するかどうかを確認するメッセージが表示されたら、 **[OK]** を選択します。
-
-    ![](Images/work-with-model-relationships-image28.png)
+3. 削除するかどうかを確認するメッセージが表示されたら、 **[はい]** を選択します。
 
     リレーションシップを削除すると、**Sales Shipped** メジャーにエラーが発生します。このラボでは、後ほどメジャーの数式を書き換えます。**
 
@@ -245,17 +242,17 @@ lab:
 
 このタスクでは、別の日付テーブルをモデルに追加するクエリを作成します。
 
-1. **[ホーム]** リボン タブの **[クエリ]** グループ内から、 **[データの変換]** アイコンを選びます。
+1. **[ホーム]** リボン タブで、**[クエリ]** グループの中から **[データの変換]** アイコンを選択します。これによって **[Power Query エディター]** が開きます。
 
     ![](Images/work-with-model-relationships-image33.png)
 
-    接続方法の指定を求められたら、 **[資格情報を編集]** でサインイン方法を指定します。**
+    "接続方法の指定を求められたら、**[資格情報の編集]** を選択します。"**
 
     ![](Images/work-with-model-relationships-image52.png)
 
-    **[接続]** を選択します**
+    "Windows の既定の接続設定は、[現在の資格情報を使用する] のままにして、**[接続]** を選択します。"**
 
-     ![](Images/work-with-model-relationships-image53.png)
+     ![](Images/work-with-model-relationships-image53.png) "**[はい]** を選択して警告メッセージを閉じます。"**
 
 2. **[Power Query エディター]** ウィンドウの **[クエリ]** ペイン (左側にあります) で、**Date** クエリを右クリックして、 **[参照]** を選びます。
 
