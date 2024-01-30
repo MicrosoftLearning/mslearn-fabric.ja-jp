@@ -10,7 +10,7 @@ Microsoft Fabric では、データ ウェアハウスによって大規模な�
 
 このラボは完了するまで、約 **30** 分かかります。
 
-> **注**:この演習を完了するには、Microsoft の"学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
 
 ## ワークスペースの作成
 
@@ -46,7 +46,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. **[新しいテーブルにファイルを読み込む]** ダイアログで、次の情報を入力します。
     - **新しいテーブル名:** staging_sales
     - **列名にヘッダーを使用する:** オン
-    - **区切り:** \n
+    - **区切り:** ,
 
 1. **[読み込み]** を選択します。
 
@@ -101,11 +101,6 @@ Sales データのファクト テーブルとディメンションを作成し�
         );
         
     ALTER TABLE Sales.Dim_Item add CONSTRAINT PK_Dim_Item PRIMARY KEY NONCLUSTERED (ItemID) NOT ENFORCED
-    GO
-    
-    CREATE VIEW [Sales].[Staging_Sales]
-    AS
-        SELECT * FROM [ExternalData].[dbo].[staging_sales];
     GO
     ```
 
@@ -183,7 +178,7 @@ Sales データのファクト テーブルとディメンションを作成し�
     SELECT c.CustomerName, SUM(s.UnitPrice * s.Quantity) AS TotalSales
     FROM Sales.Fact_Sales s
     JOIN Sales.Dim_Customer c
-    ON s.SalesOrderNumber = c.SalesOrderNumber
+    ON s.CustomerID = c.CustomerID
     WHERE YEAR(s.OrderDate) = 2021
     GROUP BY c.CustomerName
     ORDER BY TotalSales DESC;
