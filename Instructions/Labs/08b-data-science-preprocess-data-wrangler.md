@@ -48,7 +48,11 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 これで、データを取得するコードを実行する準備ができました。 Azure Open Datasets から [**OJ Sales データセット**](https://learn.microsoft.com/en-us/azure/open-datasets/dataset-oj-sales-simulated?tabs=azureml-opendatasets?azure-portal=true)を操作します。 データを読み込んだ後、データを Pandas データフレームに変換します。これは、Data Wrangler でサポートされている構造です。
 
-1. ノートブックで、最新のセルの下にある **[+ コード]** アイコンを使用して、新しいコード セルをノートブックに追加します。 データセットをデータフレームに読み込むには、次のコードを入力します。
+1. ノートブックで、最新のセルの下にある **[+ コード]** アイコンを使用して、新しいコード セルをノートブックに追加します。
+
+    > **ヒント**: **[+ コード]** アイコンを表示するには、マウスを現在のセルの出力のすぐ下かつ左に移動します。 別の方法として、メニュー バーの **[編集]** タブで、**[+ コード セルの追加]** を選択します。
+
+1. データセットをデータフレームに読み込むには、次のコードを入力します。
 
     ```python
    # Azure storage access info for open dataset diabetes

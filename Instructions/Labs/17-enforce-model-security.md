@@ -28,7 +28,7 @@ lab:
 
 ### Power BI スターター ファイルをダウンロードする
 
-1. [Sales Analysis スターター ファイル](https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/17/Starter/Sales%20Analysis%20-%20Enforce%20model%20security.pbix)を開き、覚えやすい場所に保存します。
+1. `https://aka.ms/fabric-security-starter` から [Sales Analysis スターター ファイル](https://aka.ms/fabric-security-starter)をダウンロードし、それをローカル コンピューター (任意のフォルダー) に保存します。
 
 1. ダウンロードしたファイルに移動し、Power BI Desktop で開きます。
 
@@ -38,7 +38,7 @@ lab:
 
 このタスクでは、Power BI サービスにサインインし、試用版ライセンスを開始して、ワークスペースを作成します。
 
-1. Web ブラウザーで、[app.powerbi.com](https://app.powerbi.com/) に移動します。
+1. Web ブラウザーで、`https://app.powerbi.com/` に移動します。
 
 2. Power BI Desktop で使用されているのと同じアカウントでサインイン プロセスを完了します。
 
@@ -50,17 +50,13 @@ lab:
 
 このタスクでは、ワークスペースを作成します。
 
-1. Power BI サービスでワークスペースを作成するには、**ナビゲーション** ウィンドウ (左側) で **[ワークスペース]** を選んでから、 **[ワークスペースの作成]** を選びます。
+1. Power BI サービスでワークスペースを作成するには、**ナビゲーション** ウィンドウ (左側にあります) で **[ワークスペース]**、**[+ 新しいワークスペース]** の順に選びます。
 
-    ![](Images/enforce-model-security-image5.png)
+2. **[ワークスペースの作成]** ペイン (右側にあります) で、**[名前]** ボックスにワークスペースの名前を入力します。
 
-2. **[ワークスペースの作成]** ペイン (右側) で、 **[ワークスペース名]** ボックスにワークスペースの名前を入力します。
+    "ワークスペース名はテナント内で一意である必要があります。"**
 
-    ワークスペース名はテナント内で一意である必要があります。**
-
-    ![](Images/enforce-model-security-image6.png)
-
-3. **[保存]** を選択します。
+3. **適用**を選択します。
 
     "作成したら、ワークスペースが開きます。*後の演習では、セマンティック モデルをこのワークスペースに発行します。"*
 
@@ -172,7 +168,7 @@ lab:
 
 このタスクでは、レポートを発行します。
 
-1. Power BI Desktop ファイルを保存します。
+1. Power BI Desktop ファイルを保存します。 保留中の変更を適用するように求められたら、**[後で適用]** を選びます。
 
     ![](Images/enforce-model-security-image27.png)
 
@@ -283,6 +279,16 @@ lab:
 2. **[ホーム]** リボン タブの **[クエリ]** グループ内から、 **[データの変換]** アイコンを選びます。
 
     ![](Images/enforce-model-security-image44.png)
+
+    接続方法の指定を求められたら、 **[資格情報を編集]** でサインイン方法を指定します。**
+
+    ![](Images/work-with-model-relationships-image52.png)
+
+    **[接続]** を選択します**
+
+     ![](Images/work-with-model-relationships-image53.png)
+
+    ***[暗号化のサポート]** ページで、**[OK]** を選びます。*
 
 3. **[Power Query エディター]** ウィンドウの **[クエリ]** ペイン (左側) で、**Customer** クエリを右クリックして、 **[複製]** を選びます。
 
@@ -400,7 +406,7 @@ lab:
 
     ![](Images/enforce-model-security-image65.png)
 
-6. **[テーブル フィルターの DAX 式]** ボックスで、 **"Value"** を **USERPRINCIPALNAME()** に置き換えます。
+6. **[テーブル フィルターの DAX 式]** ボックスで、**"Value"** を `USERPRINCIPALNAME()` に置き換えます。
 
     ![](Images/enforce-model-security-image66.png)
 

@@ -66,15 +66,15 @@ lab:
 
 このタスクでは、事前に開発された Power BI Desktop ソリューションを開きます。
 
-1. [Sales Analysis スターター ファイル](https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/16/Starter/Sales%20Analysis%20-%20Use%20tools%20to%20optimize%20Power%20BI%20performance.pbix) を開き、覚えやすい場所に保存します。
+1. `https://aka.ms/fabric-optimize-starter` から [Sales Analysis スターター ファイル](https://aka.ms/fabric-optimize-starter)をダウンロードし、覚えやすい場所に保存します。
 
 1. ダウンロードしたファイルに移動し、それを Power BI Desktop で開きます。
 
-7. **[外部ツール]** リボン タブを選択します。
+1. **[外部ツール]** リボン タブを選択します。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image8.png)
 
-8. このリボン タブから Tabular Editor を起動できることに注意してください。
+1. このリボン タブから Tabular Editor を起動できることに注意してください。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image9.png)
 
@@ -115,8 +115,6 @@ lab:
     ![](Images/use-tools-to-optimize-power-bi-performance-image13.png)
 
 3. 次のスクリプトを貼り付けます。
-
-    *ヒント: スクリプトは、**D:\fabric\Allfiles\Labs\16\Assets\Snippets.txt** からコピーして貼り付けることができます。*
 
     ```csharp
     System.Net.WebClient w = new System.Net.WebClient(); 
@@ -204,7 +202,7 @@ lab:
     *ヒント: すべての数式は、**D:\fabric\Allfiles\Labs\16\Snippets.txt** からコピーして貼り付けることができます。*
 
     ```dax
-    DIVIDE ( [Profit], SUM ( 'Sales'[Sales Amount] ) )C#
+    DIVIDE ( [Profit], SUM ( 'Sales'[Sales Amount] ) )
     ```
 
 7. モデルの変更を保存するには、ツール バーの **[Save changes to the connected database] (接続されているデータベースに変更を保存)** コマンドを選択します (または **Ctrl + S** キーを押します)。
@@ -255,6 +253,8 @@ lab:
 
     "Tabular Editor の変更を確実に保存するには、Power BI Desktop ファイルも保存する必要があります。"**
 
+    "保留中の変更に関するメッセージで、**[後で適用]** を選びます。"**
+
 ## DAX Studio を使用する
 
 この演習では、DAX Studio を使用して、Power BI レポート ファイル内の DAX クエリを最適化します。
@@ -297,7 +297,7 @@ lab:
 1. 完了したら、 **[Launch DAX Studio] (DAX Studio を起動する)** が選択された状態で **[完了]** を選択します。 これで DAX Studio が開きます。
     ![グラフィカル ユーザー インターフェイス、アプリケーション 自動的に生成された説明](Images/use-tools-to-optimize-power-bi-performance-image31f.png)
 
-1. **[Connect] (接続)** ウィンドウで、 **[PBI / SSDT Model] (PBI / SSDT モデル)** オプションを選択します。
+1. **[接続]** ウィンドウで、**[Power BI / SSDT モデル]** オプションを選びます。
 
 1. 対応するドロップダウン リストで、"**Sales Analysis - Use tools to optimize Power BI performance model**" が選択されていることを確認します。
 
@@ -317,45 +317,43 @@ lab:
 
 "データ モデルの容量が小さい場合、クエリを最適化するのは難しいことに注意してください。この演習は、DAX クエリを最適化することよりも、DAX Studio を使用することに重点を置いています。"**
 
-1. **[ファイル]** メニューで、 **[参照]** を選択します。
+1. ブラウザー ウィンドウで、`https://aka.ms/fabric-optimize-dax` から [Monthly Profit Growth.dax](https://aka.ms/fabric-optimize-dax) ファイルをダウンロードし、ローカル コンピューター (任意のフォルダー) に保存します。
 
-2. **[Open]** ウィンドウで、**D:\fabric\Allfiles\Labs\16\Assets** フォルダーに移動します。
+   ![](https://github.com/MicrosoftLearning/mslearn-fabric/assets/34583336/58254cce-753e-4322-9060-536e12554aa7)
 
-3. **Monthly Profit Growth.dax** を選択します。
-
-4. **[Open (開く)]** を選択します。
+3. Dax Studio ウィンドウに切り替え、**[ファイル]** メニューから **[参照]** を選んで、**Monthly Profit Growth.dax** ファイルに移動して、**[開く]** でファイルを開きます。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image33.png)
 
-5. ファイル先頭にあるコメントを読み、それに続くクエリを確認します。
+6. ファイル先頭にあるコメントを読み、それに続くクエリを確認します。
 
     "クエリ全体を理解することは重要ではありません。"**
 
     "このクエリでは、毎月の利益増加を判定する 2 つのメジャーを定義しています。現在、クエリには最初のメジャーのみが使用されています (72 行目)。使用されていないメジャーはクエリの実行に影響しません。"**
 
-6. サーバー トレースを実行してパフォーマンス プロファイルのための詳細なタイミング情報を記録するには、 **[Home] (ホーム)** リボン タブで、 **[Traces] (トレース)** グループ内から **[Server Timings] (サーバーのタイミング)** を選択します。
+7. サーバー トレースを実行してパフォーマンス プロファイルのための詳細なタイミング情報を記録するには、 **[Home] (ホーム)** リボン タブで、 **[Traces] (トレース)** グループ内から **[Server Timings] (サーバーのタイミング)** を選択します。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image34.png)
 
-7. スクリプトを実行するには、 **[Home] (ホーム)** リボン タブの **[Query] (クエリ)** グループ内から **[Run] (実行)** アイコンを選択します。
+8. スクリプトを実行するには、 **[Home] (ホーム)** リボン タブの **[Query] (クエリ)** グループ内から **[Run] (実行)** アイコンを選択します。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image35.png)
 
-8. 下のペインでクエリ結果を確認します。
+9. 下のペインでクエリ結果を確認します。
 
     "最後の列には、メジャーの結果が表示されます。"**
 
-9. 下のペインで、 **[Server Timing] (サーバーの タイミング)** タブを選択します。
+10. 下のペインで、 **[Server Timing] (サーバーの タイミング)** タブを選択します。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image36.png)
 
-10. 左側にある統計情報を確認します。
+11. 左側にある統計情報を確認します。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image37.png)
 
     "左上から右下に向かって、統計には、クエリの実行にかかったミリ秒と、ストレージ エンジン (SE) CPU にかかった時間が示されます。この場合 (ご自分の結果は異なります)、数式エンジン (FE) に 73.5% の時間が使われ、SE に残りの 26.5% の時間が使われました。34 個の個別の SE クエリと 21 個のキャッシュ ヒットがありました。"**
 
-11. クエリをもう一度実行し、すべての SE クエリが SE キャッシュから取得されていることに注意してください。
+12. クエリをもう一度実行し、すべての SE クエリが SE キャッシュから取得されていることに注意してください。
 
     "これは、結果が再利用のためにキャッシュされたためです。実際のテストでは、キャッシュをクリアすることが必要な場合があります。その場合は、 **[Home] (ホーム)** リボン タブで **[Run] (実行)** コマンドの下矢印を選択します。"**
 
@@ -363,15 +361,15 @@ lab:
 
     "2 番目のメジャー定義では、より効率的な結果が得られます。次に、2 番目のメジャーを使用するようにクエリを更新します。"**
 
-12. 72 行目で、**Bad** という単語を **Better** に置き換えます。
+13. 72 行目で、**Bad** という単語を **Better** に置き換えます。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image39.png)
 
-13. クエリを実行し、サーバーのタイミングの統計情報を確認します。
+14. クエリを実行し、サーバーのタイミングの統計情報を確認します。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image40.png)
 
-14. もう一度実行すると、完全なキャッシュ ヒットが発生します。
+15. もう一度実行すると、完全なキャッシュ ヒットが発生します。
 
     ![](Images/use-tools-to-optimize-power-bi-performance-image41.png)
 
