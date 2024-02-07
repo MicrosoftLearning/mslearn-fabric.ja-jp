@@ -66,7 +66,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 5. 新しいクエリを実行して **DimProduct** テーブルに 3 行を挿入してください。
 6. クエリが完了したら、データ ウェアハウスのページの下部にある **[データ]** タブを選択してください。 **[エクスプローラー]** ペインで **DimProduct** テーブルを選択し、3 行がテーブルに追加されていることを確認してください。
-7. **[ホーム]** メニュー タブで、 **[新しい SQL クエリ]** ボタンを使用して新しいクエリを作成してください。 次に、[https://raw.githubusercontent.com/MicrosoftLearning/dp-data/main/create-dw.txt](https://raw.githubusercontent.com/MicrosoftLearning/dp-data/main/create-dw.txt) から Transact-SQL コードをコピーして、新しいクエリのペインに貼り付けます。
+7. **[ホーム]** メニュー タブで、 **[新しい SQL クエリ]** ボタンを使用して新しいクエリを作成してください。 次に、`https://raw.githubusercontent.com/MicrosoftLearning/dp-data/main/create-dw.txt` から Transact-SQL コードをコピーして、新しいクエリのペインに貼り付けます。
 <!-- I had to remove the GO command in this query as well -->
 8. クエリを実行してください。これにより、シンプルなデータ ウェアハウス スキーマが作成され、データがいくつか読み込まれます。 スクリプトの実行には約 30 秒かかります。
 9. ツール バーの **[更新]** ボタンを使用して、ビューを更新してください。 次に、 **[エクスプローラー]** ペインで、データ ウェアハウスの **dbo** スキーマに次の 4 つのテーブルが含まれていることを確認してください。
