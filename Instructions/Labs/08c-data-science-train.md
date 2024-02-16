@@ -1,6 +1,6 @@
 ---
 lab:
-  title: Microsoft Fabric でモデルをトレーニングして追跡する
+  title: Microsoft Fabric で MLflow を使用して機械学習モデルをトレーニングおよび追跡する
   module: Train and track machine learning models with MLflow in Microsoft Fabric
 ---
 

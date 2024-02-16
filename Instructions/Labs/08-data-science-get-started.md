@@ -1,10 +1,10 @@
 ---
 lab:
-  title: Microsoft Fabric でデータ サイエンスを探索する
+  title: Microsoft Fabric でデータ サイエンスを始める
   module: Get started with data science in Microsoft Fabric
 ---
 
-# Microsoft Fabric でデータ サイエンスを探索する
+# Microsoft Fabric でデータ サイエンスを始める
 
 このラボでは、データの取り込み、ノートブック内でのデータの調査、Data Wrangler を使用したデータの処理、2 種類のモデルのトレーニングを行います。 これらのすべての手順を実行することで、Microsoft Fabric のデータ サイエンス機能を確認することができます。
 
