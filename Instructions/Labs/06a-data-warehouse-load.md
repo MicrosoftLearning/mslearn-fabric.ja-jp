@@ -31,7 +31,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     1 分ほどすると、新しい空のレイクハウスが作成されます。 分析のために、データ レイクハウスにいくつかのデータを取り込む必要があります。 これを行うには複数の方法がありますが、この演習では、CVS ファイルをローカル コンピューター (または、該当する場合はラボ VM) にダウンロードし、レイクハウスにアップロードします。
 
-1. この演習用のファイルを [https://github.com/MicrosoftLearning/dp-data/raw/main/sales.csv](https://github.com/MicrosoftLearning/dp-data/raw/main/sales.csv) からダウンロードします。
+1. この演習用のファイルを `https://github.com/MicrosoftLearning/dp-data/raw/main/sales.csv` からダウンロードします。
 
 1. レイクハウスを含む Web ブラウザー タブに戻り、**[エクスプローラー]** ペインの **Files** フォルダーの **[...]** メニューで **[アップロード]**、**[ファイルのアップロード]** の順に選択し、ローカル コンピューター (または該当する場合はラボ VM) からレイクハウスに **sales.csv** ファイルをアップロードします。
 

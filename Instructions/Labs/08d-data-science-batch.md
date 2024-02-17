@@ -1,10 +1,10 @@
 ---
 lab:
-  title: バッチ予測を生成して保存する
+  title: Microsoft Fabric でデプロイされたモデルを使ってバッチ予測を生成する
   module: Generate batch predictions using a deployed model in Microsoft Fabric
 ---
 
-# バッチ予測を生成して保存する
+# Microsoft Fabric でデプロイされたモデルを使ってバッチ予測を生成する
 
 このラボでは、機械学習モデルを使用して、糖尿病の定量的尺度を予測します。
 
