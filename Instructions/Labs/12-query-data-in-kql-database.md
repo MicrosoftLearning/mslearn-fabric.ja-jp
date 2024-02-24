@@ -49,8 +49,8 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
    次に、スライダーを使って可用性をオンにします。
 
-   ![Data Lake でスライダーを選択している画像。](./images/data-availability-data-lake.png)
-
+   ![Data Lake でスライダーを選択している画像](./Images/data-availability-data-lake.png)
+   
 1. ***[データの取得から開始]*** のオプションから **[サンプル データ]** ボックスを選択します。
 
    ![サンプル データが強調表示されている選択オプションの画像](./Images/load-sample-data.png)
