@@ -12,7 +12,7 @@ lab:
 
 > **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
-## ワークスペースを作成する
+## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
@@ -185,7 +185,7 @@ BMI の特徴量を検証し、分布をプロットして、その特性をよ�
    import matplotlib.pyplot as plt
    import seaborn as sns
 
-   # Scatter plot of Quantity vs. Price
+   # Scatter plot of BMI vs. Target variable
    plt.figure(figsize=(8, 6))
    sns.scatterplot(x='BMI', y='Y', data=df)
    plt.title('BMI vs. Target variable')
