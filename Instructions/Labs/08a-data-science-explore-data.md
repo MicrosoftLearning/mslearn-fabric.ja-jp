@@ -10,7 +10,7 @@ lab:
 
 このラボの所要時間は約 **30** 分です。
 
-> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
 ## ワークスペースの作成
 
@@ -185,7 +185,7 @@ BMI の特徴量を検証し、分布をプロットして、その特性をよ�
    import matplotlib.pyplot as plt
    import seaborn as sns
 
-   # Scatter plot of Quantity vs. Price
+   # Scatter plot of BMI vs. Target variable
    plt.figure(figsize=(8, 6))
    sns.scatterplot(x='BMI', y='Y', data=df)
    plt.title('BMI vs. Target variable')

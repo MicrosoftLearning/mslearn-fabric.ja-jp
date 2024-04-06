@@ -12,13 +12,13 @@ Microsoft Fabric では、レイクハウスによって *OneLake* ストア (Az
 
 このラボの所要時間は約 **30** 分です。
 
-> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、 [Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
-## ワークスペースの作成
+## ワークスペースを作成する
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com) (`https://app.fabric.microsoft.com`) で、**Synapse Data Engineering** を選びます。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com) (`https://app.fabric.microsoft.com`) で、**[Synapse Data Engineering]** を選択します。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 新しいワークスペースを任意の名前で作成し、 **[詳細]** セクションで、Fabric 容量を含むライセンス モード ("*試用版*"、*Premium*、または *Fabric*) を選択します。
 1. 開いた新しいワークスペースは空のはずです。

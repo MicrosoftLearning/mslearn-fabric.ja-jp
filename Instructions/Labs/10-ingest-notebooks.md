@@ -14,9 +14,9 @@ lab:
 
 サンプル データセットを使用していることもあり、この最適化は大規模な運用環境で目にする可能性があるものを反映したものではありません。しかし、改善が確認できることに違いはなく、ミリ秒が重要となる場面では、最適化が鍵となります。
 
-> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、 [Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
-## ワークスペースの作成
+## ワークスペースを作成する
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 

@@ -1,7 +1,7 @@
 ---
 lab:
-  title: Microsoft Fabric での Real-Time Analytics の概要
-  module: Get started with Real-Time Analytics in Microsoft Fabric
+  title: Microsoft Fabric の Eventstream に関する概要
+  module: Get started with Eventstream in Microsoft Fabric
 ---
 # Real Time Analytics (RTA) での Eventstream の概要
 
@@ -9,7 +9,7 @@ Eventstream とは、コードなしのエクスペリエンスでリアルタ�
 
 このラボの所要時間は約 **30** 分です。
 
-> **注**: この演習を完了するには、Microsoft Fabric ライセンスが必要です。 無料の Fabric 試用版ライセンスを有効にする方法の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。 これを行うには、Microsoft の "学校" または "職場" アカウントが必要です。** ** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
 ## ワークスペースの作成
 

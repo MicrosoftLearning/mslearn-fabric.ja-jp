@@ -7,11 +7,12 @@ lab:
 ---
 
 # Microsoft Fabric での Kusto データベースのクエリの概要
+
 リアルタイム ダッシュボードでは、Kusto 照会言語 (KQL) を使って構造化データと非構造化データの両方を取得して Microsoft Fabric 内から分析情報を収集し、Power BI 内のスライサーと同様にリンクできるグラフ、散布図、テーブルなどをパネル内にレンダリングできます。 
 
 このラボの所要時間は約 **25** 分です。
 
-> **注**:この演習を完了するには、Microsoft の "学校" または "職場" アカウントが必要です。**** お持ちでない場合は、[Microsoft Office 365 E3 以降の試用版にサインアップ](https://www.microsoft.com/microsoft-365/business/compare-more-office-365-for-business-plans)できます。
+> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
 ## ワークスペースの作成
 
@@ -54,7 +55,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
    ![データを KQL データベースに読み込み中](./Images/choose-automotive-operations-analytics.png)
 
-7. データが読み込まれたら、データが KQL データベースに読み込まれたことを確認します。 この操作を行うには、テーブルの右側にある省略記号を選択し、 **[クエリ テーブル]** に移動して、 **[100 件のレコードを表示する]** を選択します。
+7. データが読み込まれたら、データが KQL データベースに読み込まれたことを確認します。 この操作を行うには、テーブルの右側にある省略記号を選択し、**[クエリ テーブル]** に移動して、**[100 件のレコードの表示]** を選択します。
 
     ![RawServerMetrics テーブルから上位 100 個のファイルを選択している画像](./Images/rawservermetrics-top-100.png)
 
@@ -80,7 +81,7 @@ Trips
 | sort by Borough asc 
 
 ```
-3. [実行] ボタンを選んで、クエリにエラーがないことを確認します。
+3. **[実行]** ボタンを押して、クエリにエラーがないことを確認します。
 4. パネルの右側にある **[ビジュアルの書式設定]** タブを選び、***[タイル名]*** と ***[視覚化タイプ]*** を指定します。
 
    ![ビジュアルの書式設定タイルの画像。](./Images/visual-formatting-tile.png)
