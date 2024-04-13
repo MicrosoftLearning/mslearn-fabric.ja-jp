@@ -12,7 +12,7 @@ Microsoft Fabric では、データ ウェアハウスによって大規模な�
 
 > **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
-## ワークスペースを作成する
+## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
@@ -97,8 +97,8 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     - **参照整合性を想定する**: 未選択
 
 4. このプロセスを繰り返して、次のテーブルの間に多対一のリレーションシップを作成してください。
-    - **FactOrderSales.CustomerKey** &#8594; **DimCustomer.CustomerKey**
-    - **FactOrderSales.SalesOrderDateKey** &#8594; **DimDate.DateKey**
+    - **FactSalesOrder.CustomerKey** &#8594; **DimCustomer.CustomerKey**
+    - **FactSalesOrder.SalesOrderDateKey** &#8594; **DimDate.DateKey**
 
     すべてのリレーションシップが定義されると、モデルは次のようになります。
 

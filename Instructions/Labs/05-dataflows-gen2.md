@@ -12,7 +12,7 @@ Microsoft Fabric では、データフロー (Gen2) でさまざまなデータ 
 
 > **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
-## ワークスペースを作成する
+## ワークスペースの作成
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
