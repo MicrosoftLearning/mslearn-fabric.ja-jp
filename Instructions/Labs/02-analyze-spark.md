@@ -149,9 +149,9 @@ Apache Spark でデータを操作するには、"ノートブック" を作成�
 1. データフレームには、**2019.csv** ファイルからのデータのみが含まれます。 ファイル パスで \* ワイルドカードを使うようにコードを変更して、**orders** フォルダー内のすべてのファイルから販売注文データを読み取ります。
 
     ```python
-    from pyspark.sql.types import *
+   from pyspark.sql.types import *
 
-    orderSchema = StructType([
+   orderSchema = StructType([
        StructField("SalesOrderNumber", StringType()),
        StructField("SalesOrderLineNumber", IntegerType()),
        StructField("OrderDate", DateType()),
@@ -163,8 +163,8 @@ Apache Spark でデータを操作するには、"ノートブック" を作成�
        StructField("Tax", FloatType())
        ])
 
-    df = spark.read.format("csv").schema(orderSchema).load("Files/orders/*.csv")
-    display(df)
+   df = spark.read.format("csv").schema(orderSchema).load("Files/orders/*.csv")
+   display(df)
     ```
 
 1. 変更したコード セルを実行して出力を確認します。2019 年、2020 年、2021 年の売上が含まれるようになっているはずです。
@@ -586,5 +586,5 @@ PySpark コードが含まれているセルに SQL ステートメントを埋�
 レイクハウスの探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
-2. ワークスペースのページで、**[ワークスペースの設定]** を選択します。
-3. **[全般]** セクションの下部にある **[このワークスペースを削除する]** を選択します。
+2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択してください。
+3. **[その他]** セクションで、 **[このワークスペースの削除]** を選択してください。
