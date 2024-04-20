@@ -149,9 +149,9 @@ Apache Spark でデータを操作するには、"ノートブック" を作成�
 1. データフレームには、**2019.csv** ファイルからのデータのみが含まれます。 ファイル パスで \* ワイルドカードを使うようにコードを変更して、**orders** フォルダー内のすべてのファイルから販売注文データを読み取ります。
 
     ```python
-    from pyspark.sql.types import *
+   from pyspark.sql.types import *
 
-    orderSchema = StructType([
+   orderSchema = StructType([
        StructField("SalesOrderNumber", StringType()),
        StructField("SalesOrderLineNumber", IntegerType()),
        StructField("OrderDate", DateType()),
@@ -163,8 +163,8 @@ Apache Spark でデータを操作するには、"ノートブック" を作成�
        StructField("Tax", FloatType())
        ])
 
-    df = spark.read.format("csv").schema(orderSchema).load("Files/orders/*.csv")
-    display(df)
+   df = spark.read.format("csv").schema(orderSchema).load("Files/orders/*.csv")
+   display(df)
     ```
 
 1. 変更したコード セルを実行して出力を確認します。2019 年、2020 年、2021 年の売上が含まれるようになっているはずです。
