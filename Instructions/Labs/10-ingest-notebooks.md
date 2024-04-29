@@ -39,7 +39,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. **[ファイル]** から **[...]** を選択して **RawData** という名前の**新しいサブフォルダー**を作成します。
 
-1. レイクハウス内のレイクハウス エクスプローラーから、 **[ファイル] > [...] > [プロパティ]** を選択します。
+1. レイクハウス内のレイクハウス エクスプローラーから、**[RawData] > [...] > [プロパティ]** を選択します。
 
 1. 後で使用するために、 **[RawData]** フォルダーの **ABFS パス**を空のメモ帳にコピーします。これは次のようになります。`abfss://{workspace_name}@onelake.dfs.fabric.microsoft.com/{lakehouse_name}.Lakehouse/Files/{folder_name}/{file_name}`
 
