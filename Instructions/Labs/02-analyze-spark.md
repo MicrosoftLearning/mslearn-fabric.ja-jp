@@ -358,7 +358,7 @@ PySpark コードが含まれているセルに SQL ステートメントを埋�
    GROUP BY YEAR(OrderDate)
    ORDER BY OrderYear;
     ```
-
+ 
 2. このセルを実行し、結果を確認します。 次の点に注意してください。
     - セルの先頭にある `%%sql` 行 (*magic* と呼ばれます) は、このセル内でこのコードを実行するには、PySpark ではなく、Spark SQL 言語ランタイムを使用する必要があることを示しています。
     - この SQL コードは、前に作成した **salesorder** テーブルを参照します。
