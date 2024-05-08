@@ -98,6 +98,7 @@ Fabric には、Power Query に基づいてビジュアル ツールを使用し
    GROUP BY Item
    ORDER BY Revenue DESC;
     ```
+> **注**:ラボ VM を使っていて SQL クエリの入力に問題がある場合は、`https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/01/Assets/01-Snippets.txt` から [01-Snippets.txt](https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/01/Assets/01-Snippets.txt) ファイルをダウンロードして VM に保存できます。 その後、テキスト ファイルからクエリをコピーできます。
 
 3. **[&#9655;] (実行)** ボタンを使用してクエリを実行し、結果を表示します。これには、各製品の総収益が表示されるはずです。
 
@@ -134,9 +135,11 @@ Fabric には、Power Query に基づいてビジュアル ツールを使用し
 
 1. [SQL エンドポイント] ページの下部にある **[モデル]** タブを選びます。セマンティック モデルのデータ モデル スキーマが表示されます。
 
-    ![セマンティック モデルのスクリーンショット。](./Images/data-model.png)
+    ![スクリーンショット 2024-04-29 155248](https://github.com/afelix-95/mslearn-fabric/assets/148110824/ba9bd67d-8968-4c46-ac7a-f96a9f697f4c)
 
-    > **注**:この演習では、セマンティック モデルは 1 つのテーブルで構成されます。 実際のシナリオでは、レイクハウスに複数のテーブルを作成し、それぞれがモデルに含まれる可能性があります。 その後、モデル内のこれらのテーブル間のリレーションシップを定義できます。
+    > **注 1**: この演習では、セマンティック モデルは 1 つのテーブルで構成されます。 実際のシナリオでは、レイクハウスに複数のテーブルを作成し、それぞれがモデルに含まれる可能性があります。 その後、モデル内のこれらのテーブル間のリレーションシップを定義できます。
+    
+    > **注 2**:ビュー `frequently_run_queries`、`long_running_queries`、`exec_sessions_history`、`exec_requests_history` は、ファブリックによって自動的に作成される `queryinsights` スキーマの一部です。 これは、SQL 分析エンドポイントでの履歴クエリ アクティビティの総合的なビューを提供する機能です。 この機能はこの演習の範囲外であるため、現時点ではこれらのビューは無視してください。
 
 2. メニュー リボンで、 **[レポート]** タブを選択します。次に、 **[新しいレポート]** を選択します。 レポートをデザインできる新しいブラウザー タブが開きます。
 
