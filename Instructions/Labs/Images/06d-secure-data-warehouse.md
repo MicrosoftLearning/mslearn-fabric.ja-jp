@@ -1,43 +1,43 @@
 ---
 lab:
-    title: 'Secure data in a data warehouse'
-    module: 'Get started with data warehouses in Microsoft Fabric'
+  title: データ ウェアハウス内のデータをセキュリティで保護する
+  module: Get started with data warehouses in Microsoft Fabric
 ---
 
-# Secure data in a data warehouse
+# データ ウェアハウス内のデータをセキュリティで保護する
 
-Microsoft Fabric permissions and granular SQL permissions work together to govern Warehouse access and user permissions. In this exercise, you will secure data using granular permissions, column-level security, row-level security and dynamic data masking.
+Microsoft Fabric のアクセス許可と詳細な SQL アクセス許可は連携して機能することで、ウェアハウスのアクセスとユーザーのアクセス許可を管理します。 この演習では、詳細なアクセス許可、列レベル セキュリティ、行レベル セキュリティ、動的データ マスクを使用してデータをセキュリティで保護します。
 
-This lab will take approximately **45** minutes to complete.
+このラボは完了するまで、約 **45** 分かかります。
 
-> **Note**: You need a [Microsoft Fabric trial](https://learn.microsoft.com/fabric/get-started/fabric-trial) to complete this exercise.
+> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
-## Create a workspace
+## ワークスペースの作成
 
-Before working with data in Fabric, create a workspace with the Fabric trial enabled.
+Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. On the [Microsoft Fabric home page](https://app.fabric.microsoft.com), select **Synapse Data Warehouse**.
-1. In the menu bar on the left, select **Workspaces** (the icon looks similar to &#128455;).
-1. Create a new workspace with a name of your choice, selecting a licensing mode that includes Fabric capacity (*Trial*, *Premium*, or *Fabric*).
-1. When your new workspace opens, it should be empty.
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Data Warehouse** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-    ![Screenshot of an empty workspace in Fabric.](./Images/new-empty-workspace.png)
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-empty-workspace.png)
 
-## Create a data warehouse
+## データ ウェアハウスの作成
 
-Next, create a data warehouse in the workspace you just created. The Synapse Data Warehouse home page includes a shortcut to create a new warehouse:
+次に、作成したばかりのワークスペース内にデータ ウェアハウスを作成します。 Synapse Data Warehouse のホーム ページには、新しいウェアハウスを作成するためのショートカットがあります。
 
-1. On the **Synapse Data Warehouse** home page, create a new **Warehouse** with a name of your choice.
+1. **Synapse Data Warehouse** ホーム ページで、新しい**ウェアハウス**を任意の名前で作成します。
 
-    After a minute or so, a new warehouse will be created:
+    1 分ほどで、新しいレイクハウスが作成されます。
 
-    ![Screenshot of a new warehouse.](./Images/new-empty-data-warehouse.png)
+    ![新しいウェアハウスのスクリーンショット。](./Images/new-empty-data-warehouse.png)
 
-## Apply dynamic data masking to columns in a table
+## テーブル内の列に動的データ マスクを適用する
 
-Dynamic data masking rules are applied on individual columns at the table level so all queries are affected by the masking. Users who do no have explicit permissions to view confidential data will see masked values in query results while users with explict permission to view the data will see it unobscured. There are four types of masks: default, email, random and custom string. In this exercise, you will apply a default mask, an email mask, and a custom string mask.
+動的データ マスク ルールは、テーブル レベルで個々の列に適用されるため、すべてのクエリがマスクの影響を受けます。 機密データを閲覧する明示的なアクセス許可を持たないユーザーにはクエリ結果においてマスクされた値が表示され、データを閲覧する明示的なアクセス許可を持つユーザーには伏せられていない状態で値が表示されます。 マスクには、既定、メール、ランダム、カスタム文字列という 4 つの種類があります。 この演習では、既定のマスク、メール マスク、カスタム文字列マスクを適用します。
 
-1. In your warehouse, select the **T-SQL** tile, and replace the default SQL code with the following T-SQL statements to create a table and to insert and view data.  The masks applied in the `CREATE TABLE` statement do the following:
+1. ウェアハウスで **[T-SQL]** タイルを選択し、既定の SQL コードを次の T-SQL ステートメントに置き換えてテーブルを作成し、データを挿入して表示します。  `CREATE TABLE` ステートメントで適用されるマスクは、以下の処理を行います。
 
     ```sql
     CREATE TABLE dbo.Customer
@@ -64,42 +64,42 @@ Dynamic data masking rules are applied on individual columns at the table level 
     GO
     ```
 
-2. Use the **&#9655; Run** button to run the SQL script, which creates a new table named **Customer** in the **dbo** schema of the data warehouse.
+2. **[&#9655; 実行]** ボタンを使用して SQL スクリプトを実行します。これにより、データ ウェアハウスの **dbo** スキーマに **Customer** という名前の新しいテーブルが作成されます。
 
-3. Then, in the **Explorer** pane, expand **Schemas** > **dbo** > **Tables** and verify that the **Customer** table has been created. The SELECT statement returns unmasked data because you are connected as workspace admin which can see unmasked data.
+3. 次に、**[エクスプローラー]** ペインで **[スキーマ]** > **[dbo]** > **[テーブル]** の順に展開し、**Customer** テーブルが作成されていることを確認します。 あなたはマスクされていないデータを表示できるワークスペース管理者として接続されているため、SELECT ステートメントはマスクされていないデータを返します。
 
-4. Connect as a test user that's a member of the **viewer** workspace role and run the following T-SQL statement.
+4. **閲覧者** ワークスペース ロールのメンバーであるテスト ユーザーとして接続し、次の T-SQL ステートメントを実行します。
 
     ```sql
     SELECT * FROM dbo.Customer;
     GO
     ```
 
-    This user has not been granted UNMASK permission so data returned for the FirstName, Phone and Email columns is masked because those columns were defined with a mask in the `CREATE TABLE` statement.
+    このユーザーには UNMASK アクセス許可が付与されていないため、返されるデータの FirstName、Phone、Email 列はマスクされます。これらの列は `CREATE TABLE` ステートメント内でマスクを使用して定義されたためです。
 
-5. Reconnect as workspace admin and run the following T-SQL to unmask data for the test user.
+5. ワークスペース管理者として再接続し、次の T-SQL を実行して、テスト ユーザーに対してデータのマスクを解除します。
 
     ```sql
     GRANT UNMASK ON dbo.Customer TO [testUser@testdomain.com];
     GO
     ```
 
-6. Connect as the test user again and run the following T-SQL statement.
+6. もう一度テスト ユーザーとして接続し、次の T-SQL ステートメントを実行します。
 
     ```sql
     SELECT * FROM dbo.Customer;
     GO
     ```
 
-    The data is returned unmasked because the test user has been granted the `UNMASK` permission.
+    テスト ユーザーに `UNMASK` アクセス許可が付与されたため、データはマスクされていない状態で返されます。
 
-## Apply row-level security
+## 行レベル セキュリティを適用する
 
-Row-level security (RLS) can be used to limit access to rows based on the identity, or role of the user executing a query.  In this exercise, you will restrict access to rows by creating a security policy and a security predicate defined as an inline table-valued function.
+行レベル セキュリティ (RLS) を使用すると、ID またはクエリを実行するユーザーのロールに基づいて行へのアクセスを制限できます。  この演習では、セキュリティ ポリシーとインライン テーブル値関数として定義されたセキュリティ述語を作成して、行へのアクセスを制限します。
 
-1. In the warehouse you created in the last exercise, select the **New SQL Query** dropdown.  Under the dropdown under the header **Blank**, select **New SQL Query**.
+1. 前の演習で作成したウェアハウスで、**[新しい SQL クエリ]** ドロップダウンを選択します。  **[空白]** ヘッダーの下のドロップダウンで、**[新しい SQL クエリ]** を選択します。
 
-2. Create a table and insert data into it. So that you can test row-level security in a later step, replace 'testuser1@mydomain.com' with a user name from your environment and replace 'testuser2@mydomain.com' with your user name.
+2. テーブルを作成してデータを挿入します。 後の手順で行レベル セキュリティをテストできるように、'testuser1@mydomain.com' を自分の環境のユーザー名に、'testuser2@mydomain.com' を自分のユーザー名に置き換えます。
     ```sql
     CREATE TABLE dbo.Sales  
     (  
@@ -124,10 +124,10 @@ Row-level security (RLS) can be used to limit access to rows based on the identi
     GO
     ```
 
-3. Use the **&#9655; Run** button to run the SQL script, which creates a new table named **Sales** in the **dbo** schema of the data warehouse.
+3. **[&#9655; 実行]** ボタンを使用して SQL スクリプトを実行します。これにより、データ ウェアハウスの **dbo** スキーマに **Sales** という名前の新しいテーブルが作成されます。
 
-4. Then, in the **Explorer** pane, expand **Schemas** > **dbo** > **Tables** and verify that the **Sales** table has been created.
-5. Create a new schema, a security predicate defined as a function, and a security policy.  
+4. 次に、**[エクスプローラー]** ペインで **[スキーマ]** > **[dbo]** > **[テーブル]** の順に展開し、**Sales** テーブルが作成されていることを確認します。
+5. 新しいスキーマ、関数として定義されたセキュリティ述語、セキュリティ ポリシーを作成します。  
 
     ```sql
     --Create a separate schema to hold the row-level security objects (the predicate function and the security policy)
@@ -191,15 +191,15 @@ Column-level security allows you to designate which users can access specific co
     GO
  ```
 
-3. Deny permission to view a column in the table. The Transact SQL below will prevent '<testuser@mydomain.com>' from seeing the CreditCard column in the Orders table. In the `DENY` statement below, replace testuser@mydomain.com with a user name in your system who has Viewer permissions on the workspace.
+3. テーブル内の列を表示するためのアクセス許可を拒否します。 以下の Transact SQL は、'<testuser@mydomain.com>' が Orders テーブル内の CreditCard 列を表示することを防ぎます。 以下の `DENY` ステートメントで、testuser@mydomain.com をワークスペースに対する閲覧者アクセス許可を持つシステム内のユーザー名に置き換えます。
 
  ```sql
 DENY SELECT ON dbo.Orders (CreditCard) TO [testuser@mydomain.com];
  ```
 
-4. Test column-level security by logging in to Fabric as the user you denied select permissions to.
+4. SELECT アクセス許可を禁止したユーザーとして Fabric にログインすることで、列レベル セキュリティをテストします。
 
-5. Query the Orders table to confirm that column-level security works as expected. The following query will return only the OrderID and CustomerID columns, not the CrediteCard column.  
+5. Orders テーブルに対してクエリを実行し、列レベル セキュリティが想定通りに機能していることを確認します。 次のクエリが返すのは OrderID 列と CustomerID 列だけであり、CrediteCard 列は返しません。  
 
     ```sql
     SELECT * FROM dbo.Orders;
@@ -210,13 +210,13 @@ DENY SELECT ON dbo.Orders (CreditCard) TO [testuser@mydomain.com];
     SELECT OrderID, CustomerID from dbo.Orders
     ```
 
-## Configure SQL granular permissions using T-SQL
+## T-SQL を使用して SQL の詳細なアクセス許可を構成する
 
-Fabric warehouse has a permissions model that allows you to control access to data at the workspace level, and at the item level. When you need more granular control of what users can do with securables in a Fabric warehouse, you can use the standard SQL data control language (DCL) commands `GRANT`,`DENY` and `REVOKE`. In this exercise, you will create objects, secure them using `GRANT`, and `DENY`, and then run queries to view the effect of applying granular permissions.
+Fabric ウェアハウスには、ワークスペース レベルおよびアイテム レベルでデータへのアクセスを制御できるアクセス許可モデルがあります。 Fabric ウェアハウスのセキュリティ保護可能なリソースに関してユーザーが何を実行できるかをより細かく制御する必要がある場合は、標準の SQL データ制御言語 (DCL) コマンドである `GRANT`、`DENY`、`REVOKE` を使用できます。 この演習では、オブジェクトを作成し、それらを `GRANT` と `DENY` を使用してセキュリティで保護し、その後クエリを実行して、詳細なアクセス許可の適用の効果を確認します。
 
-1. In the warehouse you created in the earlier exercise, select the **New SQL Query** dropdown.  Under the header **Blank**, select **New SQL Query**.  
+1. 前の演習で作成したウェアハウスで、**[新しい SQL クエリ]** ドロップダウンを選択します。  **[空白]** ヘッダーで、**[新しい SQL クエリ]** を選択します。  
 
-2. Create a stored procedure and a table.
+2. ストアド プロシージャとテーブルを作成します。
 
  ```
     CREATE PROCEDURE dbo.sp_PrintMessage
@@ -244,7 +244,7 @@ Fabric warehouse has a permissions model that allows you to control access to da
     GO
   ```
 
-3. Next `DENY SELECT` permissions on the table to a user with who is a member of the Worksapce Viewer role and `GRANT EXECUTE` on the procedure to the same user.
+3. 次にワークスペース閲覧者ロールのメンバーであるユーザーに対してテーブルに対するアクセス許可の `DENY SELECT` を実行し、同じユーザーに対してプロシージャに対する `GRANT EXECUTE` を実行します。
 
  ```sql
     DENY SELECT on dbo.Parts to [testuser@mydomain.com];
@@ -255,7 +255,7 @@ Fabric warehouse has a permissions model that allows you to control access to da
 
  ```
 
-4. Log in to Fabric as the user you specified in the DENY and GRANT statements above in place of [testuser@mydomain.com]. Then test the granular permissions you just applied by executing the stored procedure and querying the table.  
+4. [testuser@mydomain.com] の代わりに、上の DENY および GRANT ステートメントで指定したユーザーとして Fabric にログインします。 次に、ストアド プロシージャを実行し、テーブルに対してクエリを実行することで、先ほど適用した詳細なアクセス許可をテストします。  
 
  ```sql
     EXEC dbo.sp_PrintMessage;
@@ -264,10 +264,10 @@ Fabric warehouse has a permissions model that allows you to control access to da
     SELECT * FROM dbo.Parts
  ```
 
-## Clean up resources
+## リソースをクリーンアップする
 
-In this exercise, you have applied dynamic data masking to columns in a table, applied row-level security, implemented column-level security and configured SQL granular permissions using T-SQL.
+この演習では、テーブル内の列に対して動的データ マスクを適用し、行レベル セキュリティを適用し、列レベル セキュリティを実装し、T-SQL を使用して SQL の詳細なアクセス許可を構成しました。
 
-1. In the bar on the left, select the icon for your workspace to view all of the items it contains.
-2. In the **...** menu on the toolbar, select **Workspace settings**.
-3. In the **General** section, select **Remove this workspace**.
+1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
+2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択してください。
+3. **[全般]** セクションで、**[このワークスペースの削除]** を選択します。

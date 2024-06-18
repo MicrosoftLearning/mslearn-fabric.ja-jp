@@ -44,7 +44,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. ウェアハウスで **T-SQL** タイルを選択し、既定の SQL コードを次の T-SQL ステートメントに置き換えてテーブルを作成し、データを挿入および表示します。  
 
     ```tsql
-    CREATE TABLE dbo.Customer
+    CREATE TABLE dbo.Customers
     (   
         CustomerID INT NOT NULL,   
         FirstName varchar(50) MASKED WITH (FUNCTION = 'partial(1,"XXXXXXX",0)') NULL,     
@@ -53,12 +53,12 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
         Email varchar(50) MASKED WITH (FUNCTION = 'email()') NULL   
     );
     
-    INSERT dbo.Customer (CustomerID, FirstName, LastName, Phone, Email) VALUES
+    INSERT dbo.Customers (CustomerID, FirstName, LastName, Phone, Email) VALUES
     (29485,'Catherine','Abel','555-555-5555','catherine0@adventure-works.com'),
     (29486,'Kim','Abercrombie','444-444-4444','kim2@adventure-works.com'),
     (29489,'Frances','Adams','333-333-3333','frances0@adventure-works.com');
     
-    SELECT * FROM dbo.Customer;
+    SELECT * FROM dbo.Customers;
     
     ```
     マスクされていないデータの表示が制限されているユーザーが、テーブルに対してクエリを実行すると、**FirstName** 列に XXXXXXX の文字列の最初の文字が表示され、これに続く文字は表示されません。 **Phone** 列に xxxx が表示されます。 **Email** 列に、メール アドレスの最初の文字が表示され、`XXX@XXX.com` がその後に続きます。 この方法により、機密データは保護されたままになりますが、制限されたユーザーもテーブルに対してクエリを実行することはできます。
@@ -70,20 +70,20 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 4. **ビューアー** ワークスペース ロールのメンバーであるテスト ユーザーとして接続し、次の T-SQL ステートメントを実行します。
 
     ```tsql
-    SELECT * FROM dbo.Customer;
+    SELECT * FROM dbo.Customers;
     ```
     テスト ユーザーには UNMASK アクセス許可が付与されていないため、FirstName、Phone、Email 列に対して返されるデータはマスクされます。これらの列は、`CREATE TABLE` ステートメント内でマスクを使用するものとして定義されているためです。
 
-5. 自分自身のワークスペース管理者として再接続し、次の T-SQL を実行して、テスト ユーザー用のデータのマスクを解除します。 `[<username1>@<your_domain>.com]` を、現在のテスト対象の**ビューアー** ワークスペース ロールのメンバーであるユーザーの名前に置き換えます。 
+5. 自分自身のワークスペース管理者として再接続し、次の T-SQL を実行して、テスト ユーザー用のデータのマスクを解除します。 `<username>@<your_domain>.com` を、現在のテスト対象の**ビューアー** ワークスペース ロールのメンバーであるユーザーの名前に置き換えます。 
 
     ```tsql
-    GRANT UNMASK ON dbo.Customer TO [<username1>@<your_domain>.com];
+    GRANT UNMASK ON dbo.Customers TO [<username>@<your_domain>.com];
     ```
 
 6. もう一度テスト ユーザーとして接続し、次の T-SQL ステートメントを実行します。
 
     ```tsql
-    SELECT * FROM dbo.Customer;
+    SELECT * FROM dbo.Customers;
     ```
 
     今度はテスト ユーザーに `UNMASK` アクセス許可が付与されているため、データはマスクされていない状態で返されます。
@@ -94,7 +94,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. 前の演習で作成したウェアハウスで、**[新規 SQL クエリ]** ドロップダウンを選択します。  **[空白]** ヘッダーで、**[新規 SQL クエリ]** を選択します。
 
-2. テーブルを作成してデータを挿入します。 後の手順で行レベル セキュリティをテストできるように、`[<username1>@<your_domain>.com]` をご利用の環境のユーザー名に置き換え、`[<username2>@<your_domain>.com]` を自分のユーザー名に置き換えます。
+2. テーブルを作成してデータを挿入します。 後の手順で行レベル セキュリティをテストできるように、`<username1>@<your_domain>.com` をご利用の環境のユーザー名に置き換え、`<username2>@<your_domain>.com` を自分のユーザー名に置き換えます。
 
     ```tsql
     CREATE TABLE dbo.Sales  
@@ -107,12 +107,12 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
      
     --Populate the table with 6 rows of data, showing 3 orders for each test user. 
     INSERT dbo.Sales (OrderID, SalesRep, Product, Quantity) VALUES
-    (1, '[<username1>@<your_domain>.com]', 'Valve', 5),   
-    (2, '[<username1>@<your_domain>.com]', 'Wheel', 2),   
-    (3, '[<username1>@<your_domain>.com]', 'Valve', 4),  
-    (4, '[<username2>@<your_domain>.com]', 'Bracket', 2),   
-    (5, '[<username2>@<your_domain>.com]', 'Wheel', 5),   
-    (6, '[<username2>@<your_domain>.com]', 'Seat', 5);  
+    (1, '<username1>@<your_domain>.com', 'Valve', 5),   
+    (2, '<username1>@<your_domain>.com', 'Wheel', 2),   
+    (3, '<username1>@<your_domain>.com', 'Valve', 4),  
+    (4, '<username2>@<your_domain>.com', 'Bracket', 2),   
+    (5, '<username2>@<your_domain>.com', 'Wheel', 5),   
+    (6, '<username2>@<your_domain>.com', 'Seat', 5);  
      
     SELECT * FROM dbo.Sales;  
     ```
@@ -153,7 +153,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 6. ** [&#9655; 実行]** ボタンを使用して SQL スクリプトを実行します
 7. 次に、**[エクスプローラー]** ペインで **[スキーマ]** > **[rls]** > **[関数]** の順に展開し、関数が作成されていることを確認します。
-8. 手順 9 の Sales テーブルの `INSERT` ステートメントで、`[<username1>@<your_domain>.com]` を置き換えたユーザーとして Fabric にログインします。 次の T-SQL を実行して、そのユーザーとしてログインしていることを確認します。
+8. Sales テーブルの `INSERT` ステートメントで、`<username1>@<your_domain>.com` を置き換えたユーザーとして Fabric にログインします。 次の T-SQL を実行して、そのユーザーとしてログインしていることを確認します。
 
     ```tsql
     SELECT USER_NAME();
@@ -165,7 +165,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     SELECT * FROM dbo.Sales;
     ```
 
-## 列レベル セキュリティを実装する
+## 列レベルのセキュリティを実装する
 
 列レベル セキュリティを使用すると、テーブル内の特定の列にアクセスできるユーザーを指定できます。 これは、テーブルに対して `GRANT` または `DENY` ステートメントを発行し、このときに列の一覧とそれらの読み取りが可能または可能でないユーザーまたはロールを指定することで実装されます。 アクセス管理を効率化するには、アクセス許可を個々のユーザーでなくロールに割り当てます。 この演習では、テーブルを作成し、テーブル上の列のサブセットへのアクセスを許可し、制限された列は自分以外のユーザーが表示できないことをテストします。
 
@@ -179,7 +179,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
         OrderID INT,   
         CustomerID INT,  
         CreditCard VARCHAR(20)      
-        );
+    );
 
     INSERT dbo.Orders (OrderID, CustomerID, CreditCard) VALUES
     (1234, 5678, '111111111111111'),
@@ -189,7 +189,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     SELECT * FROM dbo.Orders;
      ```
 
-3. テーブル内の列を表示するためのアクセス許可を拒否します。 T-SQL ステートメントを使用すると、`[<username>@<your_domain>.com]` は Orders テーブル内の CreditCard 列を表示できなくなります。 `DENY` ステートメントで、`[<username>@<your_domain>.com]` をワークスペースに対する**ビューアー** アクセス許可を持つシステム内のユーザー名に置き換えます。
+3. テーブル内の列を表示するためのアクセス許可を拒否します。 T-SQL ステートメントを使用すると、`<username>@<your_domain>.com` は Orders テーブル内の CreditCard 列を表示できなくなります。 `DENY` ステートメントで、`<username>@<your_domain>.com` をワークスペースに対する**ビューアー** アクセス許可を持つシステム内のユーザー名に置き換えます。
 
      ```tsql
     DENY SELECT ON dbo.Orders (CreditCard) TO [<username>@<your_domain>.com];
@@ -221,7 +221,8 @@ Fabric にはアクセス許可モデルがあり、これを使用すると、�
     CREATE PROCEDURE dbo.sp_PrintMessage
     AS
     PRINT 'Hello World.';
-  
+    GO
+
     CREATE TABLE dbo.Parts
     (
         PartID INT,
@@ -233,13 +234,16 @@ Fabric にはアクセス許可モデルがあり、これを使用すると、�
     (5678, 'Seat');
      GO
     
-    --Execute the stored procedure and select from the table and note the results you get as a member of the Workspace Admin role. Look for output from the stored procedure on the 'Messages' tab.
+    /*Execute the stored procedure and select from the table and note the results you get
+    as a member of the Workspace Admin role. Look for output from the stored procedure on 
+    the 'Messages' tab.*/
     EXEC dbo.sp_PrintMessage;
-    
+    GO
+
     SELECT * FROM dbo.Parts
      ```
 
-3. 次に、**ワークスペース ビューアー** ロールのメンバーであるユーザーに、テーブルに対する `DENY SELECT` アクセスを許可し、同じユーザーに対してプロシージャで `GRANT EXECUTE` を実行します。 `[<username>@<your_domain>.com]` を**ワークスペース ビューアー** ロールのメンバーであるご利用の環境のユーザー名に置き換えます。 
+3. 次に、**ワークスペース ビューアー** ロールのメンバーであるユーザーに、テーブルに対する `DENY SELECT` アクセスを許可し、同じユーザーに対してプロシージャで `GRANT EXECUTE` を実行します。 `<username>@<your_domain>.com` を**ワークスペース ビューアー** ロールのメンバーであるご利用の環境のユーザー名に置き換えます。 
 
      ```tsql
     DENY SELECT on dbo.Parts to [<username>@<your_domain>.com];
@@ -247,11 +251,12 @@ Fabric にはアクセス許可モデルがあり、これを使用すると、�
     GRANT EXECUTE on dbo.sp_PrintMessage to [<username>@<your_domain>.com];
      ```
 
-4. Fabric に、`DENY` の代わりに `GRANT` ステートメントと `[<username>@<your_domain>.com]` ステートメントで指定したユーザーとしてサインインします。 次に、ストアド プロシージャを実行し、テーブルに対してクエリを実行して、適用した詳細なアクセス許可をテストします。  
+4. Fabric に、`DENY` の代わりに `GRANT` ステートメントと `<username>@<your_domain>.com` ステートメントで指定したユーザーとしてサインインします。 次に、ストアド プロシージャを実行し、テーブルに対してクエリを実行して、適用した詳細なアクセス許可をテストします。  
 
      ```tsql
     EXEC dbo.sp_PrintMessage;
-       
+    GO
+   
     SELECT * FROM dbo.Parts;
      ```
 
