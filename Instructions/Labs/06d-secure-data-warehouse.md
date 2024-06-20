@@ -128,7 +128,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     GO
     
     /*Create the security predicate defined as an inline table-valued function.
-    A predicate evalutes to true (1) or false (0). This security predicate returns 1,
+    A predicate evaluates to true (1) or false (0). This security predicate returns 1,
     meaning a row is accessible, when a row in the SalesRep column is the same as the user
     executing the query.*/
 
