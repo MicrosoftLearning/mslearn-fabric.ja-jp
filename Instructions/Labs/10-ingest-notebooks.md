@@ -143,42 +143,6 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 これで、外部データへの接続、parquet ファイルへの書き込み、データの DataFrame への読み込み、データの変換、デルタ テーブルへの読み込みが完了しました。
 
-## デルタ テーブルの書き込みを最適化する
-
-組織でビッグ データを使用している可能性があるため、データ インジェスト用に Fabric ノートブックを選択しました。データのインジェストと読み取りを最適化する方法についても説明しましょう。 最初に、書き込み最適化を含めた状態でデルタ テーブルへの変換と書き込みのステップを繰り返します。
-
-1. 新しいコード セルを作成し、次のコードを挿入します。
-
-    ```python
-    from pyspark.sql.functions import col, to_timestamp, current_timestamp, year, month
- 
-    # Read the parquet data from the specified path
-    raw_df = spark.read.parquet(output_parquet_path)    
-
-    # Add dataload_datetime column with current timestamp
-    opt_df = raw_df.withColumn("dataload_datetime", current_timestamp())
-    
-    # Filter columns to exclude any NULL values in storeAndFwdFlag
-    opt_df = opt_df.filter(opt_df["storeAndFwdFlag"].isNotNull())
-    
-    # Enable V-Order
-    spark.conf.set("spark.sql.parquet.vorder.enabled", "true")
-    
-    # Enable automatic Delta optimized write
-    spark.conf.set("spark.microsoft.delta.optimizeWrite.enabled", "true")
-    
-    # Load the filtered data into a Delta table
-    table_name = "yellow_taxi_opt"  # New table name
-    opt_df.write.format("delta").mode("append").saveAsTable(table_name)
-    
-    # Display results
-    display(opt_df.limit(1))
-    ```
-
-1. 最適化コードの前と同じ結果になっていることを確認します。
-
-ここで、両方のコード ブロックの実行時間をメモしておきます。 時間は異なりますが、最適化されたコードを使用すると、パフォーマンスの明確な向上を確認できます。
-
 ## SQL クエリを使用してデルタ テーブルのデータを分析する
 
 このラボでは、"抽出、変換、読み込み" プロセスについて実際に説明するデータ インジェストに焦点を当てていますが、データをプレビューすることも重要です。**
@@ -223,7 +187,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 ## リソースをクリーンアップする
 
-この演習では、Fabric の PySpark でノートブックを使用してデータを読み込み、それを Parquet に保存しました。 その後、その Parquet ファイルを使用してデータをさらに変換し、Delta テーブルの書き込みを最適化しました。 最後に、SQL を使用して Delta テーブルのクエリを実行しました。
+この演習では、Fabric の PySpark でノートブックを使用してデータを読み込み、それを Parquet に保存しました。 その後、その Parquet ファイルを使用して、データをさらに変換しました。 最後に、SQL を使用して Delta テーブルのクエリを実行しました。
 
 探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
