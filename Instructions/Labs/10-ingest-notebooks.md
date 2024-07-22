@@ -123,7 +123,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     filtered_df = filtered_df.filter(raw_df["storeAndFwdFlag"].isNotNull())
     
     # Load the filtered data into a Delta table
-    table_name = "yellow_taxi"  # Replace with your desired table name
+    table_name = "yellow_taxi"
     filtered_df.write.format("delta").mode("append").saveAsTable(table_name)
     
     # Display results
@@ -164,26 +164,11 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     display(table_df.limit(10))
     ```
 
-1. 別のコード セルを作成し、次のコードも挿入します。
+1. コード セルの横にある **&#9655; [セルの実行]** を選択します。
 
-    ```python
-    # Load table into df
-    delta_table_name = "yellow_taxi_opt"
-    opttable_df = spark.read.format("delta").table(delta_table_name)
-    
-    # Create temp SQL table
-    opttable_df.createOrReplaceTempView("yellow_taxi_opt")
-    
-    # SQL Query to confirm
-    opttable_df = spark.sql('SELECT * FROM yellow_taxi_opt')
-    
-    # Display results
-    display(opttable_df.limit(10))
-    ```
+     多くのデータ アナリストは SQL 構文に慣れています。 Spark SQL は、Spark の SQL 言語 API であり、SQL ステートメントの実行だけではなく、リレーショナル テーブル内でのデータの永続化にも使用できます。
 
-1. 次に、これら 2 つのクエリの最初の **[セルの実行]** ボタンの横にある &#9660; 矢印を選択し、ドロップダウンから **[このセル以下を実行]** を選択します。
-
-    これにより、最後の 2 つのコード セルが実行されます。 最適化されていないデータを含むテーブルと、最適化されたデータを含むテーブルのクエリを実行した時の実行時間の違いに注目してください。
+   先ほど実行したコードでは、データフレームのデータのリレーショナル "*ビュー*" が作成された後、**spark.sql** ライブラリを使って Python コード内に Spark SQL 構文が埋め込まれ、ビューに対してクエリが実行され、結果がデータフレームとして返されます。
 
 ## リソースをクリーンアップする
 
