@@ -123,7 +123,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     filtered_df = filtered_df.filter(raw_df["storeAndFwdFlag"].isNotNull())
     
     # Load the filtered data into a Delta table
-    table_name = "yellow_taxi"  # Replace with your desired table name
+    table_name = "yellow_taxi"
     filtered_df.write.format("delta").mode("append").saveAsTable(table_name)
     
     # Display results
@@ -142,42 +142,6 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     ![1 つの行が表示された正常な出力のスクリーンショット](Images/notebook-transform-result.png)
 
 これで、外部データへの接続、parquet ファイルへの書き込み、データの DataFrame への読み込み、データの変換、デルタ テーブルへの読み込みが完了しました。
-
-## デルタ テーブルの書き込みを最適化する
-
-組織でビッグ データを使用している可能性があるため、データ インジェスト用に Fabric ノートブックを選択しました。データのインジェストと読み取りを最適化する方法についても説明しましょう。 最初に、書き込み最適化を含めた状態でデルタ テーブルへの変換と書き込みのステップを繰り返します。
-
-1. 新しいコード セルを作成し、次のコードを挿入します。
-
-    ```python
-    from pyspark.sql.functions import col, to_timestamp, current_timestamp, year, month
- 
-    # Read the parquet data from the specified path
-    raw_df = spark.read.parquet(output_parquet_path)    
-
-    # Add dataload_datetime column with current timestamp
-    opt_df = raw_df.withColumn("dataload_datetime", current_timestamp())
-    
-    # Filter columns to exclude any NULL values in storeAndFwdFlag
-    opt_df = opt_df.filter(opt_df["storeAndFwdFlag"].isNotNull())
-    
-    # Enable V-Order
-    spark.conf.set("spark.sql.parquet.vorder.enabled", "true")
-    
-    # Enable automatic Delta optimized write
-    spark.conf.set("spark.microsoft.delta.optimizeWrite.enabled", "true")
-    
-    # Load the filtered data into a Delta table
-    table_name = "yellow_taxi_opt"  # New table name
-    opt_df.write.format("delta").mode("append").saveAsTable(table_name)
-    
-    # Display results
-    display(opt_df.limit(1))
-    ```
-
-1. 最適化コードの前と同じ結果になっていることを確認します。
-
-ここで、両方のコード ブロックの実行時間をメモしておきます。 時間は異なりますが、最適化されたコードを使用すると、パフォーマンスの明確な向上を確認できます。
 
 ## SQL クエリを使用してデルタ テーブルのデータを分析する
 
@@ -200,30 +164,15 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     display(table_df.limit(10))
     ```
 
-1. 別のコード セルを作成し、次のコードも挿入します。
+1. コード セルの横にある **&#9655; [セルの実行]** を選択します。
 
-    ```python
-    # Load table into df
-    delta_table_name = "yellow_taxi_opt"
-    opttable_df = spark.read.format("delta").table(delta_table_name)
-    
-    # Create temp SQL table
-    opttable_df.createOrReplaceTempView("yellow_taxi_opt")
-    
-    # SQL Query to confirm
-    opttable_df = spark.sql('SELECT * FROM yellow_taxi_opt')
-    
-    # Display results
-    display(opttable_df.limit(10))
-    ```
+     多くのデータ アナリストは SQL 構文に慣れています。 Spark SQL は、Spark の SQL 言語 API であり、SQL ステートメントの実行だけではなく、リレーショナル テーブル内でのデータの永続化にも使用できます。
 
-1. 次に、これら 2 つのクエリの最初の **[セルの実行]** ボタンの横にある &#9660; 矢印を選択し、ドロップダウンから **[このセル以下を実行]** を選択します。
-
-    これにより、最後の 2 つのコード セルが実行されます。 最適化されていないデータを含むテーブルと、最適化されたデータを含むテーブルのクエリを実行した時の実行時間の違いに注目してください。
+   先ほど実行したコードでは、データフレームのデータのリレーショナル "*ビュー*" が作成された後、**spark.sql** ライブラリを使って Python コード内に Spark SQL 構文が埋め込まれ、ビューに対してクエリが実行され、結果がデータフレームとして返されます。
 
 ## リソースをクリーンアップする
 
-この演習では、Fabric の PySpark でノートブックを使用してデータを読み込み、それを Parquet に保存しました。 その後、その Parquet ファイルを使用してデータをさらに変換し、Delta テーブルの書き込みを最適化しました。 最後に、SQL を使用して Delta テーブルのクエリを実行しました。
+この演習では、Fabric の PySpark でノートブックを使用してデータを読み込み、それを Parquet に保存しました。 その後、その Parquet ファイルを使用して、データをさらに変換しました。 最後に、SQL を使用して Delta テーブルのクエリを実行しました。
 
 探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
