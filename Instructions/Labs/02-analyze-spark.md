@@ -218,7 +218,7 @@ Apache Spark でデータを操作するには、"ノートブック" を作成�
     ```Python
    from pyspark.sql.functions import *
 
-   yearlySales = df.select(year(col("OrderDate")).alias("Year")).groupBy("Year").count().orderBy("Year")
+   yearlySales = df.select(year("OrderDate").alias("Year")).groupBy("Year").count().orderBy("Year")
    display(yearlySales)
     ```
 
