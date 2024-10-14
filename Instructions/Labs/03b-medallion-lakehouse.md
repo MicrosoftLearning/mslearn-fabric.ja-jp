@@ -16,7 +16,7 @@ lab:
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**Synapse Data Engineering** を選択します。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) で、**[Synapse Data Engineering]** を選択します。
 2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 4. 開いた新しいワークスペースは空のはずです。
@@ -309,10 +309,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     dfUpdates = dfdimDate_gold
     
-    deltaTable.alias('silver') \
+    deltaTable.alias('gold') \
       .merge(
         dfUpdates.alias('updates'),
-        'silver.OrderDate = updates.OrderDate'
+        'gold.OrderDate = updates.OrderDate'
       ) \
        .whenMatchedUpdate(set =
         {
@@ -397,10 +397,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     dfUpdates = dfdimCustomer_gold
     
-    deltaTable.alias('silver') \
+    deltaTable.alias('gold') \
       .merge(
         dfUpdates.alias('updates'),
-        'silver.CustomerName = updates.CustomerName AND silver.Email = updates.Email'
+        'gold.CustomerName = updates.CustomerName AND gold.Email = updates.Email'
       ) \
        .whenMatchedUpdate(set =
         {
@@ -436,7 +436,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 12. **別のコード ブロックを追加**して、**product_silver** データフレームを作成します。
   
     ```python
-    from pyspark.sql.functions import col, split, lit
+    from pyspark.sql.functions import col, split, lit, when
     
     # Create product_silver dataframe
     
@@ -479,10 +479,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
             
     dfUpdates = dfdimProduct_gold
             
-    deltaTable.alias('silver') \
+    deltaTable.alias('gold') \
       .merge(
             dfUpdates.alias('updates'),
-            'silver.ItemName = updates.ItemName AND silver.ItemInfo = updates.ItemInfo'
+            'gold.ItemName = updates.ItemName AND gold.ItemInfo = updates.ItemInfo'
             ) \
             .whenMatchedUpdate(set =
             {
@@ -556,10 +556,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     dfUpdates = dffactSales_gold
     
-    deltaTable.alias('silver') \
+    deltaTable.alias('gold') \
       .merge(
         dfUpdates.alias('updates'),
-        'silver.OrderDate = updates.OrderDate AND silver.CustomerID = updates.CustomerID AND silver.ItemID = updates.ItemID'
+        'gold.OrderDate = updates.OrderDate AND gold.CustomerID = updates.CustomerID AND gold.ItemID = updates.ItemID'
       ) \
        .whenMatchedUpdate(set =
         {
