@@ -1,10 +1,10 @@
 ---
 lab:
-  title: Microsoft Fabric のリアルタイム ダッシュボード
-  module: Get Started with Real-Time Dashboards in Microsoft Fabric
+  title: Microsoft Fabric のリアルタイム ダッシュボードの概要
+  module: Get started with Real-Time Dashboards in Microsoft Fabric
 ---
 
-# Microsoft Fabric でリアルタイム ダッシュボードの使用を開始する
+# Microsoft Fabric のリアルタイム ダッシュボードの概要
 
 リアルタイム ダッシュボードでは、Kusto 照会言語 (KQL) を使って構造化データと非構造化データの両方を取得して Microsoft Fabric 内から分析情報を収集し、Power BI 内のスライサーと同様にリンクできるグラフ、散布図、テーブルなどをパネル内にレンダリングできます。 
 
@@ -16,7 +16,7 @@ lab:
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**リアルタイム インテリジェンス**を選択します。
+1. `https://app.fabric.microsoft.com/home?experience=fabric` の [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)で、**[リアルタイム インテリジェンス]** を選択します。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。** または、既存のワークスペースを使用して、リアルタイム ダッシュボードを作成することもできます。
 1. 開いた新しいワークスペースは空のはずです。
