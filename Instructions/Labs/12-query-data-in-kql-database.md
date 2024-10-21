@@ -1,6 +1,6 @@
 ---
 lab:
-  title: KQL データベースでデータにクエリを実行する
+  title: Microsoft Fabric での Kusto データベースのクエリの概要
   module: Query data from a Kusto Query database in Microsoft Fabric
 ---
 
@@ -20,7 +20,7 @@ KQL クエリセットは、多くの SQL 関数と互換性のある Kusto 照�
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com)で、**[リアルタイム インテリジェンス]** を選択します。
+1. `https://app.fabric.microsoft.com/home?experience=fabric` の [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)で、**[リアルタイム インテリジェンス]** を選択します。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。

@@ -3,7 +3,7 @@ lab:
   title: Microsoft Fabric の Eventstream に関する概要
   module: Get started with Eventstream in Microsoft Fabric
 ---
-# リアルタイム インテリジェンスにおける Eventstream の概要
+# Microsoft Fabric の Eventstream に関する概要
 
 Eventstream とは、コードなしのエクスペリエンスでリアルタイム イベントをキャプチャし、変換し、さまざまな宛先にルーティングする Microsoft Fabric の機能です。 変換が必要な場合は、イベントのデータ ソース、ルーティング先、イベント プロセッサを Eventstream に追加できます。 Microsoft Fabric の EventStore は、クラスターからのイベントを維持し、特定の時点でのクラスターまたはワークロードの状態を理解できるようにする監視オプションです。 EventStore サービスでは、クラスター内のエンティティとエンティティ型のそれぞれで使用できるイベントのクエリを実行できます。 つまり、クラスター、ノード、アプリケーション、サービス、パーティション、パーティション レプリカなど、さまざまなレベルのイベントにクエリを実行できます。 EventStore サービスは、クラスター内のイベントを関連付ける機能も備えています。 EventStore サービスは、相互に影響を与えた可能性がある異なるエンティティから同時に書き込まれたイベントを調べてそれらのイベントをリンクし、クラスター内で発生したアクティビティの原因の識別に役立てることができます。 Microsoft Fabric クラスターの監視と診断を行うもう 1 つのオプションが、EventFlow を使用したイベントの集計と収集です。
 
@@ -15,7 +15,7 @@ Eventstream とは、コードなしのエクスペリエンスでリアルタ�
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com` で [Microsoft Fabric](https://app.fabric.microsoft.com) にサインインし、 **[Power BI]** を選択してください。
+1. `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)にサインインし、**[Power BI]** を選択します。
 2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
 4. 新しいワークスペースを開くと次に示すように空のはずです。
@@ -239,4 +239,4 @@ KQL (Kusto 照会言語) データベースのクエリセットはさまざま�
 1. 左側のバーで、ワークスペースのアイコンを選択します。
 2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
 3. **[全般]** セクションで、**[このワークスペースの削除]** を選択します。
-.
+。
