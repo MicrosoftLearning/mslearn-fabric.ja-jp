@@ -1,10 +1,10 @@
 ---
 lab:
-  title: Microsoft Fabric のリアルタイム ダッシュボードの概要
-  module: Get started with Real-Time Dashboards in Microsoft Fabric
+  title: Microsoft Fabric のリアルタイム ダッシュボード
+  module: Get Started with Real-Time Dashboards in Microsoft Fabric
 ---
 
-# Microsoft Fabric のリアルタイム ダッシュボードの概要
+# Microsoft Fabric でリアルタイム ダッシュボードの使用を開始する
 
 リアルタイム ダッシュボードでは、Kusto 照会言語 (KQL) を使って構造化データと非構造化データの両方を取得して Microsoft Fabric 内から分析情報を収集し、Power BI 内のスライサーと同様にリンクできるグラフ、散布図、テーブルなどをパネル内にレンダリングできます。 
 
