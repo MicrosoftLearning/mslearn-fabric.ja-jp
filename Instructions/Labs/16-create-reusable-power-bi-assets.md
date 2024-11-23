@@ -1,6 +1,7 @@
 ---
 lab:
   title: 再利用可能な Power BI アセットを作成する
+  module: Create reusable Power BI assets
 ---
 
 # 再利用可能な Power BI アセットを作成する
