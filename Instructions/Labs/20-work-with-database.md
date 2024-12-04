@@ -102,15 +102,14 @@ SQL クエリ エディターでは、IntelliSense、コード補完、構文の
 
     ```sql
     INSERT INTO SalesLT.PublicHolidays (CountryOrRegion, HolidayName, Date, IsPaidTimeOff)
-    SELECT CountryOrRegion, HolidayName, Date, IsPaidTimeOff
-    FROM OPENROWSET 
-    (BULK 'abs://holidaydatacontainer@azureopendatastorage.blob.core.windows.net/Processed/*.parquet'
-    , FORMAT = 'PARQUET') AS [PublicHolidays]
-    WHERE countryorRegion in ('Canada', 'United Kingdom', 'United States')
-        AND YEAR([date]) = 2024
+    VALUES
+        ('Canada', 'Victoria Day', '2024-02-19', 1),
+        ('United Kingdom', 'Christmas Day', '2024-12-25', 1),
+        ('United Kingdom', 'Spring Bank Holiday', '2024-05-27', 1),
+        ('United States', 'Thanksgiving Day', '2024-11-28', 1);
     ```
     
-    このクエリは、Azure Blob Storage の Parquet ファイルから休日データを読み取り、2024 年のカナダ、英国、および米国の休日のみを含むようにフィルター処理し、このフィルター処理されたデータを `SalesLT.PublicHolidays` テーブルに挿入します。    
+    この例では、2024 年のカナダ、英国、および米国の休日を `SalesLT.PublicHolidays` テーブルに挿入します。    
 
 1. 新規または既存のクエリ エディターで、次の T-SQL コードを入力して実行します。
 
@@ -190,7 +189,7 @@ SQL クエリ エディターでは、IntelliSense、コード補完、構文の
 
 > **詳細情報**: プラットフォームで使用できる他のコンポーネントの詳細については、Microsoft Fabric ドキュメントの「[Microsoft Fabric とは](https://learn.microsoft.com/fabric/get-started/microsoft-fabric-overview)」をご覧ください。
 
-この演習では、Microsoft Fabric の SQL データベースで外部データの作成とインポートを行い、データのクエリとセキュリティ保護を行いました。
+この演習では、Microsoft Fabric の SQL データベース内でデータの作成、クエリ実行、およびセキュリティ保護を行いました。
 
 ## リソースをクリーンアップする
 
