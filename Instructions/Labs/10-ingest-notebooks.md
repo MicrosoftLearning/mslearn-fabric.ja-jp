@@ -20,7 +20,7 @@ lab:
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) で、**[Synapse Data Engineering]** を選択します。
+1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) で、**[Data Engineering]** を選択します。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
@@ -31,7 +31,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 まず、新しいレイクハウスと、レイクハウス内の宛先フォルダーを作成します。
 
-1. ワークスペースから **[+ 新規] > [レイクハウス]** を選択し、名前を指定して、 **[作成]** を選択します。
+1. ワークスペースから **[+ 新しい項目]、[レイクハウス]** の順に選択し、名前を指定して、**[作成]** を選択します。
 
     > **注:** **テーブル**や**ファイル**がない新しいレイクハウスを作成するには数分かかる場合があります。
 
@@ -85,15 +85,15 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. **新しいコード セル**に次のコードを挿入します。
 
     ```python
-        # Declare file name    
-        file_name = "yellow_taxi"
+    # Declare file name    
+    file_name = "yellow_taxi"
     
-        # Construct destination path
-        output_parquet_path = f"**InsertABFSPathHere**/{file_name}"
-        print(output_parquet_path)
+    # Construct destination path
+    output_parquet_path = f"**InsertABFSPathHere**/{file_name}"
+    print(output_parquet_path)
         
-        # Load the first 1000 rows as a Parquet file
-        blob_df.limit(1000).write.mode("overwrite").parquet(output_parquet_path)
+    # Load the first 1000 rows as a Parquet file
+    blob_df.limit(1000).write.mode("overwrite").parquet(output_parquet_path)
     ```
 
 1. **RawData** ABFS パスを追加し、 **[&#9655; セルの実行]** を選択して、yellow_taxi.parquet ファイルに 1000 行を書き込みます。
@@ -120,7 +120,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     filtered_df = raw_df.withColumn("dataload_datetime", current_timestamp())
     
     # Filter columns to exclude any NULL values in storeAndFwdFlag
-    filtered_df = filtered_df.filter(raw_df["storeAndFwdFlag"].isNotNull())
+    filtered_df = filtered_df.filter(col("storeAndFwdFlag").isNotNull())
     
     # Load the filtered data into a Delta table
     table_name = "yellow_taxi"
@@ -177,5 +177,5 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
-2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択してください。
-3. **[全般]** セクションで、**[このワークスペースの削除]** を選択します。
+1. **[ワークスペースの設定]** を選択し、**[全般]** セクションで下にスクロールし、**[このワークスペースを削除する]** を選択します。
+1. **[削除]** を選択して、ワークスペースを削除します。

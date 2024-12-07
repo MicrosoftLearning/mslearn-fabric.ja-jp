@@ -1,6 +1,6 @@
 ---
 lab:
-  title: KQL データベースでデータにクエリを実行する
+  title: Microsoft Fabric での Kusto データベースのクエリの概要
   module: Query data from a Kusto Query database in Microsoft Fabric
 ---
 
