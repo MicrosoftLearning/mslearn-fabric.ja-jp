@@ -16,7 +16,7 @@ Microsoft Fabric では、データ ウェアハウスによって大規模な�
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com/home?experience=fabric` の [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)で、**[Synapse Data Warehouse]** を選択します。
+1. `https://app.fabric.microsoft.com/home?experience=fabric` の [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)で、**[Data Warehouse]** を選択します。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
@@ -183,5 +183,5 @@ SQL クエリ エディターでは、IntelliSense、コード補完、構文の
 データ ウェアハウスの探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
 1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示してください。
-2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択してください。
-3. **[全般]** セクションで、**[このワークスペースの削除]** を選択します。
+1. **[ワークスペースの設定]** を選択し、**[全般]** セクションで下にスクロールし、**[このワークスペースを削除する]** を選択します。
+1. **[削除]** を選択して、ワークスペースを削除します。

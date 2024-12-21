@@ -1,24 +1,22 @@
 ---
 lab:
-  title: Microsoft Fabric での Kusto データベースのクエリの概要
-  module: Query data from a Kusto Query database in Microsoft Fabric
+  title: Microsoft Fabric イベントハウスでリアルタイム データを操作する
+  module: Work with data in a Microsoft Fabric eventhouse
 ---
 
-# Microsoft Fabric での Kusto データベースのクエリの概要
+# Microsoft Fabric イベントハウスでリアルタイム データを操作する
 
-KQL クエリセットは、KQL データベースからのクエリの実行、変更、クエリ結果の表示を可能にするツールです。 KQL クエリセットの各タブを別の KQL データベースにリンクし、将来使用するためにクエリを保存したり、データ分析のために他のユーザーと共有したりできます。 任意のタブの KQL データベースを切り替えることもできるため、さまざまなデータ ソースからのクエリ結果を比較できます。
+Microsoft Fabric では、*eventhouse* は、イベントに関連するリアルタイム データを格納するために使用されます。多くの場合、*eventstream* によってストリーミング データ ソースからキャプチャされます。
 
-この演習では、あなたは、NYC タクシーの乗車に関する生メトリックのサンプル データセットのクエリを実行する任務を負うアナリストの役割を果たし、Fabric 環境からデータの概要統計 (プロファイリング) をプルします。 データに関する有用な分析情報を得るために、KQL を使ってこのデータのクエリを実行し、情報を収集します。
+イベントハウス内では、データは 1 つ以上の KQL データベースに格納されます。各データベースには、Kusto 照会言語 (KQL) または 構造化照会言語 (SQL) のサブセットを使用してクエリを実行できるテーブルとその他のオブジェクトが含まれています。
 
-KQL クエリセットは、多くの SQL 関数と互換性のある Kusto 照会言語を使用してクエリを作成します。 [Kusto 照会言語 (KQL)](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/?context=%2Ffabric%2Fcontext%2Fcontext) の詳細を確認します。
+この演習では、タクシー乗車に関連するサンプル データをイベントハウスに作成して設定し、KQL と SQL を使用してデータのクエリを実行します。
 
-このラボの所要時間は約 **25** 分です。
-
-> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
+この演習の所要時間は約 **25** 分です。
 
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
+Fabric でデータを操作する前に、Fabric 容量を有効にしてワークスペースを作成してください。
 
 1. `https://app.fabric.microsoft.com/home?experience=fabric` の [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)で、**[リアルタイム インテリジェンス]** を選択します。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
@@ -27,282 +25,237 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
-このラボでは、Fabric のリアルタイム インテリジェンスを使用して、サンプルのイベントストリームから KQL データベースを作成します。 リアルタイム インテリジェンスには、リアルタイム インテリジェンスの機能を探索するために使用できる便利なサンプル データセットが用意されています。 このサンプル データを使い、リアルタイム データを分析する KQL または SQL のクエリとクエリセットを作成し、ダウンストリームのプロセスで他の目的に使用できるようにします。
+## Eventhouse を作成する
 
-## KQL データベースを作成する
+Fabric 容量をサポートするワークスペースが作成されたので、その中にイベントハウスを作成できます。
 
-1. **[リアルタイム インテリジェンス]** 内で、**[KQL データベース]** ボックスを選択します。
+1. **リアルタイム インテリジェンス**のホーム ページで、任意の名前で新しい**イベントハウス**を作成します。 イベントハウスが作成されたら、イベントハウス ページが表示されるまで、表示されているプロンプトまたはヒントを閉じます。
 
-   ![KQL データベースの選択の画像](./Images/select-kqldatabase.png)
+   ![新しいイベントハウスのスクリーンショット。](./Images/create-eventhouse.png)
 
-1. KQL データベースに**名前**を付けるよう求められます
+1. 左側のペインで、イベントハウスに Eventhouse と同じ名前の KQL データベースが含まれていることに注意してください。
+1. KQL データベースを選択して表示します。
 
-   ![KQL データベースの名前付けの画像](./Images/name-kqldatabase.png)
-
-1. KQL データベースに覚えやすい名前 (**TaxiData** など) を付けて、**[作成]** を選択します。
-
-1. **[データベースの詳細]** パネルで、鉛筆アイコンを選択して OneLake で可用性を有効にします。
-
-   ![OneLake の有効化の画像](./Images/enable-onelake-availability.png)
-
-   次に、スライダーを使って可用性をオンにします。
-
-   ![Data Lake でスライダーを選択している画像](./Images/data-availability-data-lake.png)
+    現段階では、データベースにテーブルはありません。 この演習の残りの部分では、eventstream を使用して、リアルタイム ソースからテーブルにデータを読み込みます。
    
-1. ***[データの取得から開始]*** のオプションから **[サンプル データ]** ボックスを選択します。
+1. KQL データベースのページで、**[データの取得]**、**[サンプル]** を選択します。 次に、**[自動車の動作分析]** サンプル データを選択します。
 
-   ![サンプル データが強調表示されている選択オプションの画像](./Images/load-sample-data.png)
+1. データの読み込みが完了したら、**[自動車]** テーブルが作成されていることを確認します。
 
-   サンプル データのオプションから **[Automotive operations analytics] (自動車の動作分析)** ボックスを選択します。
+   ![イベントハウス データベースの自動車テーブルのスクリーンショット。](./Images/choose-automotive-operations-analytics.png)
 
-   ![ラボの分析データを選ぶ画像](./Images/create-sample-data.png)
+## KQL を使用してデータのクエリを実行する
 
-1. データの読み込みが完了したら、KQL データベースが設定されていることを確認できます。
+Kusto 照会言語 (KQL) は、KQL データベースのクエリに使用できる直感的で包括的な言語です。
 
-   ![データを KQL データベースに読み込み中](./Images/choose-automotive-operations-analytics.png)
+### KQL を使用してテーブルからデータを取得する
 
-1. データが読み込まれたら、データが KQL データベースに読み込まれたことを確認します。 この操作を行うには、テーブルの右側にある省略記号を選び、**[クエリ テーブル]** に移動して、**[100 件のレコードを表示する]** を選びます。
+1. イベントハウス ウィンドウの左側のウィンドウで、KQL データベースの下にある既定の**クエリセット** ファイルを選択します。 このファイルには、開始するためのサンプル KQL クエリがいくつか含まれています。
+1. 最初のクエリ例を次のように変更します。
 
-    ![RawServerMetrics テーブルから上位 100 個のファイルを選択している画像](./Images/rawservermetrics-top-100.png)
-
-   > **注**:これを初めて実行する場合、コンピューティング リソースの割り当てに数秒かかる場合があります。
-
-
-    ![データからの 100 件のレコードの画像](./Images/explore-with-kql-take-100.png)
-
-## Kusto 照会言語 (KQL) とその構文の概要
-
-Kusto 照会言語 (KQL) は、Azure Fabric の一部である Microsoft Azure Data Explorer でデータを分析するために使用されるクエリ言語です。 KQL はシンプルかつ直感的に設計されているため、初心者でも簡単に学習して使用できます。 同時に、柔軟性が高くカスタマイズ可能であるため、上級ユーザーは複雑なクエリや分析を実行することができます。
-
-KQL は SQL に似た構文に基づいていますが、いくつかの重要な違いがあります。 たとえば、KQL ではコマンドを区切るためにセミコロン (;) ではなくパイプ演算子 (|) を使用します。また、データのフィルター処理と操作に使用する関数と演算子のセットも異なります。
-
-KQL の重要な機能の 1 つは、大量のデータを迅速かつ効率的に処理できることです。 この機能により、KQL は、ログ、利用統計情報、その他の種類のビッグ データの分析に最適です。 KQL では、構造化データや非構造化データなど、幅広いデータ ソースもサポートされているため、データ分析のための多用途ツールとなっています。
-
-Microsoft Fabric のコンテキストでは、KQL を使用して、アプリケーション ログ、パフォーマンス メトリック、システム イベントなどのさまざまなソースからのデータのクエリと分析を行うことができます。 これは、アプリケーションとインフラストラクチャの正常性とパフォーマンスに関する分析情報を取得し、問題と最適化の機会を特定するのに役立ちます。
-
-総じて、KQL は強力で柔軟性の高いクエリ言語であり、Microsoft Fabric やその他のデータ ソースを使用しているかどうかに関係なく、データの分析情報を迅速かつ簡単に得るのに役立ちます。 直感的な構文と強力な機能を備えた KQL は、さらに検討する価値があります。
-
-このモジュールでは、最初に KQL を使用し、次に T-SQL を使用して、KQL データベースに対するクエリの基本に焦点を当てます。 ここでは、クエリに使われる T-SQL 構文の次のような要素に焦点を当てます。
-
-**SELECT** クエリ。1 つ以上のテーブルからデータを取得するために使用されます。 たとえば、SELECT クエリを使用して、社内のすべての従業員の指名と給与を取得できます。
-
-**WHERE** クエリ。特定の条件に基づいてデータをフィルター処理するために使用されます。 たとえば、WHERE クエリを使用して、特定の部署で働く従業員や、給与が特定の金額を超える従業員の名前を取得できます。
-
-**GROUP BY** クエリ。データを 1 つ以上の列でグループ化し、それらの列に対して集計関数を実行するために使用されます。 たとえば、GROUP BY クエリを使用して、部署別または国別の従業員の平均給与を取得できます。
-
-**ORDER BY** クエリ。データを 1 つ以上の列で昇順または降順に並べ替えるために使用されます。 たとえば、ORDER BY クエリを使用して、給与順または姓順に並べ替えられた従業員の名前を取得できます。
-
-   > **警告:** Power BI では T-SQL がデータ ソースとしてサポートされていないため、**T-SQL** を使用してクエリセットから Power BI レポートを作成することはできません。 **Power BI では、クエリセットのネイティブ クエリ言語として KQL のみがサポートされています**。 T-SQL を使用して Microsoft Fabric 内のデータに対してクエリを実行する場合は、Microsoft SQL Server をエミュレートし、データに対して T-SQL クエリを実行できるようにする T-SQL エンドポイントを使用する必要があります。 ただし、T-SQL エンドポイントにはいくつかの制限と、ネイティブ SQL Server との違いがあり、レポートの作成または Power BI への発行はサポートされていません。
-
-> **注**:先ほど示したクエリ ウィンドウを表示する方法のほかに、メインの [KQL データベース] パネルにある **[データの探索]** ボタンをいつでも押すことができます。
-
-   ![[データの探索] ボタンの画像](./Images/explore-your-data.png)
-
-## KQL を使用したサンプル データセットのデータの `SELECT`
-
-1. このクエリでは、Trips テーブルから 100 件のレコードをプルします。 `take` キーワードを使用して、エンジンに対して 100 件のレコードを返すように要求します。
-
-    ```kusto
-    
-    Trips
+    ```kql
+    Automotive
     | take 100
     ```
 
-    > **注:** KQL では、パイプ文字 `|` は 2 つの目的で使われます。1 つは、表形式の式ステートメントでクエリ演算子を区切るためです。 また、パイプ文字で区切られた項目の 1 つを指定できることを示すために、角かっこまたは丸かっこ内の論理 OR 演算子としても使用されます。
+    > **注:** KQL では、パイプ文字 ( | ) は 2 つの目的で使われます。1 つは、表形式の式ステートメントでクエリ演算子を区切るためです。 また、パイプ文字で区切られた項目の 1 つを指定できることを示すために、角かっこまたは丸かっこ内の論理 OR 演算子としても使用されます。
 
-1. `project` キーワードを使用して、クエリを実行する特定の属性を追加し、`take` キーワードを使用して、返すレコード件数をエンジンに指示すると、精度を高めることができます。
+1. クエリ コードを選択して実行し、テーブルから 100 行を返します。
 
-    > **注:** `//` の使用は、Microsoft Fabric の ***[データの探索]*** クエリ ツール内で使用されるコメントを示します。
+   ![KQL クエリ エディターのスクリーンショット。](./Images/kql-take-100-query.png)
 
-    ```kusto
-    
+    `project` キーワードを使用して、クエリを実行する特定の属性を追加してから、`take` キーワードを使用して、返すレコード件数をエンジンに指示すると、精度を高めることができます。
+
+1. 次のクエリを入力し、選択し、実行します。
+
+    ```kql
     // Use 'project' and 'take' to view a sample number of records in the table and check the data.
-    Trips 
+    Automotive 
     | project vendor_id, trip_distance
     | take 10
     ```
 
-1. 分析で一般的に使われるもう 1 つの方法は、クエリセット内の列の名前をよりわかりやすい名前に変更することです。 これを行うには、新しい列名の後に等号と、名前を変更する列を使用します。
+    > **注:** // の使用はコメントを表します。
 
-    ```kusto
-    
-    Trips 
+    分析で一般的に使われるもう 1 つの方法は、クエリセット内の列の名前をよりわかりやすい名前に変更することです。
+
+1. 次のクエリを実行します。
+
+    ```kql
+    Automotive 
     | project vendor_id, ["Trip Distance"] = trip_distance
     | take 10
     ```
 
-1. また、走行距離を集計して、移動したマイル数を確認することもできます。
+### KQL を使用してデータを要約する
 
-    ```kusto
-    
-    Trips
+*要約*キーワードを関数と共に使用して、データを集計したり、それ以外の操作を行うことができます。
+
+1. **SUM** 関数を使用して走行データを集計し、合計走行マイル数を確認する次のクエリを試してみましょう。
+
+    ```kql
+
+    Automotive
     | summarize ["Total Trip Distance"] = sum(trip_distance)
     ```
 
-## KQL を使用したサンプル データセットのデータの `GROUP BY`
+    集計データは、指定した列または式でグループ化できます。
 
-1. 次に、`summarize` 演算子の処理対象である乗車場所の `group by` を行うこともできます。 また、`project` 演算子を使用することもできます。これを使用すると、出力に含める列を選択して名前を変更することができます。 この場合、NY タクシー システム内の区別にグループ化して、各区から移動した合計距離をユーザーに提供します。
+1. 次のクエリを実行して、NY タクシー システム内の地区ごとの走行距離をグループ化し、各地区からの走行距離の合計を決定します。
 
-```kusto
-
-Trips
-| summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-| project Borough = pickup_boroname, ["Total Trip Distance"]
-```
-
-1. この場合、分析に適さない空白の値があります。`case` 関数を `isempty` および `isnull` 関数と共に使用して、フォローアップのために、これらの値を ***[未確認]*** カテゴリに分類することができます。
-
-```kusto
-
-Trips
-| summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-| project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
-```
-
-## KQL を使用したサンプル データセットのデータの `ORDER BY`
-
-データの意味をよりわかりやすくするために、通常はデータを列で並べ替えます。KQL では、このプロセスは `sort by` 演算子または `order by` 演算子を使用して行われますが、どちらも同じように動作します。
- 
-```kusto
-
-// using the sort by operators
-Trips
-| summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-| project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
-| sort by Borough asc 
-
-// order by operator has the same result as sort by
-Trips
-| summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-| project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
-| sort by Borough asc 
-```
-
-## サンプル KQL クエリでデータをフィルター処理する `WHERE` 句
-
-SQL とは異なり、この KQL クエリでは、`WHERE` 句はすぐに呼び出されます。 where 句内でも、`and` と `or` の論理演算子を使用できます。この場合、テーブルに対して true または false と評価されます。これは、単純な式または複雑な式 (複数の列、演算子、関数を含むもの) にすることができます。
-
-```kusto
-
-// let's filter our dataset immediately from the source by applying a filter directly after the table.
-Trips
-| where pickup_boroname == "Manhattan"
-| summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-| project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
-| sort by Borough asc
-
-```
-
-## T-SQL をして集計情報のクエリを実行する
-
-KQL データベースでは、T-SQL はネイティブにサポートされませんが、Microsoft SQL Server をエミュレートし、データに対して T-SQL クエリを実行できるようにする T-SQL エンドポイントが提供されます。 ただし、T-SQL エンドポイントには、いくつかの制限と、ネイティブの SQL Server との違いがあります。 たとえば、T-SQL エンドポイントでは、テーブルの作成、変更、または削除や、データの挿入、更新、または削除はサポートされません。 また、KQL と互換性のない一部の T-SQL 関数と構文もサポートされません。 T-SQL エンドポイントは、KQL をサポートしていないシステムで、T-SQL を使用して KQL データベース内のデータに対してクエリを実行できるようにするために作成されました。 したがって、KQL の方が T-SQL よりも多くの機能を提供し、高いパフォーマンスを発揮するため、KQL データベースのプライマリ クエリとして KQL を使用することをお勧めします。 また、count、sum、avg、min、max など、一部の SQL 関数は KQL でもサポートされており、これらを使用することもできます。 
-
-## T-SQL を使用したサンプル データセットからのデータの `SELECT`
-
-1. このクエリでは、`Trips` テーブルから `TOP` 句を使って最初の 100 件のレコードをプルします。 
-
-    ```sql
-    // We can use the TOP clause to limit the number of records returned
-    
-    SELECT TOP 100 * from Trips
+    ```kql
+    Automotive
+    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
+    | project Borough = pickup_boroname, ["Total Trip Distance"]
     ```
 
-1. KQL データベース内での ***[データの探索]*** ツールのコメントである `//` を使う場合、T-SQL クエリを実行するときに、これを強調表示することはできません。代わりに、標準の SQL コメント表記 `--` を使う必要があります。 このダブルハイフンも、KQL エンジンに対して、Azure Data Explorer で T-SQL を想定するように指示するものです。
+    結果には空白の値が含まれますが、分析には適しません。
+
+1. *CASE* 関数と共に *ISEMPTY* および *ISNULL* 関数を使用して、フォローアップのために、地区が不明なすべての走行を***未確認***カテゴリにグループ化するように、次に示すようにクエリを変更します。
+
+    ```kql
+    Automotive
+    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
+    | project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
+    ```
+
+### KQL を使用してデータを並べ替える
+
+データの意味をよりわかりやすくするために、通常はデータを列で並べ替えます。KQL では、このプロセスは *sort by* 演算子または *order by* 演算子を使用して行われますが、どちらも同じように動作します。
+
+1. 次のクエリを実行します。
+
+    ```kql
+    Automotive
+    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
+    | project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
+    | sort by Borough asc
+    ```
+
+1. 次のようにクエリを変更し、もう一度実行します。*order by* 演算子は *sort by* と同じように動作します。
+
+    ```kql
+    Automotive
+    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
+    | project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
+    | order by Borough asc 
+    ```
+
+### KQL を使用してデータをフィルター処理する
+
+KQL では、*where* 句を使用してデータをフィルター処理します。 *and* および *or* 論理演算子を使用して、*where* 句の条件を組み合わせることができます。
+
+1. 次のクエリを実行して、マンハッタンからの走行のみを含むように走行データをフィルター処理します。
+
+    ```kql
+    Automotive
+    | where pickup_boroname == "Manhattan"
+    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
+    | project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
+    | sort by Borough asc
+    ```
+
+## Transact-SQL を使用してデータのクエリを実行する
+
+KQL データベースでは、Transact-SQL はネイティブにサポートされませんが、Microsoft SQL Server をエミュレートし、データに対して T-SQL クエリを実行できるようにする T-SQL エンドポイントが提供されます。 T-SQL エンドポイントには、いくつかの制限と、ネイティブの SQL Server との違いがあります。 たとえば、T-SQL エンドポイントでは、テーブルの作成、変更、または削除や、データの挿入、更新、または削除はサポートされません。 また、KQL と互換性のない一部の T-SQL 関数と構文もサポートされません。 T-SQL エンドポイントは、KQL をサポートしていないシステムで、T-SQL を使用して KQL データベース内のデータに対してクエリを実行できるようにするために作成されました。 したがって、KQL の方が T-SQL よりも多くの機能を提供し、高いパフォーマンスを発揮するため、KQL データベースのプライマリ クエリとして KQL を使用することをお勧めします。 また、count、sum、avg、min、max など、一部の SQL 関数は KQL でもサポートされており、これらを使用することもできます。
+
+### Transact-SQL を使用してテーブルからデータを取得する
+
+1. クエリセットで、次の Transact-SQL クエリを追加して実行します。 
 
     ```sql
-    -- instead of using the 'project' and 'take' keywords we simply use a standard SQL Query
+    SELECT TOP 100 * from Automotive
+    ```
+
+1. 特定の列を取得するようにクエリを次のように変更する
+
+    ```sql
     SELECT TOP 10 vendor_id, trip_distance
-    FROM Trips
+    FROM Automotive
     ```
 
-1. この場合も、標準の T-SQL 機能が、trip_distance という名前をよりわかりやすい名前に変更するクエリで正常に動作することがわかります。
+1. クエリを変更し、**trip_distance** をよりわかりやすい名前に変更した別名を割り当てます。
 
     ```sql
-    
-    -- No need to use the 'project' or 'take' operators as standard T-SQL Works
     SELECT TOP 10 vendor_id, trip_distance as [Trip Distance]
-    from Trips
+    from Automotive
     ```
 
-1. また、走行距離を集計して、移動したマイル数を確認することもできます。
+### Transact-SQL を使用してデータを要約する
+
+1. 次のクエリを実行して、合計走行距離を調べます。
 
     ```sql
-    Select sum(trip_distance) as [Total Trip Distance]
-    from Trips
+    SELECT sum(trip_distance) AS [Total Trip Distance]
+    FROM Automotive
     ```
-     >**注:** T-SQL では、KQL クエリとは異なり引用符を使用する必要はありません。また、T-SQL では `summarize` コマンドと `sort by` コマンドは使用できないことに注意してください。
 
-## T-SQL を使用したサンプル データセットからのデータの `GROUP BY`
-
-1. 次に、`GROUP BY` 演算子の処理対象である乗車場所の `group by` を行うこともできます。 また、`AS` 演算子を使用することもできます。これを使用すると、出力に含める列を選択して名前を変更することができます。 この場合、NY タクシー システム内の区別にグループ化して、各区から移動した合計距離をユーザーに提供します。
+1. 乗車区別に合計距離をグループ化するようにクエリを変更します。
 
     ```sql
     SELECT pickup_boroname AS Borough, Sum(trip_distance) AS [Total Trip Distance]
-    FROM Trips
+    FROM Automotive
     GROUP BY pickup_boroname
     ```
 
-1. この場合、分析に適さない空白の値があります。`CASE` 関数を、`IS NULL` 関数および `''` 空の値と共に使用して、フォローアップのために、これらの値を ***[未確認]*** カテゴリに分類することができます。 
+1. クエリをさらに変更し、*CASE* ステートメントを使用して、フォローアップのために、乗車地不明の走行を***未確認***カテゴリにグループ化します。 
 
     ```sql
-    
     SELECT CASE
              WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'Unidentified'
              ELSE pickup_boroname
            END AS Borough,
            SUM(trip_distance) AS [Total Trip Distance]
-    FROM Trips
+    FROM Automotive
     GROUP BY CASE
                WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'Unidentified'
                ELSE pickup_boroname
              END;
     ```
 
-## T-SQL を使用したサンプル データセットからのデータの `ORDER BY`
+### Transact-SQL を使用してデータを並べ替える
 
-1. データの意味をよりわかりやすくするために、通常はデータを列で並べ替えます。T-SQL では、このプロセスは `ORDER BY` 演演算子を使用して行われます。 T-SQL に ***SORT BY*** 演算子はありません
+1. 次のクエリを実行して、グループ化された結果を地区別に並べ替える
  
     ```sql
-    -- Group by pickup_boroname and calculate the summary statistics of trip_distance
     SELECT CASE
              WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'unidentified'
              ELSE pickup_boroname
            END AS Borough,
            SUM(trip_distance) AS [Total Trip Distance]
-    FROM Trips
+    FROM Automotive
     GROUP BY CASE
                WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'unidentified'
                ELSE pickup_boroname
              END
-    -- Add an ORDER BY clause to sort by Borough in ascending order
     ORDER BY Borough ASC;
     ```
-    ## サンプル T-SQL クエリでデータをフィルター処理する `WHERE` 句
+
+### Transact-SQL を使用してデータをフィルター処理する
     
-1. KQL とは異なり、`WHERE` 句は、T-SQL ステートメントの末尾に記述されます。この場合は、`GROUP BY` 句があるため、`HAVING` ステートメントを使う必要があり、列の新しい名前 (この場合は **Borough**) をフィルター対象の列名として使います。
+1. 次のクエリを実行して、グループ化されたデータをフィルター処理して、結果にマンハッタン地区を持つ行のみが含まれるようにする
 
     ```sql
-    -- Group by pickup_boroname and calculate the summary statistics of trip_distance
     SELECT CASE
              WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'unidentified'
              ELSE pickup_boroname
            END AS Borough,
            SUM(trip_distance) AS [Total Trip Distance]
-    FROM Trips
+    FROM Automotive
     GROUP BY CASE
                WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'unidentified'
                ELSE pickup_boroname
              END
-    -- Add a having clause due to the GROUP BY statement
     HAVING Borough = 'Manhattan'
-    -- Add an ORDER BY clause to sort by Borough in ascending order
     ORDER BY Borough ASC;
-    
     ```
 
 ## リソースをクリーンアップする
 
-この演習では、KQL データベースを作成し、クエリ用のサンプル データセットを設定しました。 その後、KQL と SQL を使ってデータにクエリを実行しました。 KQL データベースの探索が完了したら、この演習用に作成したワークスペースを削除できます。
-1. 左側のバーで、ワークスペースの**アイコン**を選択します。
-2. ツール バーの [...] メニューで、**[ワークスペース設定]** を選択します。
+この演習では、KQL と SQL を使用してイベントハウスを作成し、データのクエリを実行しました。
+
+KQL データベースの探索が完了したら、この演習用に作成したワークスペースを削除できます。
+
+1. 左側のバーで、ワークスペースのアイコンを選択します。
+2. ツール バーで、**[ワークスペース設定]** を選択します。
 3. **[全般]** セクションで、**[このワークスペースの削除]** を選択します。

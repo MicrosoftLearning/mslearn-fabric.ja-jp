@@ -1,242 +1,245 @@
 ---
 lab:
-  title: Microsoft Fabric の Eventstream に関する概要
-  module: Get started with Eventstream in Microsoft Fabric
+  title: Microsoft Fabric の Eventstream を使用してリアルタイム データを取り込む
+  module: Ingest real-time data with Eventstream in Microsoft Fabric
 ---
-# Microsoft Fabric の Eventstream に関する概要
+# Microsoft Fabric の Eventstream を使用してリアルタイム データを取り込む
 
-Eventstream とは、コードなしのエクスペリエンスでリアルタイム イベントをキャプチャし、変換し、さまざまな宛先にルーティングする Microsoft Fabric の機能です。 変換が必要な場合は、イベントのデータ ソース、ルーティング先、イベント プロセッサを Eventstream に追加できます。 Microsoft Fabric の EventStore は、クラスターからのイベントを維持し、特定の時点でのクラスターまたはワークロードの状態を理解できるようにする監視オプションです。 EventStore サービスでは、クラスター内のエンティティとエンティティ型のそれぞれで使用できるイベントのクエリを実行できます。 つまり、クラスター、ノード、アプリケーション、サービス、パーティション、パーティション レプリカなど、さまざまなレベルのイベントにクエリを実行できます。 EventStore サービスは、クラスター内のイベントを関連付ける機能も備えています。 EventStore サービスは、相互に影響を与えた可能性がある異なるエンティティから同時に書き込まれたイベントを調べてそれらのイベントをリンクし、クラスター内で発生したアクティビティの原因の識別に役立てることができます。 Microsoft Fabric クラスターの監視と診断を行うもう 1 つのオプションが、EventFlow を使用したイベントの集計と収集です。
+Eventstream とは、リアルタイム イベントをキャプチャし、変換し、さまざまな宛先にルーティングする Microsoft Fabric の機能です。 イベント データ ソース、変換先、変換を eventstream に追加できます。
+
+この演習では、市内で自転車をレンタルできるシェアサイクルシステムの自転車回収ポイントの観察に関連する、イベントのストリームを出力するサンプル データ ソースからデータを取り込みます。
 
 このラボの所要時間は約 **30** 分です。
 
-> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
+> **注**: この演習を完了するには、[Microsoft Fabric テナント](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
 
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
+Fabric でデータを操作する前に、Fabric 容量を有効にしてワークスペースを作成する必要があります。
 
-1. `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)にサインインし、**[Power BI]** を選択します。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択してください。**
-4. 新しいワークスペースを開くと次に示すように空のはずです。
+1. `https://app.fabric.microsoft.com/home?experience=fabric` の [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)で、**[リアルタイム インテリジェンス]** を選択します。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
 
-   ![Power BI の空のワークスペースのスクリーンショット。](./Images/new-workspace.png)
-5. Power BI ポータルの左下で、**[Power BI]** アイコンを選択し、**リアルタイム インテリジェンス** エクスペリエンスに切り替えます。
+    ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
-## シナリオ
+## イベントハウスを作成する
 
-Fabric Eventstream を使用すると、イベント データを 1 か所で簡単に管理できます。 リアルタイム イベント データを収集し、変換し、目的の形式でさまざまな宛先に送信できます。 また、Eventstream を、Azure Event Hubs、KQL データベース、レイクハウスに簡単に接続することもできます。
+ワークスペースが作成されたので、リアルタイム インテリジェンス ソリューションに必要な Fabric 項目の作成を開始できます。 まず、イベントハウスを作成します。
 
-このラボは、株式市場データと呼ばれるサンプル ストリーミング データに基づいています。 株式市場サンプル データは、時刻、シンボル、価格、数量などの事前設定されたスキーマ列を含む証券取引所のデータセットです。 このサンプル データを使用して、株価のリアルタイム イベントをシミュレートし、KQL データベースなどのさまざまな宛先で分析します。
+1. 左側のメニュー バーで **[ホーム]** を選択し、リアルタイム インテリジェンス ホーム ページで新しい **Eventhouse** を作成し、任意の一意の名前を付けます。
+1. 新しい空のイベントハウスが表示されるまで、表示されているヒントまたはプロンプトを閉じます。
 
-リアルタイム インテリジェンスのストリーミングおよびクエリ機能を使用して、株価統計に関する主な質問に回答します。 このシナリオでは、KQL データベースなどの一部のコンポーネントを個別に手動で作成する代わりに、ウィザードを最大限に活用します。
+    ![新しいイベントハウスのスクリーンショット](./Images/create-eventhouse.png)
 
-このチュートリアルで学習する内容は次のとおりです。
+1. 左側のペインで、イベントハウスに Eventhouse と同じ名前の KQL データベースが含まれていることに注意してください。
+1. KQL データベースを選択して表示します。
 
-- Eventhouse を作成する
-- KQL データベースを作成する
-- OneLake へのデータ コピーを有効にする
-- Eventstream を作成する
-- Eventstream から KQL データベースにデータをストリーミングする
-- KQL と SQL を使用してデータを探索する
-
-## リアルタイム インテリジェンス イベントハウスを作成する
-
-1. Microsoft Fabric でリアルタイム インテリジェンス オプションを選択します。
-1. メニュー バーからイベントハウスを選択し、イベントハウスに名前を付けます。
-    
-    ![イベントハウスの作成の画像](./Images/create-eventhouse.png)
-
-## KQL データベースを作成する
-
-1. **[リアルタイム インテリジェンス イベントハウス]** ダッシュボード内で、**[KQL データベース +]** ボックスを選択します。
-1. データベースに名前を付け **[新しいデータベース (既定)]** を選択するか、**[新しいショートカット データベース (フォロワー)]** を作成する選択肢があります。
-1. **［作成］** を選択します
-
-     >**注:** フォロワー データベース機能により、別のクラスターにあるデータベースを Azure Data Explorer クラスターにアタッチできます。 フォロワー データベースは "読み取り専用" モードでアタッチされるため、データを表示したり、リーダー データベースに取り込まれたデータに対してクエリを実行したりできます。 フォロワー データベースには、リーダー データベースの変更が同期されます。 この同期により、データが利用可能になるまでに数秒から数分のデータ遅延が発生します。 遅延の長さは、リーダー データベースのメタデータ全体のサイズに応じて異なります。 リーダー データベースとフォロワー データベースでは、データをフェッチするために同じストレージ アカウントが使用されます。 ストレージを所有するのはリーダー データベースです。 フォロワー データベースでは、データを取り込むことなくデータを表示できます。 アタッチされたデータベースは読み取り専用のデータベースであるため、データベース内のデータ、テーブル、およびポリシーの変更はできませんが、キャッシュ ポリシー、プリンシパル、およびアクセス許可の変更は可能です。
-
-   ![KQL データベースの選択の画像](./Images/create-kql-database-eventhouse.png)
-
-4. KQL データベースに**名前を付ける**ダイアログが表示されます
-
-   ![KQL データベースの名前付けの画像](./Images/name-kqldatabase.png)
-
-5. KQL データベースに **Eventhouse-HR** などの覚えやすい名前を付けて、**[作成]** を押します。
-
-6. **[データベースの詳細]** パネルで、鉛筆アイコンを選択して OneLake で可用性を有効にします。
-
-   [ ![onlake の有効化の画像](./Images/enable-onelake-availability.png) ](./Images/enable-onelake-availability-large.png)
-
-7. ボタンを **[アクティブ]** に切り替えてから、 **[完了]** を選択してください。
-
-   ![OneLake トグルの有効化の画像](./Images/enable-onelake-toggle.png)
+    現段階では、データベースにテーブルはありません。 この演習の残りの部分では、eventstream を使用して、リアルタイム ソースからテーブルにデータを読み込みます。
 
 ## Eventstream を作成する
 
-1. メニュー バーで **[リアルタイム インテリジェンス]** を選択します (アイコンは![リアルタイム インテリジェンスのロゴ](./Images/rta_logo.png)に似ています)
-2. **[新規]** で **[EventStream]** を選択します。
+1. KQL データベースのメイン ページで、 **[データの取得]** を選択します。
+2. データ ソースで、**[Eventstream** > **新しい Eventstream]** を選択します。 Eventstream `Bicycle-data` に名前を付けます。
 
-   ![Eventstream の選択の画像](./Images/select-eventstream.png)
+    ワークスペース内での新しいイベント ストリームの作成はすぐに完了します。 確立が完了すると、プライマリ エディターに自動的にリダイレクトされ、ソースをイベント ストリームに統合する準備が整います。
 
-3. 使用する Eventstream に**名前を付ける**よう求められます。 **MyStockES** など、EventStream に覚えやすい名前を付け、**[拡張機能 (プレビュー)]** オプションを選択し、**[作成]** ボタンを選択します。
+    ![新しい Eventstream のスクリーンショット。](./Images/empty-eventstream.png)
 
-   ![Eventstream の名前付けの画像](./Images/name-eventstream.png)
+## ソースを追加する
 
-     >**注:** ワークスペース内での新しいイベント ストリームの作成はすぐに完了します。 確立が完了すると、プライマリ エディターに自動的にリダイレクトされ、ソースをイベント ストリームに統合する準備が整います。
+1. Eventstream キャンバスで、**[サンプル データの使用]** を選択します。
+2. ソース `Bicycles` に名前を付けて、**[Bicycles]** サンプル データを選択します。
 
-## Eventstream ソースを確立する
+    ストリームがマップされ、**Eeventstream キャンバス**に自動的に表示されます。
 
-1. Eventstream キャンバスで、ドロップダウン リストから **[新しいソース]** を選択し、 **[サンプル データ]** を選択します。
+   ![Eventstream キャンバスの確認](./Images/real-time-intelligence-eventstream-sourced.png)
 
-    [ ![サンプル データの使用の画像](./Images/eventstream-select-sample-data.png) ](./Images/eventstream-select-sample-data-large.png#lightbox)
+## 宛先の追加
 
-2.  **[ソースの追加]** で、ソースに名前を付け、**自転車 (反射互換)** を選択します。
-3.  **追加** ボタンを選択します。
+1. **Bicycle-data** ノードの右側にある **+** アイコンを使用して、新しい **Eventhouse** ノードを追加します。
+1. 新しいイベントハウス ノードの *pencil* アイコンを使用して編集します。
+1. **Eventhouse** ペインで、次のセットアップ オプションを構成します。
+   - **データ インジェスト モード:** インジェスト前イベント処理
+   - **変換先の名前:**`bikes-table`
+   - **ワークスペース: ***この演習の開始時に作成したワークスペースを選択します*
+   - **Eventhouse**: *イベントハウスを選択します*
+   - **KQL データベース: ***KQL データベースを選択します*
+   - **変換先テーブル:** `bikes` という名前の新しいテーブルを作成します
+   - **入力データ形式:** JSON
 
-    ![サンプル データ イベント ストリームを選択してこれに名前を付けます](./Images/eventstream-sample-data.png)
+   ![Eventstream の宛先データ](./Images/kql-database-event-processing-before-ingestion.png)
 
-4. **[追加]** ボタンを選択すると、ストリームがマップされ、**[Eventstream キャンバス]** に自動的にリダイレクトされます。
+1. **Eventhouse** ペインで、**[保存]** を選択します。 
+1. ツールバーの **[発行]** を選択します。
+1. データ変換先がアクティブになるまで 1 分ほど待ちます。 次に、デザイン キャンバスで **bikes-table** ノードを選択し、下の **データのプレビュー** ペインを表示して、取り込まれた最新のデータを表示します。
 
-   [ ![Eventstream キャンバスの確認](./Images/real-time-intelligence-eventstream-sourced.png) ](./Images/real-time-intelligence-eventstream-sourced-large.png#lightbox)
- 
- > **注:** サンプル データ ソースを作成すると、編集モードのキャンバス上で Eventstream にそれが追加されます。 この新しく追加されたサンプル データを実装するには、**[発行]** を選択します。
+   ![Eventstream 内の宛先テーブル。](./Images/stream-data-preview.png)
 
-## イベントの変換または宛先の追加アクティビティを追加する
+1. 数分待ってから、**[更新]** ボタンを使用して **データのプレビュー** ペインを更新します。 ストリームは永続的に実行されているため、新しいデータがテーブルに追加されている可能性があります。
+1. Eventstream デザイン キャンバスの下で、**[データの分析情報]** タブを表示して、キャプチャされたデータ イベントの詳細を表示します。
 
-1. 発行後、**[イベントの変換または宛先の追加]** を選択した後、オプションとして **[KQL データベース]** を選択できます。
+## キャプチャされたデータに対してクエリを実行する
 
-   [ ![Eventstream の宛先として KQL データベースを設定](./Images/select-kql-destination.png) ](./Images/select-kql-destination-large.png)
+作成した Eventstream は、bicycle データのサンプル ソースからデータを取得し、Eventhouse 内のデータベースに読み込みます。 データベース内のテーブルに対してクエリを実行すると、キャプチャされたデータを表示できます。
 
+1. 左側のメニュー バーで、KQL データベースを選択します。
+1. **データベース** タブの KQL データベースのツール バーで、**[更新]** ボタンを使用して、データベースの下に **bikes** テーブルが表示されるまでビューを更新します。 次に、**bikes** テーブルを選択します。
 
-2. 多くのオプションを提供する新しいサイド パネルが開きます。 KQL データベースに関する必要な詳細を入力します。
+   ![KQL データベース内のテーブル。](./Images/kql-table.png)
 
-   [ ![KQL データベース Eventstream とインジェスト モード](./Images/kql-database-event-processing-before-ingestion.png) ](./Images/kql-database-event-processing-before-ingestion.png)
+1. **bikes** テーブルの **...** メニューで、過去 24 時間以内に取り込まれた **Query テーブル** > **Records を選択します**。
+1. クエリ ペインで、次のクエリが生成されて実行され、結果が下に表示されることに注意してください。
 
-    - **データ インジェスト モード:** KQL データベースにデータを取り込むには以下の 2 つの方法があります。
-        - ***直接インジェスト***: データを変換せずに KQL テーブルに直接取り込みます。
-        - ***取り込み前のイベント処理***: データを KQL テーブルに送信する前に、イベント プロセッサを使用して変換します。      
-        
-        > **警告:** KQL データベースの宛先が Eventstream に追加されると、インジェスト モードを編集することは**できません**。     
+    ```kql
+    // See the most recent data - records ingested in the last 24 hours.
+    bikes
+    | where ingestion_time() between (now(-1d) .. now())
+    ```
 
-   - **宛先名**: この Eventstream の宛先の名前 (例: "kql-dest") を入力します。
-   - **ワークスペース**: KQL データベースが配置されている場所。
-   - **KQL データベース**: KQL データベースの名前。
-   - **宛先テーブル**: KQL テーブルの名前。 たとえば、"bike-count" などの名前を入力して新しいテーブルを作成することもできます。
-   - **入力データ形式:** KQL テーブルのデータ形式として JSON を選択します。
+1. クエリ コードを選択して実行し、テーブルの 100 行のデータを表示します。
 
+    ![KQL クエリのスクリーンショット。](./Images/kql-query.png)
 
-3. **[保存]** を選択します。 
-4. **公開**を選択します。
+## イベント データを変換する
 
-## イベントを変換する
+キャプチャしたデータはソースから変更されていません。 多くのシナリオでは、イベント ストリーム内のデータを変換先に読み込む前に変換することができます。
 
-1. **[Eventstream]** キャンバス内で、**[イベントの変換]** を選択します。
+1. 左側のメニュー バーで、**Bicycle-data** Eventstream を選択します。
+1. ツール バーで **[編集]** を選択して、Eventstream を編集します。
+1. **[変換イベント]** メニューで、**[グループ化]** を選択して、Eventstream に新しい**グループ化**ノードを追加します。
+1. 接続を **Bicycle-data** ノードの出力から新しい**グループ化**ノードの入力にドラッグし、**グループ化**ノードの*鉛筆*アイコンを使用して編集します。
 
-    ![変換イベントにグループ化を追加します。](./Images/eventstream-add-aggregates.png)
+   ![変換イベントにグループ化を追加します。](./Images/eventstream-add-aggregates.png)
 
-    A. **[Group by]** を選択します。
+1. **グループ化**設定セクションのプロパティを次のように構成します。
+    - **操作名:** GroupByStreet
+    - **集計の種類:** Sum を*選択*します
+    - **フィールド:** No_Bikes を*選択*します。 *次に、**[追加]** を選択して次の関数を作成します: *SUM_No_Bikes
+    - **次で集計をグループ化 (オプション):** Street
+    - **時間ウィンドウ**: タンブリング
+    - **期間**: 5 秒
+    - **オフセット**: 0 秒
 
-    B. ***[鉛筆]*** アイコンで示されている **[編集]** を選択します。
-
-    C: **[Group by]** 変換イベントを作成したら、**[Eventstream]** から **[Group by]** へと接続を行う必要があります。 これは、**[Eventstream]** の右側にあるドットをクリックし、それを新しい **[Group by]** ボックスの左側にあるドットまでドラッグすることで、コードを使用することなく実行できます。 
-
-    ![Eventstream とグループ化の間にリンクを追加します。](./Images/group-by-drag-connectors.png)    
-
-2. **グループ化**設定セクションのプロパティを入力します。
-    - **操作名:** この変換イベントの名前を入力します
-    - **集計の種類:** Sum
-    - **フィールド:** No_Bikes
-    - **名前:** SUM_No_Bikes
-    - **次で集計をグループ化:** Street
+    > **注**: この構成により、Eventstream は各道路の自転車の合計数を 5 秒ごとに計算します。
       
-3. **[追加]**、**[保存]** の順に選択します。
+1. 構成を保存し、エラーが示されている Eventstream キャンバスに戻ります (変換からの出力をどこかに格納する必要があるため)。
 
-4. 同様に、**[イベント ストリーム]** と ***[kql_dest]*** の間の矢印にマウスオーバーして **[ゴミ箱]** を選択することができます。 その後、**グループ化**イベントを **kql-dest** に接続できます。
+1. **GroupByStreet** ノードの右側にある **+** アイコンを使用して、新しい **Eventhouse** ノードを追加します。
+1. 次のオプションを使用して、新しい Eventhouse ノードを構成します。
+   - **データ インジェスト モード:** インジェスト前イベント処理
+   - **変換先の名前:**`bikes-by-street-table`
+   - **ワークスペース: ***この演習の開始時に作成したワークスペースを選択します*
+   - **Eventhouse**: *イベントハウスを選択します*
+   - **KQL データベース: ***KQL データベースを選択します*
+   - **変換先テーブル:** `bikes-by-street` という名前の新しいテーブルを作成します
+   - **入力データ形式:** JSON
 
-   [ ![2 つのイベントの間のリンクを削除する](./Images/delete-flow-arrows.png) ](./Images/delete-flow-arrows-large.png)
+    ![グループ化したデータのテーブルのスクリーンショット。](./Images/group-by-table.png)
 
-    > **注:** コネクタを追加または削除するたびに、宛先オブジェクトを再構成する必要があります。
+1. **Eventhouse** ペインで、**[保存]** を選択します。 
+1. ツールバーの **[発行]** を選択します。
+1. 変更がアクティブになるまで 1 分ほど待ちます。
+1. デザイン キャンバスで、 **bikes-by-street-table** ノードを選択し、キャンバスの下にある **データのプレビュー** ペインを表示します。
 
-5. **kql-dest** の下にある鉛筆を選択し、**グループ化**イベントの出力を受け取る **Bike_sum** という名前の新しい変換先テーブルを作成します。
+    ![グループ化したデータのテーブルのスクリーンショット。](./Images/stream-table-with-windows.png)
 
-## KQL のクエリ
+    変換されたデータには、指定したグループ化フィールド (**Street**)、指定した集計 (**SUM_no_Bikes**)、イベントが発生した 5 秒のタンブリング ウィンドウの終了を示すタイムスタンプ フィールド (**Window_End_Time**) が含まれていることに注意してください。
 
-Kusto 照会言語 (KQL) は、データを処理して結果を返すための、読み取り専用の要求です。 要求は、読みやすく、作りやすく、自動化しやすいデータフロー モデルを利用してプレーンテキストで提示されます。 クエリは常に、特定のテーブルまたはデータベースのコンテキストで実行されます。 クエリは少なくとも、ソース データ参照と、シーケンスで適用される 1 つ以上のクエリ演算子で構成され、演算子を区切るパイプ文字 () を使用して視覚的に示されます。 Kusto 照会言語について詳しくは、「[Kusto 照会言語 (KQL) の概要](https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/?context=%2Ffabric%2Fcontext%2Fcontext)」を参照してください
+## 変換されたデータに対してクエリを実行する
 
-> **注**: KQL エディターには構文と Inellisense 強調表示の両方が付属しています。これにより、Kusto 照会言語 (KQL) に関する知識をすばやく得ることができます。
+これで、Eventstream によって変換されてテーブルに読み込まれた bicycle のデータに対してクエリを実行できるようになりました
 
-1. 以下のように、新しく作成されハイドレートされた KQL データベースを参照します。
+1. 左側のメニュー バーで、KQL データベースを選択します。
+1. 1. **データベース** タブの KQL データベースのツール バーで、**[更新]** ボタンを使用して、データベースの下に **bikes-by-street** テーブルが表示されるまでビューを更新します。
+1. **bikes-by-street** テーブルの **...** メニューで、**[クエリ データ]** > **[100個のデータを表示する]** を選択します。
+1. クエリ ウィンドウで、次のクエリが生成されて実行されることに注意してください。
 
-    A.  **[kql-dest]** を選択します 
+    ```kql
+    ['bikes-by-street']
+    | take 100
+    ```
 
-    B. **[関連アイテム]** 行にある **[アイテムを開く]** ハイパーリンクを選択する
+1. KQL クエリを変更して、各 5 秒のウィンドウ内のストリートあたりの自転車の合計数を取得します。
 
-   [ ![2 つのイベントの間のリンクを削除する](./Images/navigate-to-data.png) ](./Images/navigate-to-data-large.png)
+    ```kql
+    ['bikes-by-street']
+    | summarize TotalBikes = sum(tolong(SUM_No_Bikes)) by Window_End_Time, Street
+    | sort by Window_End_Time desc , Street asc
+    ```
 
-1. データ ツリーで、***[Bike_sum]*** テーブル上のその他メニュー [...] を選択します。 次に、[クエリ テーブル] > [100 個のレコードを表示する] を選択します。
+1. 変更したクエリを選択して実行します。
 
-   [ ![2 つのイベントの間のリンクを削除する](./Images/kql-query-sample.png) ](./Images/kql-query-sample-large.png)
+    結果は、各 5 秒間に各ストリートで観察された自転車の数を示しています。
 
-3. サンプル クエリは、テーブル コンテキストが既に設定されている **[データを調査する]** ペインで開きます。 この最初のクエリでは、`take` 演算子を使用してサンプル数のレコードを返します。データ構造と使用可能な値を最初に確認するために便利です。 自動設定されたサンプル クエリは自動的に実行されます。 結果ペインでクエリの結果を確認できます。
+    ![グループ化されたデータを返すクエリのスクリーンショット。](./Images/kql-group-query.png)
 
-   ![KQL クエリ結果の画像](./Images/kql-query-results.png)
+<!--
+## Add an Activator destination
 
-4. データ ツリーに戻り、次のクエリ **Summarize ingestion per hour** を選択します。このクエリでは、`summarize` 演算子を使用して、指定された間隔で取り込まれたレコードの数をカウントします。
+So far, you've used an eventstream to load data into tables in an eventhouse. You can also direct streams to an activator and automate actions based on values in the event data.
 
-   ![KQL クエリ結果の画像](./Images/kql-query-results-15min-intervals.png)
+1. In the menu bar on the left, return to the **Bicycle-data** eventstream. Then in the eventstream page, on the toolbar, select **Edit**.
+1. In the **Add destination** menu, select **Activator**. Then drag a connection from the output of the **Bicycle-data** stream to the input of the new Activator destination.
+1. Configure the new Activator destination with the following settings:
+    - **Destination name**: `low-bikes-activator`
+    - **Workspace**: *Select your workspace*
+    - **Activator**: *Create a **new** activator named `low-bikes`*
+    - **Input data format**: Json
 
-> **注**:クエリの制限を超えたという警告が表示される場合があります。 この動作は、データベースにストリーミングされるデータの量によって異なります。
+    ![Screenshot of an Activator destination.](./Images/activator-destination.png)
 
-引き続き、組み込みのクエリ関数の使用を試すことで、データを理解することができます。
+1. Save the new destination.
+1. In the menu bar on the left, select your workspace to see all of the items you have created so far in this exercise - including the new **low-bikes** activator.
+1. Select the **low-bikes** activator to view its page, and then on the activator page select **Get data**.
+1. On the **select a data source** dialog box, scroll down until you see **Data streams** and then select the **Bicycle-data-stream**.
 
-## Copilot を使用したクエリ
+    ![Screenshot of data sources for an activator.](./Images/select-activator-stream.png)
 
-クエリ エディターでは、主要なクエリ Kusto 照会言語 (KQL) に加えて T-SQL の使用がサポートされています。 T-SQL は、KQL を使用できないツールで役立ちます。 詳細については、「[T-SQL を使用してデータのクエリを実行する](https://learn.microsoft.com/en-us/azure/data-explorer/t-sql)」を参照してください
+1. Use the **Next**,  **Connect**, and **Finish** buttons to connect the stream to the activator.
 
-1. データ ツリーに戻り、MyStockData テーブルで**その他メニュー** [...] を選択します。 **[クエリ テーブル] > [SQL] > [100 個のレコードを表示する]** を選択します。
+    > **Tip**: If the data preview obscures the **Next** button, close the dialog box, select the stream again, and click **Next** before the preview is rendered.
 
-   [ ![SQL クエリ サンプルの画像](./Images/sql-query-sample.png) ](./Images/sql-query-sample-large.png)
+1. When the stream has been connected, the activator page displays the **Events** tab:
 
-2. クエリ内のどこかにカーソルを置き、 **[実行]** を選択するか、**Shift キーを押しながら Enter キー**を押します。
+    ![Screenshot of the activator Events page.](./Images/activator-events-page.png)
 
-   ![SQL クエリ結果の画像](./Images/sql-query-results.png)
+1. Add a new rule, and configure its definition with the following settings:
+    - **Monitor**:
+        - **Event**: Bicycle-data-stream-event
+    - **Condition**
+        - **Condition 1**:
+            - **Operation**: Numeric state: Is less than or equal to
+            - **Column**: No_Bikes
+            - **Value**: 3
+            - **Default type**: Same as window size
+    - **Action**:
+        - **Type**: Email
+        - **To**: *The email address for the account you are using in this exercise*
+        - **Subject**: `Low bikes`
+        - **Headline**: `The number of bikes is low`
+        - **Message**: `More bikes are needed.`
+        - **Context**: *Select the **Neighborhood**, **Street**, and **No-Bikes** columns.
 
-引き続き、組み込みの関数の使用を試すことで、SQL または KQL を使用したデータを理解することができます。 
+    ![Screenshot of an activator rule definition.](./Images/activator-rule.png)
 
-## クエリセットを使用した機能
+1. Save and start the rule.
+1. View the **Analytics** tab for the rule, which should show each instance if the condition being met as the stream of events is ingested by your eventstream.
 
-KQL (Kusto 照会言語) データベースのクエリセットはさまざまな目的で使用されますが、主には KQL データベースのデータに対するクエリの実行、表示、およびクエリ結果のカスタマイズのために使用されます。 これらは Microsoft Fabric のデータ クエリ機能の重要な要素であり、ユーザーが以下を実行することを可能にします。
+    Each instance will result in an email being sent notifying you of low bikes, which will result in a large numbers of emails, so...
 
- - **クエリの実行:** KQL クエリを実行して、KQL データベースからデータを取得します。
- - **結果のカスタマイズ:** クエリ結果を表示および変更して、データの分析と解釈を容易にします。
- - **クエリの保存と共有:** クエリセット内に複数のタブを作成して、後で使用するためにクエリを保存したり、共同作業によるデータ探索のために他の人とクエリを共有したりします。
- - **SQL 関数のサポート:** クエリの作成に KQL を使用する上で、クエリセットは多くの SQL 関数もサポートして、データ クエリの柔軟性を提供します。
- - **Copilot の活用:** クエリを KQL クエリセットとして保存したら、表示を行うことができます
+1. On the toolbar, select **Stop** to stop the rule from being processed.
 
-クエリセットを保存するのは簡単であり、いくつかの方法があります。 
-
-1. **KQL データベース**で **[データの探索]** ツールを使用する際に、単に **[KQL クエリセットとして保存]** を選択するだけで済みます
-
-   ![[データの探索] から KQL クエリセットを保存する](./Images/save-as-queryset.png)
-
-2. もう 1 つの方法は、リアルタイム インテリジェンスのランディング ページから行う方法で、ページから **[KQL クエリセット]** ボタンを選択した後、**[クエリセット]** に名前を付けます
-
-   ![リアルタイム インテリジェンスのランディング ページから新しい KQL クエリセットを作成する](./Images/select-create-new-queryset.png)
-
-3. **[クエリセット ランディング ページ]** に移動すると、ツール バーに **[Copilot]** ボタンが表示されます。これを選択して **[Copilot ペイン]** を開き、データに関する質問を行います。
-
-    [ ![メニュー バーから Copilot を開く](./Images/open-copilot-in-queryset.png) ](./Images/open-copilot-in-queryset-large.png)
-
-4. **[Copilot ペイン]** では、ユーザーが質問を入力するだけで、**Copilot** が KQL クエリを生成し、ユーザーはそのクエリを***コピー***したり、クエリセット ウィンドウに***挿入**したりできます。 
-
-    [ ![質問を行うことで Copilot クエリを記述する](./Images/copilot-queryset-results.png) ](./Images/copilot-queryset-results-large.png)
-
-5. この時点から、**[ダッシュボードへのピン留め]** または **[Power BI レポートの作成]** ボタンを使用して、個々のクエリを取得したりダッシュボードまたは Power BI レポート内で使用したりする選択肢があります。
+-->
 
 ## リソースをクリーンアップする
 
-この演習では、KQL データベースを作成し、Eventstream を使用して継続的ストリーミングを設定しました。 その後、KQL と SQL を使用してデータにクエリを実行しました。 KQL データベースの探索が完了したら、この演習用に作成したワークスペースを削除できます。
+この演習では、Eventstream を使用して、イベントハウスを作成し、そのデータベースにテーブルを設定しました。
+
+KQL データベースの探索が完了したら、この演習用に作成したワークスペースを削除できます。
+
 1. 左側のバーで、ワークスペースのアイコンを選択します。
-2. ツール バーの **[...]** メニューで、 **[ワークスペースの設定]** を選択します。
+2. ツール バーで、**[ワークスペース設定]** を選択します。
 3. **[全般]** セクションで、**[このワークスペースの削除]** を選択します。
-.
+から始めます。
