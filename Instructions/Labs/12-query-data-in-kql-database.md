@@ -18,7 +18,6 @@ Microsoft Fabric では、*eventhouse* は、イベントに関連するリア�
 
 Fabric でデータを操作する前に、Fabric 容量を有効にしてワークスペースを作成してください。
 
-1. `https://app.fabric.microsoft.com/home?experience=fabric` の [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)で、**[リアルタイム インテリジェンス]** を選択します。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
@@ -29,20 +28,13 @@ Fabric でデータを操作する前に、Fabric 容量を有効にしてワー
 
 Fabric 容量をサポートするワークスペースが作成されたので、その中にイベントハウスを作成できます。
 
-1. **リアルタイム インテリジェンス**のホーム ページで、任意の名前で新しい**イベントハウス**を作成します。 イベントハウスが作成されたら、イベントハウス ページが表示されるまで、表示されているプロンプトまたはヒントを閉じます。
+1. 左側のメニュー バーで **[ワークロード]** を選択します。 次に、**[Real-Time Intelligence]** タイルを選択します。
+1. **Real-Time Intelligence** ホーム ページの *[Real-Time Intelligence のサンプルを探索する]* タイルで、**[開く]** を選択します。 **RTISample** というイベントハウスが自動的に作成されます。
 
-   ![新しいイベントハウスのスクリーンショット。](./Images/create-eventhouse.png)
+   ![サンプル データによる新しいイベントハウスのスクリーンショット。](./Images/create-eventhouse-sample.png)
 
 1. 左側のペインで、イベントハウスに Eventhouse と同じ名前の KQL データベースが含まれていることに注意してください。
-1. KQL データベースを選択して表示します。
-
-    現段階では、データベースにテーブルはありません。 この演習の残りの部分では、eventstream を使用して、リアルタイム ソースからテーブルにデータを読み込みます。
-   
-1. KQL データベースのページで、**[データの取得]**、**[サンプル]** を選択します。 次に、**[自動車の動作分析]** サンプル データを選択します。
-
-1. データの読み込みが完了したら、**[自動車]** テーブルが作成されていることを確認します。
-
-   ![イベントハウス データベースの自動車テーブルのスクリーンショット。](./Images/choose-automotive-operations-analytics.png)
+1. **Bikestream** テーブルも作成されていることを確認します。
 
 ## KQL を使用してデータのクエリを実行する
 
@@ -54,7 +46,7 @@ Kusto 照会言語 (KQL) は、KQL データベースのクエリに使用でき
 1. 最初のクエリ例を次のように変更します。
 
     ```kql
-    Automotive
+    Bikestream
     | take 100
     ```
 
@@ -70,8 +62,8 @@ Kusto 照会言語 (KQL) は、KQL データベースのクエリに使用でき
 
     ```kql
     // Use 'project' and 'take' to view a sample number of records in the table and check the data.
-    Automotive 
-    | project vendor_id, trip_distance
+    Bikestream
+    | project Street, No_Bikes
     | take 10
     ```
 
@@ -82,8 +74,8 @@ Kusto 照会言語 (KQL) は、KQL データベースのクエリに使用でき
 1. 次のクエリを実行します。
 
     ```kql
-    Automotive 
-    | project vendor_id, ["Trip Distance"] = trip_distance
+    Bikestream 
+    | project Street, ["Number of Empty Docks"] = No_Empty_Docks
     | take 10
     ```
 
@@ -91,33 +83,35 @@ Kusto 照会言語 (KQL) は、KQL データベースのクエリに使用でき
 
 *要約*キーワードを関数と共に使用して、データを集計したり、それ以外の操作を行うことができます。
 
-1. **SUM** 関数を使用して走行データを集計し、合計走行マイル数を確認する次のクエリを試してみましょう。
+1. **sum** 関数によりレンタル データを集計して、利用可能な自転車の合計台数を表示する、次のクエリを試してください。
 
     ```kql
 
-    Automotive
-    | summarize ["Total Trip Distance"] = sum(trip_distance)
+    Bikestream
+    | summarize ["Total Number of Bikes"] = sum(No_Bikes)
     ```
 
     集計データは、指定した列または式でグループ化できます。
 
-1. 次のクエリを実行して、NY タクシー システム内の地区ごとの走行距離をグループ化し、各地区からの走行距離の合計を決定します。
+1. 次のクエリを実行して、自転車の台数を地区別にグループ化し、各地区で利用可能な自転車の台数を決定します。
 
     ```kql
-    Automotive
-    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-    | project Borough = pickup_boroname, ["Total Trip Distance"]
+    Bikestream
+    | summarize ["Total Number of Bikes"] = sum(No_Bikes) by Neighbourhood
+    | project Neighbourhood, ["Total Number of Bikes"]
     ```
 
-    結果には空白の値が含まれますが、分析には適しません。
+    地区に対して null 値または空のエントリがある自転車のポイントがある場合、集計の結果に空白の値が含まれます。これは分析に不適切です。
 
-1. *CASE* 関数と共に *ISEMPTY* および *ISNULL* 関数を使用して、フォローアップのために、地区が不明なすべての走行を***未確認***カテゴリにグループ化するように、次に示すようにクエリを変更します。
+1. *case* 関数と共に *isempty* 関数と *isnull* 関数を使用して、フォローアップのために、地区が不明なすべての走行を ***Unidentified*** カテゴリにグループ化するように、次に示すようにクエリを変更します。
 
     ```kql
-    Automotive
-    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-    | project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
+    Bikestream
+    | summarize ["Total Number of Bikes"] = sum(No_Bikes) by Neighbourhood
+    | project Neighbourhood = case(isempty(Neighbourhood) or isnull(Neighbourhood), "Unidentified", Neighbourhood), ["Total Number of Bikes"]
     ```
+
+    >**注**: このサンプル データセットは適切に管理されているため、クエリ結果に Unidentified フィールドがない場合があります。
 
 ### KQL を使用してデータを並べ替える
 
@@ -126,33 +120,33 @@ Kusto 照会言語 (KQL) は、KQL データベースのクエリに使用でき
 1. 次のクエリを実行します。
 
     ```kql
-    Automotive
-    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-    | project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
-    | sort by Borough asc
+    Bikestream
+    | summarize ["Total Number of Bikes"] = sum(No_Bikes) by Neighbourhood
+    | project Neighbourhood = case(isempty(Neighbourhood) or isnull(Neighbourhood), "Unidentified", Neighbourhood), ["Total Number of Bikes"]
+    | sort by Neighbourhood asc
     ```
 
 1. 次のようにクエリを変更し、もう一度実行します。*order by* 演算子は *sort by* と同じように動作します。
 
     ```kql
-    Automotive
-    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-    | project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
-    | order by Borough asc 
+    Bikestream
+    | summarize ["Total Number of Bikes"] = sum(No_Bikes) by Neighbourhood
+    | project Neighbourhood = case(isempty(Neighbourhood) or isnull(Neighbourhood), "Unidentified", Neighbourhood), ["Total Number of Bikes"]
+    | order by Neighbourhood asc
     ```
 
 ### KQL を使用してデータをフィルター処理する
 
 KQL では、*where* 句を使用してデータをフィルター処理します。 *and* および *or* 論理演算子を使用して、*where* 句の条件を組み合わせることができます。
 
-1. 次のクエリを実行して、マンハッタンからの走行のみを含むように走行データをフィルター処理します。
+1. 次のクエリを実行して、チェルシー地区の自転車のポイントのみを含むように自転車データをフィルター処理します。
 
     ```kql
-    Automotive
-    | where pickup_boroname == "Manhattan"
-    | summarize ["Total Trip Distance"] = sum(trip_distance) by pickup_boroname
-    | project Borough = case(isempty(pickup_boroname) or isnull(pickup_boroname), "Unidentified", pickup_boroname), ["Total Trip Distance"]
-    | sort by Borough asc
+    Bikestream
+    | where Neighbourhood == "Chelsea"
+    | summarize ["Total Number of Bikes"] = sum(No_Bikes) by Neighbourhood
+    | project Neighbourhood = case(isempty(Neighbourhood) or isnull(Neighbourhood), "Unidentified", Neighbourhood), ["Total Number of Bikes"]
+    | sort by Neighbourhood asc
     ```
 
 ## Transact-SQL を使用してデータのクエリを実行する
@@ -164,90 +158,90 @@ KQL データベースでは、Transact-SQL はネイティブにサポートさ
 1. クエリセットで、次の Transact-SQL クエリを追加して実行します。 
 
     ```sql
-    SELECT TOP 100 * from Automotive
+    SELECT TOP 100 * from Bikestream
     ```
 
 1. 特定の列を取得するようにクエリを次のように変更する
 
     ```sql
-    SELECT TOP 10 vendor_id, trip_distance
-    FROM Automotive
+    SELECT TOP 10 Street, No_Bikes
+    FROM Bikestream
     ```
 
-1. クエリを変更し、**trip_distance** をよりわかりやすい名前に変更した別名を割り当てます。
+1. クエリを変更して、**No_Empty_Docks** をよりわかりやすい名前に変更した別名を割り当てます。
 
     ```sql
-    SELECT TOP 10 vendor_id, trip_distance as [Trip Distance]
-    from Automotive
+    SELECT TOP 10 Street, No_Empty_Docks as [Number of Empty Docks]
+    from Bikestream
     ```
 
 ### Transact-SQL を使用してデータを要約する
 
-1. 次のクエリを実行して、合計走行距離を調べます。
+1. 次のクエリを実行して、利用可能な自転車の合計台数を取得します。
 
     ```sql
-    SELECT sum(trip_distance) AS [Total Trip Distance]
-    FROM Automotive
+    SELECT sum(No_Bikes) AS [Total Number of Bikes]
+    FROM Bikestream
     ```
 
-1. 乗車区別に合計距離をグループ化するようにクエリを変更します。
+1. クエリを変更して、自転車の合計台数を地区別にグループ化します。
 
     ```sql
-    SELECT pickup_boroname AS Borough, Sum(trip_distance) AS [Total Trip Distance]
-    FROM Automotive
-    GROUP BY pickup_boroname
+    SELECT Neighbourhood, Sum(No_Bikes) AS [Total Number of Bikes]
+    FROM Bikestream
+    GROUP BY Neighbourhood
     ```
 
-1. クエリをさらに変更し、*CASE* ステートメントを使用して、フォローアップのために、乗車地不明の走行を***未確認***カテゴリにグループ化します。 
+1. クエリをさらに変更して、フォローアップのために、*CASE* ステートメントにより、出発地不明の自転車のポイントを ***Unidentified*** カテゴリにグループ化します。 
 
     ```sql
     SELECT CASE
-             WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'Unidentified'
-             ELSE pickup_boroname
-           END AS Borough,
-           SUM(trip_distance) AS [Total Trip Distance]
-    FROM Automotive
+             WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'
+             ELSE Neighbourhood
+           END AS Neighbourhood,
+           SUM(No_Bikes) AS [Total Number of Bikes]
+    FROM Bikestream
     GROUP BY CASE
-               WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'Unidentified'
-               ELSE pickup_boroname
+               WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'
+               ELSE Neighbourhood
              END;
     ```
 
 ### Transact-SQL を使用してデータを並べ替える
 
-1. 次のクエリを実行して、グループ化された結果を地区別に並べ替える
+1. 次のクエリを実行して、グループ化された結果を地区別に並べ替えます。
  
     ```sql
     SELECT CASE
-             WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'unidentified'
-             ELSE pickup_boroname
-           END AS Borough,
-           SUM(trip_distance) AS [Total Trip Distance]
-    FROM Automotive
+             WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'
+             ELSE Neighbourhood
+           END AS Neighbourhood,
+           SUM(No_Bikes) AS [Total Number of Bikes]
+    FROM Bikestream
     GROUP BY CASE
-               WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'unidentified'
-               ELSE pickup_boroname
-             END
-    ORDER BY Borough ASC;
+               WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'
+               ELSE Neighbourhood
+             END;
+    ORDER BY Neighbourhood ASC;
     ```
 
 ### Transact-SQL を使用してデータをフィルター処理する
     
-1. 次のクエリを実行して、グループ化されたデータをフィルター処理して、結果にマンハッタン地区を持つ行のみが含まれるようにする
+1. 次のクエリを実行して、地区が "チェルシー" である行のみが結果に含まれるように、グループ化されたデータをフィルター処理します。
 
     ```sql
     SELECT CASE
-             WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'unidentified'
-             ELSE pickup_boroname
-           END AS Borough,
-           SUM(trip_distance) AS [Total Trip Distance]
-    FROM Automotive
+             WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'
+             ELSE Neighbourhood
+           END AS Neighbourhood,
+           SUM(No_Bikes) AS [Total Number of Bikes]
+    FROM Bikestream
     GROUP BY CASE
-               WHEN pickup_boroname IS NULL OR pickup_boroname = '' THEN 'unidentified'
-               ELSE pickup_boroname
-             END
-    HAVING Borough = 'Manhattan'
-    ORDER BY Borough ASC;
+               WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'
+               ELSE Neighbourhood
+             END;
+    HAVING Neighbourhood = 'Chelsea'
+    ORDER BY Neibourhood ASC;
     ```
 
 ## リソースをクリーンアップする
