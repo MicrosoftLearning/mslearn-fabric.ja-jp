@@ -18,6 +18,7 @@ Microsoft Fabric では、*eventhouse* は、イベントに関連するリア�
 
 Fabric でデータを操作する前に、Fabric 容量を有効にしてワークスペースを作成してください。
 
+1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
@@ -29,7 +30,7 @@ Fabric でデータを操作する前に、Fabric 容量を有効にしてワー
 Fabric 容量をサポートするワークスペースが作成されたので、その中にイベントハウスを作成できます。
 
 1. 左側のメニュー バーで **[ワークロード]** を選択します。 次に、**[Real-Time Intelligence]** タイルを選択します。
-1. **Real-Time Intelligence** ホーム ページの *[Real-Time Intelligence のサンプルを探索する]* タイルで、**[開く]** を選択します。 **RTISample** というイベントハウスが自動的に作成されます。
+1. **Real-Time Intelligence** ホーム ページで、**[Real-Time Intelligence のサンプルを探索する]** タイルを選択します。 **RTISample** というイベントハウスが自動的に作成されます。
 
    ![サンプル データによる新しいイベントハウスのスクリーンショット。](./Images/create-eventhouse-sample.png)
 
@@ -221,7 +222,7 @@ KQL データベースでは、Transact-SQL はネイティブにサポートさ
     GROUP BY CASE
                WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'
                ELSE Neighbourhood
-             END;
+             END
     ORDER BY Neighbourhood ASC;
     ```
 
@@ -239,7 +240,7 @@ KQL データベースでは、Transact-SQL はネイティブにサポートさ
     GROUP BY CASE
                WHEN Neighbourhood IS NULL OR Neighbourhood = '' THEN 'Unidentified'
                ELSE Neighbourhood
-             END;
+             END
     HAVING Neighbourhood = 'Chelsea'
     ORDER BY Neibourhood ASC;
     ```
