@@ -17,6 +17,7 @@ Eventstream とは、リアルタイム イベントをキャプチャし、変�
 
 Fabric でデータを操作する前に、Fabric 容量を有効にしてワークスペースを作成する必要があります。
 
+1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
@@ -57,8 +58,7 @@ Fabric でデータを操作する前に、Fabric 容量を有効にしてワー
 
 ## 宛先の追加
 
-1. **Bicycle-data** ノードの右側にある **+** アイコンを使用して、新しい **Eventhouse** ノードを追加します。
-1. 新しいイベントハウス ノードの *pencil* アイコンを使用して編集します。
+1. **イベントの変換または変換先の追加**タイルを選択し、**Eventhouse** を検索します。
 1. **Eventhouse** ペインで、次のセットアップ オプションを構成します。
    - **データ インジェスト モード:** インジェスト前イベント処理
    - **変換先の名前:**`bikes-table`
