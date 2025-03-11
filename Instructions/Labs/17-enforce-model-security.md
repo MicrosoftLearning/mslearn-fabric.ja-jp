@@ -190,7 +190,7 @@ lab:
 
     ![](Images/enforce-model-security-image32.png)
 
-    **[セキュリティ]** オプションは、セキュリティ グループとユーザーを含む Microsoft Azure Active Directory (Azure AD) セキュリティ プリンシパルのマッピングをサポートします。**
+    ***[セキュリティ]** オプションは、セキュリティ グループおよびユーザーを含む Microsoft Entra セキュリティ プリンシパルのマッピングをサポートします。*
 
 4. 左側のロールの一覧で **Australia** が選択されていることに注意してください。
 

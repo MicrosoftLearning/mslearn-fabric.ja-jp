@@ -16,7 +16,7 @@ Microsoft Fabric のリアルタイム ダッシュボードを使用すると�
 
 Fabric でデータを操作する前に、Fabric 容量を有効にしてワークスペースを作成する必要があります。
 
-1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) に移動し、Fabric 資格情報でサインインします。
+1. `https://app.fabric.microsoft.com/home?experience=fabric` の [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)で、**[リアルタイム インテリジェンス]** を選択します。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
@@ -27,10 +27,7 @@ Fabric でデータを操作する前に、Fabric 容量を有効にしてワー
 
 ワークスペースが作成されたので、リアルタイム インテリジェンス ソリューションに必要な Fabric 項目の作成を開始できます。 まず、イベントハウスを作成します。
 
-1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの *[Real-Time Intelligence]* セクションで、**[イベントハウス]** を選択します。 任意の一意の名前を設定します。
-
-    >**注**: **[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
-
+1. 左側のメニュー バーで **[ホーム]** を選択し、リアルタイム インテリジェンス ホーム ページで新しい **Eventhouse** を作成し、任意の一意の名前を付けます。
 1. 新しい空のイベントハウスが表示されるまで、表示されているヒントまたはプロンプトを閉じます。
 
     ![新しいイベントハウスのスクリーンショット](./Images/create-eventhouse.png)
@@ -38,7 +35,7 @@ Fabric でデータを操作する前に、Fabric 容量を有効にしてワー
 1. 左側のペインで、イベントハウスに Eventhouse と同じ名前の KQL データベースが含まれていることに注意してください。
 1. KQL データベースを選択して表示します。
 
-## Eventstream を作成する
+## イベントストリームを作成する
 
 現段階では、データベースにテーブルはありません。 Eventstream を使用して、リアルタイム ソースからテーブルにデータを読み込みます。
 
@@ -161,13 +158,13 @@ Fabric でデータを操作する前に、Fabric 容量を有効にしてワー
     bikes
         | where ingestion_time() between (ago(30min) .. now())
         | summarize latest_observation = arg_max(ingestion_time(), *) by Neighbourhood
-    ```
-1. クエリを実行し、ダッシュボード (およびその他) の両方のビジュアルに必要なすべての列が返されることを確認します。
 
-   ![基本クエリのスクリーンショット。](./Images/dashboard-base-query.png)
+1. Run the query and verify that it returns all of the columns needed for both visuals in the dashboard (and some others).
 
-1. **完了**を選択してから、**基本クエリ** ペインを閉じます。
-1. **自転車と置き場**横棒グラフのビジュアルを編集し、クエリを次のコードに変更します。
+   ![A screenshot of a base query.](./Images/dashboard-base-query.png)
+
+1. Select **Done** and then close the **Base queries** pane.
+1. Edit the **Bikes and Docks** bar chart visual, and change the query to the following code:
 
     ```kql
     base_bike_data
