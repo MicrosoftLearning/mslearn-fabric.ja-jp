@@ -16,7 +16,7 @@ GraphQL 用 Microsoft Fabric APIは、広く導入されている使い慣れた
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)の `https://app.fabric.microsoft.com/home?experience=fabric`。
+1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、**[新しいワークスペース]** を選択します。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
@@ -27,8 +27,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 これでワークスペースが作成されたので、次に SQL データベースを作成します。
 
-1. Fabric ポータルの左側のパネルで **[+ 新しい項目]** を選択します。
-1. **[データの格納]** セクションに移動し、**[SQL Database]** を選択します。
+1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの *[データベース]* セクションで、**[SQL データベース]** を選択します。
+
+    >**注**: **[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
+
 1. データベース名として「**AdventureWorksLT**」と入力し、**[作成]** を選択します。
 1. データベースを作成したら、**[サンプル データ]** カードからサンプル データをデータベースに読み込むことができます。
 

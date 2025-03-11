@@ -16,7 +16,7 @@ Microsoft Fabric の*監視ハブ*は、アクティビティを監視できる�
 
 Fabric でデータを操作する前に、Fabric 容量を有効にしてテナントにワークスペースを作成します。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) で、**[Data Engineering]** を選択します。
+1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 新しいワークスペースを任意の名前で作成し、 **[詳細]** セクションで、Fabric 容量を含むライセンス モード ("*試用版*"、*Premium*、または *Fabric*) を選択します。
 1. 開いた新しいワークスペースは空のはずです。
@@ -27,7 +27,9 @@ Fabric でデータを操作する前に、Fabric 容量を有効にしてテナ
 
 ワークスペースが作成されたので、次に自分のデータ用のデータ レイクハウスを作成します。
 
-1. **[Data Engineering]** ホーム ページで、任意の名前で新しい**レイクハウス**を作成します。
+1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの [*[Data Engineering]* セクションで、**[レイクハウス]** を選択します。 任意の一意の名前を設定します。
+
+    >**注**: **[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
 
     1 分ほどすると、新しいレイクハウスが作成されます。
 

@@ -16,7 +16,7 @@ Microsoft Fabric のデプロイ パイプラインを使用すると、開発�
 
 Fabric 試用版を有効にしてワークスペースを 3 つ作成します。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) で **[Microsoft Fabric]** を選択し、左下のメニュー バーにある **[Data Engineering]** を選択します。
+1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) に移動し、Fabric 資格情報でサインインします。
 2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 3. "開発" という名前で新しいワークスペースを作成し、Fabric 容量が付くライセンス モード (*試用版*、*Premium*、または *Fabric*) を選択します。
 4. 手順 1 と 2 を繰り返し、"テスト" と "運用" という名前でワークスペースをさらに 2 つ作成します。 ワークスペースは、"開発"、"テスト"、"運用" になります。

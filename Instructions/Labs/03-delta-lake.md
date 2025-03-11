@@ -17,7 +17,7 @@ Microsoft Fabric レイクハウスのテーブルは、オープンソースの
 
 まず、*Fabric 試用版*を有効にしてワークスペース作成します。
 
-1. Microsoft Fabric ホーム ページ (`https://app.fabric.microsoft.com`) で、**[Data Engineering]** エクスペリエンスを選択します。
+1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、**[ワークスペース]** (🗇) を選択します。
 1. 任意の名前で**新しいワークスペース**を作成し、Fabric 容量があるライセンス モード (試用版、Premium、または Fabric) を選択します。
 1. 開いた新しいワークスペースは空のはずです。
@@ -28,7 +28,10 @@ Microsoft Fabric レイクハウスのテーブルは、オープンソースの
 
 ワークスペースが作成されたので、次にレイクハウスを作成し、一部のデータをアップロードします。
 
-1. **[Data Engineering]** ホーム ページで、任意の名前で新しい**レイクハウス**を作成します。 
+1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの [*[Data Engineering]* セクションで、**[レイクハウス]** を選択します。 任意の一意の名前を設定します。
+
+    >**注**: **[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
+
 1. データを取り込む方法はいろいろありますが、この演習では、ローカル コンピューター (または該当する場合はラボ VM) にテキスト ファイルをダウンロードし、レイクハウスにアップロードします。 `https://github.com/MicrosoftLearning/dp-data/raw/main/products.csv` から[データ ファイル](https://github.com/MicrosoftLearning/dp-data/raw/main/products.csv)をダウンロードし、*products.csv* として保存します。
 1.  レイクハウスを含む Web ブラウザー タブに戻り、[エクスプローラー] ペインで、**Files** フォルダーの横にある [...]  メニューを選択します。  *products* という**新しいサブフォルダー**を作成します。
 1.  の products フォルダーの [...] メニューで、ローカル コンピューター (または該当する場合はラボ VM) から *products.csv* ファイルを**アップロード**します。

@@ -18,8 +18,7 @@ lab:
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動します。
-1. Microsoft Fabric ホーム ページで、**[Synapse Data Science]** を選択します
+1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
@@ -30,7 +29,9 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 この演習では、"ノートブック" を使用して、モデルをトレーニングして使用します。**
 
-1. **Synapse Data Science** ホーム ページで、新しい**ノートブック**を作成します。
+1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの *[Data Science]* セクションで、**[ノートブック]** を選択します。 任意の一意の名前を設定します。
+
+    >**注**: **[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
 
     数秒後に、1 つの ''セル'' を含む新しいノートブックが開きます。** ノートブックは、''コード'' または ''マークダウン'' (書式設定されたテキスト) を含むことができる 1 つまたは複数のセルで構成されます。** **
 
