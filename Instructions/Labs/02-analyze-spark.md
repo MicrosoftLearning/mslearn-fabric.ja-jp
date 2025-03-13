@@ -18,7 +18,7 @@ lab:
 
 Fabric でデータを操作するには、ワークスペースを作成する必要があります。
 
-1. [Microsoft Fabric](https://app.fabric.microsoft.com) ホーム ページ (https://app.fabric.microsoft.com) で、**[Data Engineering]** エクスペリエンスを選択します。
+1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、**[ワークスペース] ** (🗇)、**[新しいワークスペース]** の順に選択します。
 1. 新しいワークスペースに名前を付け、**[詳細]** セクションで適切なライセンス モードを選択します。 Microsoft Fabric 試用版を開始した場合は、[試用版] を選択します。
 1. **[適用]** を選択して、空のワークスペースを作成します。

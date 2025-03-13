@@ -16,14 +16,11 @@ lab:
 
 Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
 
-1. [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) で、**[Synapse Data Engineering]** を選択します。
-2. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-3. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
-4. 開いた新しいワークスペースは空のはずです。
-
-   ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace-medallion.png)
-
-5. ワークスペースの設定に移動し、 **[Data model editing] (データ モデル編集)** プレビュー機能を有効にします。 これにより、Power BI セマンティック モデルを使用して、レイクハウス内のテーブル間のリレーションシップを作成できるようになります。
+1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
+1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
+1. 開いた新しいワークスペースは空のはずです。
+1. ワークスペースの設定に移動し、 **[Data model editing] (データ モデル編集)** プレビュー機能を有効にします。 これにより、Power BI セマンティック モデルを使用して、レイクハウス内のテーブル間のリレーションシップを作成できるようになります。
 
     ![Fabric のワークスペース設定ページを示すスクリーンショット。](./Images/workspace-settings.png)
 
@@ -33,9 +30,9 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 ワークスペースが作成されたので、次に分析するデータ用のデータ レイクハウスを作成します。
 
-1. **Synapse Data Engineering** のホーム ページで、**Sales** という名前の新しい**レイクハウス**を作成します。
+1. 先ほど作成したワークスペースで、**[+ 新しいアイテム]** ボタンをクリックして、**売上**という名前の新しい**レイクハウス**を作成します。
 
-    1 分ほどすると、新しい空のレイクハウスが作成されます。 分析のために、データ レイクハウスにいくつかのデータを取り込む必要があります。 これを行うには複数の方法がありますが、この演習では、テキスト ファイルをローカル コンピューター (または、該当する場合はラボ VM) にダウンロードし、レイクハウスにアップロードするだけです。
+    1 分ほどすると、新しい空のレイクハウスが作成されます。 次に、分析のために、データ レイクハウスにいくつかのデータを取り込みます。 これを行うには複数の方法がありますが、この演習では、テキスト ファイルをローカル コンピューター (または、該当する場合はラボ VM) にダウンロードし、レイクハウスにアップロードするだけです。
 
 1. `https://github.com/MicrosoftLearning/dp-data/blob/main/orders.zip` からこの演習用のデータ ファイルをダウンロードして抽出します。 ファイルを抽出し、元の名前でローカル コンピューター (または該当する場合はラボ VM) に保存します。 3 年間の売上データを含む 3 つのファイル (2019.csv、2020.csv、2021.csv) が含まれているはずです。
 
@@ -98,7 +95,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
     | 1 | SO49172 | 1 | 2021-01-01 | Brian Howard | brian23@adventure-works.com | Road-250 Red, 52 | 1 | 2443.35 | 195.468 |
     | 2 |  SO49173 | 1 | 2021-01-01 | Linda Alvarez | linda19@adventure-works.com | Mountain-200 Silver, 38 | 1 | 2071.4197 | 165.7136 |
-    | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... |
+    |     |     |     |     |     |     |     |     |     |     |
 
     実行したコードは、**bronze** フォルダー内の CSV ファイルから Spark データフレームにデータを読み込み、データフレームの最初の数行を表示しました。
 
@@ -154,8 +151,6 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 11. レイクハウス エクスプローラー ペインの [テーブル] セクションで **[...]** を選択し、 **[更新]** を選択します。 新しい **sales_silver** テーブルが一覧表示されます。 **&#9650;** (三角形のアイコン) は、これが Delta テーブルであることを示します。
 
-    ![レイクハウスの sales_silver テーブルのスクリーンショット。](./Images/sales-silver-table.png)
-
     > **注**: 新しいテーブルが表示されない場合は、数秒待ってからもう一度 **[更新]** を選択するか、ブラウザー タブ全体を更新してください。
 
 12. 次に、Delta テーブルに対して**アップサート操作**を実行し、特定の条件に基づいて既存のレコードを更新し、一致するものが見つからない場合は新しいレコードを挿入します。 新しいコード ブロックを追加し、次のコードを貼り付けます。
@@ -206,15 +201,15 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 ## SQL エンドポイントを使用してシルバー レイヤー内のデータを探索する
 
-シルバー レイヤーにデータが用意されたので、SQL エンドポイントを使用してデータを探索し、基本的な分析を実行できます。 これは、SQL に精通している人がデータの基本的な探索を行いたい場合に便利なオプションです。 この演習では、Fabric の SQL エンドポイント ビューを使用していますが、SQL Server Management Studio (SSMS) や Azure Data Explorer などのツールも使用できます。
+シルバー レイヤーにデータが用意されたので、SQL 分析エンドポイントを使用して、データを探索したり、基本的な分析を実行したりできます。 これは、SQL に精通しているユーザーがデータの基本的な探索を行いたい場合に便利です。 この演習では、Fabric の SQL エンドポイント ビューを使用していますが、SQL Server Management Studio (SSMS) や Azure Data Explorer などの他のツールも使用できます。
 
-1. ワークスペースに戻り、いくつかの資産が一覧表示されていることを確認します。 **[SQL エンドポイント]** を選択して、SQL エンドポイント ビューでレイクハウスを開きます。
+1. ワークスペースに戻り、いくつかのアイテムが一覧に入っていることを確認します。 **[売上 SQL 分析エンドポイント]** を選択して、SQL 分析エンドポイント ビューでレイクハウスを開きます。
 
     ![レイクハウス内の SQL エンドポイントのスクリーンショット。](./Images/sql-endpoint-item.png)
 
 2. リボンから **[新しい SQL クエリ]** を選択すると、SQL クエリ エディターが開きます。 レイクハウス エクスプローラー ペインの既存のクエリ名の横にある **[...]** メニュー項目を使用して、クエリの名前を変更できます。
 
-   2 つの SQL クエリを実行して、データを探索します。
+   次に、2 つの SQL クエリを実行してデータを探索します。
 
 3. 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
 
@@ -230,7 +225,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     ![レイクハウスでの SQL クエリの結果のスクリーンショット。](./Images/total-sales-sql.png)
 
-4. 次は、(数量の観点から) 最も多く購入している顧客を見つけます。 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
+4. 次に、(数量の観点から) 最も多く購入している顧客を確認します。 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
 
     ```sql
     SELECT TOP 10 CustomerName, SUM(Quantity) AS TotalQuantity
@@ -247,13 +242,13 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 ブロンズ レイヤーからデータを取得し、変換し、シルバー Delta テーブルに読み込みました。 次に、新しいノートブックを使用してデータをさらに変換し、それをスター スキーマにモデル化し、ゴールド Delta テーブルに読み込みます。
 
-このすべてを 1 つのノートブックで行うことができますが、この演習では、データをブロンズからシルバーに変換し、次にシルバーからゴールドに変換するプロセスを示すために、別のノートブックを使用しています。 これは、デバッグ、トラブルシューティング、再利用に役立ちます。
+このすべてを 1 つのノートブックで行うことができたのですが、この演習では、データをブロンズからシルバーに変換し、さらにシルバーからゴールドに変換するプロセスを示すために、別々のノートブックを使用しています。 これは、デバッグ、トラブルシューティング、再利用に役立ちます。
 
-1. **Data Engineering** ホーム ページに戻り、「**ゴールド用にデータを変換する**」という名前の新しいノートブックを作成します。
+1. ワークスペースのホーム ページに戻り、「**ゴールド用にデータを変換する**」という名前の新しいノートブックを作成します。
 
-2. レイクハウス エクスプローラー ウィンドウで、 **[追加]** を選択し、前に作成した **Sales** レイクハウスを選択して、**Sales** レイクハウスを追加します。 エクスプローラー ウィンドウの **[テーブル]** セクションに **sales_silver** テーブルが表示されます。
+2. レイクハウス エクスプローラー ウィンドウで、 **[追加]** を選択し、前に作成した **Sales** レイクハウスを選択して、**Sales** レイクハウスを追加します。 **[レイクハウスの追加**] ウィンドウで、**[スキーマを使用しない既存のレイクハウス]** を選択します。 エクスプローラー ウィンドウの **[テーブル]** セクションに **sales_silver** テーブルが表示されます。
 
-3. 既存のコード ブロックで、定型テキストを削除し、データをデータフレームに読み込み、スター スキーマの構築を開始するための**次のコードを追加**してから、それを実行します。
+3. 既存のコード ブロックで、コメントのテキストを削除し、データをデータフレームに読み込んでスター スキーマの構築を開始する**次のコードを追加**して、そのコードを実行します。
 
    ```python
     # Load data to the dataframe as a starting point to create the gold layer
@@ -309,10 +304,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     dfUpdates = dfdimDate_gold
     
-    deltaTable.alias('silver') \
+    deltaTable.alias('gold') \
       .merge(
         dfUpdates.alias('updates'),
-        'silver.OrderDate = updates.OrderDate'
+        'gold.OrderDate = updates.OrderDate'
       ) \
        .whenMatchedUpdate(set =
         {
@@ -326,13 +321,13 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
           "Month": "updates.Month",
           "Year": "updates.Year",
           "mmmyyyy": "updates.mmmyyyy",
-          "yyyymm": "yyyymm"
+          "yyyymm": "updates.yyyymm"
         }
       ) \
       .execute()
     ```
 
-    おめでとうございます! 日付ディメンションがすべて設定されました。 次に、顧客ディメンションを作成します。
+    日付ディメンションが設定されました。 次に、顧客ディメンションを作成します。
 7. 顧客ディメンション テーブルを構築するには、**新しいコード ブロックを追加**し、次のコードを貼り付けて実行します。
 
     ```python
@@ -397,10 +392,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     dfUpdates = dfdimCustomer_gold
     
-    deltaTable.alias('silver') \
+    deltaTable.alias('gold') \
       .merge(
         dfUpdates.alias('updates'),
-        'silver.CustomerName = updates.CustomerName AND silver.Email = updates.Email'
+        'gold.CustomerName = updates.CustomerName AND gold.Email = updates.Email'
       ) \
        .whenMatchedUpdate(set =
         {
@@ -436,7 +431,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 12. **別のコード ブロックを追加**して、**product_silver** データフレームを作成します。
   
     ```python
-    from pyspark.sql.functions import col, split, lit
+    from pyspark.sql.functions import col, split, lit, when
     
     # Create product_silver dataframe
     
@@ -479,10 +474,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
             
     dfUpdates = dfdimProduct_gold
             
-    deltaTable.alias('silver') \
+    deltaTable.alias('gold') \
       .merge(
             dfUpdates.alias('updates'),
-            'silver.ItemName = updates.ItemName AND silver.ItemInfo = updates.ItemInfo'
+            'gold.ItemName = updates.ItemName AND gold.ItemInfo = updates.ItemInfo'
             ) \
             .whenMatchedUpdate(set =
             {
@@ -556,10 +551,10 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     
     dfUpdates = dffactSales_gold
     
-    deltaTable.alias('silver') \
+    deltaTable.alias('gold') \
       .merge(
         dfUpdates.alias('updates'),
-        'silver.OrderDate = updates.OrderDate AND silver.CustomerID = updates.CustomerID AND silver.ItemID = updates.ItemID'
+        'gold.OrderDate = updates.OrderDate AND gold.CustomerID = updates.CustomerID AND gold.ItemID = updates.ItemID'
       ) \
        .whenMatchedUpdate(set =
         {
