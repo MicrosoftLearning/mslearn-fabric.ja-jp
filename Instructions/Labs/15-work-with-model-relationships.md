@@ -396,6 +396,6 @@ lab:
 
     ![](Images/work-with-model-relationships-image50.png)
 
-### 仕上げ
+### 終わり
 
 演習を終了するには、Power BI Desktop を閉じます。ファイルを保存する必要はありません。
