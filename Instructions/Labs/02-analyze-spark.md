@@ -413,7 +413,8 @@ PySpark コードが含まれているセルに SQL ステートメントを埋�
 
     ```python
     sqlQuery = "SELECT CAST(YEAR(OrderDate) AS CHAR(4)) AS OrderYear, \
-                    SUM((UnitPrice * Quantity) + Tax) AS GrossRevenue \
+                    SUM((UnitPrice * Quantity) + Tax) AS GrossRevenue, \
+                    COUNT(DISTINCT SalesOrderNumber) AS YearlyCounts \
                 FROM salesorders \
                 GROUP BY CAST(YEAR(OrderDate) AS CHAR(4)) \
                 ORDER BY OrderYear"
@@ -421,7 +422,7 @@ PySpark コードが含まれているセルに SQL ステートメントを埋�
     df_spark.show()
     ```
 
-2. コードを実行します。 年間収益が入った Spark DataFrame が返されます。 データをグラフとして視覚化するには、まず matplotlib Python ライブラリを使用します。 このライブラリは他の多くが基づいているコア プロット ライブラリであり、グラフ作成が著しく柔軟になります。
+2. コードを実行します。 年間収益と注文数が格納された Spark DataFrame が返されます。 データをグラフとして視覚化するには、まず matplotlib Python ライブラリを使用します。 このライブラリは他の多くが基づいているコア プロット ライブラリであり、グラフ作成が著しく柔軟になります。
 
 3. 新しいコード セルを追加し、次のコードを追加します。
 
@@ -509,10 +510,9 @@ PySpark コードが含まれているセルに SQL ステートメントを埋�
     ax[0].set_title('Revenue by Year')
 
     # Create a pie chart of yearly order counts on the second axis
-    yearly_counts = df_sales['OrderYear'].value_counts()
-    ax[1].pie(yearly_counts)
+    ax[1].pie(df_sales['YearlyCounts'])
     ax[1].set_title('Orders per Year')
-    ax[1].legend(yearly_counts.keys().tolist())
+    ax[1].legend(df_sales['OrderYear'])
 
     # Add a title to the Figure
     fig.suptitle('Sales Data')
