@@ -58,7 +58,7 @@ lab:
     ![[プレビュー機能] カテゴリで使用できるオプションのスクリーンショット。](./Images/power-bi-enable-tmdl.png)
 
 1. **[名前を付けて保存]** を選択し、ファイルの名前を設定するときにドロップダウン メニューの矢印を選択することでファイルの種類を選択します。
-1. **.*.pbip*** ファイル拡張子を選択し、レポートの名前を選択して、忘れにくいフォルダーに保存します。
+1. **.pbip** ファイル拡張子を選択し、レポートの名前を選択して、忘れにくいフォルダーに保存します。
 
     ![ドロップダウン メニューが展開された [名前を付けて保存] 選択のスクリーンショット。](./Images/power-bi-save-file-types.png)
 
@@ -74,10 +74,10 @@ lab:
 
 Power BI Desktop の変更が .tmdl ファイルにどのように反映されるかを見てみましょう。
 
-1. デスクトップからエクスプローラーを使用して、*.*.pbip** ファイルを保存したフォルダーに移動します。
+1. デスクトップからファイル エクスプローラーを使用して、**.pbip** ファイルを保存したフォルダーに移動します。
 1. 次のアイテムが表示されるはずです。
 
-    - YourReport.*.pbip* ファイル
+    - YourReport.pbip ファイル
     - YourReport.Report フォルダー
     - YourReport.SemanticModel フォルダー
     - .gitignore Git Ignore ソース ファイル
@@ -94,7 +94,7 @@ Power BI Desktop の変更が .tmdl ファイルにどのように反映され�
 
 1. 接続すると、[Web から] ダイアログ ボックスがポップアップ表示されます。 [基本] ラジオ ボタンは選択したままにします。 URL パスとして次のファイル パスを入力します。
 
-    `"C:\Users\Student\Downloads\16-reusable-assets\us-resident-population-estimates-2020.html"`
+    `C:\Users\Student\Downloads\16-reusable-assets\us-resident-population-estimates-2020.html`
 
 1. **[HTML Tables] - [Table 2]** のボックスを選択し、**[データの変換]** を選択して次に進みます。
 
