@@ -60,7 +60,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     1 分ほどで、新しいレイクハウスが作成されます。
 
-    ![新しいウェアハウスのスクリーンショット。](./Images/new-data-warehouse.png)
+    ![新しいウェアハウスのスクリーンショット。](./Images/new-empty-data-warehouse.png)
 
 ## ファクト テーブル、ディメンション、ビューを作成する
 
@@ -74,7 +74,7 @@ Sales データのファクト テーブルとディメンションを作成し�
     CREATE SCHEMA [Sales]
     GO
         
-    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name='Fact_Sales' AND SCHEMA_NAME(schema_id)='Sales')
+    IF OBJECT_ID('Sales.Fact_Sales', 'U') IS NULL
         CREATE TABLE Sales.Fact_Sales (
             CustomerID VARCHAR(255) NOT NULL,
             ItemID VARCHAR(255) NOT NULL,
@@ -86,7 +86,7 @@ Sales データのファクト テーブルとディメンションを作成し�
             UnitPrice FLOAT
         );
     
-    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name='Dim_Customer' AND SCHEMA_NAME(schema_id)='Sales')
+    IF OBJECT_ID('Sales.Dim_Customer', 'U') IS NULL
         CREATE TABLE Sales.Dim_Customer (
             CustomerID VARCHAR(255) NOT NULL,
             CustomerName VARCHAR(255) NOT NULL,
@@ -96,7 +96,7 @@ Sales データのファクト テーブルとディメンションを作成し�
     ALTER TABLE Sales.Dim_Customer add CONSTRAINT PK_Dim_Customer PRIMARY KEY NONCLUSTERED (CustomerID) NOT ENFORCED
     GO
     
-    IF NOT EXISTS (SELECT * FROM sys.tables WHERE name='Dim_Item' AND SCHEMA_NAME(schema_id)='Sales')
+    IF OBJECT_ID('Sales.Dim_Item', 'U') IS NULL
         CREATE TABLE Sales.Dim_Item (
             ItemID VARCHAR(255) NOT NULL,
             ItemName VARCHAR(255) NOT NULL
@@ -109,6 +109,8 @@ Sales データのファクト テーブルとディメンションを作成し�
     > **重要:** データ ウェアハウスでは、必ずしもテーブル レベルで外部キー制約が必要とは限りません。 外部キー制約はデータ整合性を確保するのに役立ちますが、ETL (抽出、変換、ロード) プロセスにオーバーヘッドが追加され、データの読み込み速度が低下するおそれもあります。 データ ウェアハウスで外部キー制約を使用するかどうかは、データ整合性とパフォーマンスの間のトレードオフを慎重に検討して決定する必要があります。
 
 1. **[エクスプローラー]** で、**[スキーマ] >> [Sales] >> [テーブル]** の順に移動します。 作成したばかりの *Fact_Sales*、*Dim_Customer*、*Dim_Item* テーブルに注目してください。
+
+    > **注**: 新しいスキーマが表示されない場合は、**[エクスプローラー]** ペインの **[テーブル]** で **[...]** メニューを開いてから、**[更新]** を選択します。
 
 1. 新しい **[新しい SQL クエリ]** エディターを開き、次のクエリをコピーして実行します。 作成したレイクハウスで *<your lakehouse name>* を更新します。
 
@@ -249,6 +251,6 @@ Sales データのファクト テーブルとディメンションを作成し�
 
 データ ウェアハウスの探索が完了したら、この演習用に作成したワークスペースを削除できます。
 
-1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示してください。
+1. 左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
 1. **[ワークスペースの設定]** を選択し、**[全般]** セクションで下にスクロールし、**[このワークスペースを削除する]** を選択します。
 1. **[削除]** を選択して、ワークスペースを削除します。
