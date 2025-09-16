@@ -1,6 +1,11 @@
-# Fabric で Data Activator を使う
+---
+lab:
+  title: Microsoft Fabric で Activator を使用する
+  module: Use Activator in Microsoft Fabric
+---
+# Fabric で Activator を使用する
 
-Microsoft Fabric の Data Activator は、データで発生している内容に基づいてアクションを実行します。 Activator を使用すると、データを監視し、データの変更に対応するトリガーを作成できます。
+Microsoft Fabric の Activator は、データで発生している内容に基づいてアクションを実行します。 Activator を使用すると、データを監視し、データの変更に対応するトリガーを作成できます。
 
 このラボの所要時間は約 **30** 分です。
 
@@ -35,7 +40,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     1 分ほどで、新しい Activator が作成されます。
 
-    ![Data Activator のホーム画面のスクリーンショット。](./Images/activator-home-screen.png)
+    ![Activator のホーム画面のスクリーンショット。](./Images/activator-home-screen.png)
 
     実際の運用環境では、独自のデータを使用します。 しかし、このラボでは、Activator によって提供されるサンプル データを使用します。 
 
@@ -45,7 +50,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 1. この例では、左上隅にある現在の Activator 名の横にあるプルダウンを選び、名前を ***Contoso Shipping Activator*** に変更します。
 
-    ![Data Activator Reflex のホーム画面のスクリーンショット。](./Images/activator-reflex-home-screen.png)
+    ![Activator のホーム画面のスクリーンショット。](./Images/activator-reflex-home-screen.png)
 
 これで Activator プロジェクトが作成され、そのオブジェクト、プロパティ、ルール間の移動を開始できます。
 
@@ -104,7 +109,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 1. **［作成］** を選択します
 1. *温度アラート*という既定の名前で新しいルールが作成されます。 中央のウィンドウでルールの名前の横にある鉛筆アイコンを選択して、名前を「***範囲外の温度の薬品***」に変更します。
 
-    ![Data Activator の新しいルールのスクリーンショット。](./Images/activator-new-rule.png)
+    ![Activator の新しい規則のスクリーンショット。](./Images/activator-new-rule.png)
 
     ここまでは、ルールを起動するプロパティと条件を定義しましたが、必要なすべてのパラメーターが含まれているわけではありません。 *city* が **Redmond** の場合と、*special care* の種類の **Medicine** に対してのみトリガーが起動することを引き続き確認する必要があります。 次は、これらの条件に対していくつかのフィルターを追加してみましょう。  
 
@@ -124,7 +129,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
     - **見出し**:*温度が高すぎる*
     - **コンテキスト**:チェック ボックスの一覧から*温度*プロパティを選択します。
 
-    ![[データ アクティベーターの定義] アクションのスクリーンショット。](./Images/activator-define-action.png)
+    ![Activator の定義アクションのスクリーンショット。](./Images/activator-define-action.png)
 
 1. **[保存して開始]** を選択します。
 
