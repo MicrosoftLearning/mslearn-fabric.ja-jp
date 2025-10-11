@@ -140,7 +140,7 @@ Fabric でデータを操作する前に、Fabric を有効にしてワークス
     
     > **Copilot のしくみ**: Copilot が自然言語の要求を、どのようにして動作する Python コードに変換するかに注目してください。 HTTP 要求を行い、ファイル システムを処理し、レイクハウス内の特定の場所にデータを保存する必要があることを理解しています。
     
-    実行中に例外が発生した際に役立つように、完全なコードを次に示します。
+    実行中に例外が発生した場合に備えて、念のため完全なコードも次に示します。
     
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
