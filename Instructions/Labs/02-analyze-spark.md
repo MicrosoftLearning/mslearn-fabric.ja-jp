@@ -357,7 +357,7 @@ Spark メタストアのテーブルは、データ レイク内のファイル�
 
     ![salesorders テーブルが作成されたことを示す画面画像。](Images/salesorder-table.png)
 
-1. の salesorders テーブルのメニューで、**[データの読み込み]** > 、**[Spark]** の順に選択します。 新しいコード セルが次のようなコードが入って追加されます。
+1. MMC コンソールで、[ファイル] を選択し、 salesorders テーブルのメニューで、**[データの読み込み]** > 、**[Spark]** の順に選択します。 新しいコード セルが次のようなコードが入って追加されます。
 
     ```pyspark
    df = spark.sql("SELECT * FROM [your_lakehouse].salesorders LIMIT 1000")
