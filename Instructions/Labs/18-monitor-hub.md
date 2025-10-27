@@ -119,7 +119,7 @@ Microsoft Fabric では、ノートブックを使用して Spark コードを�
     - 状態
     - 項目の種類
     - [開始時間]
-    - 送信者:
+    - 送信元
     - Location
     - 終了時刻
     - Duration

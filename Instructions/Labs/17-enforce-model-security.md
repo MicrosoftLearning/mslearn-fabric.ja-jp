@@ -19,6 +19,17 @@ lab:
 
 > **注**: この演習を完了するには、Power BI 環境にアクセスする必要があります。
 
+## 開始する前に
+
+ご利用の環境に次のものがインストールされていることを確認します。
+
+* Power BI Desktop
+* SQL サーバー
+* SQL Server Management Studio (SSMS)
+* SSMS を介して復元された [AdventureWorksDW2022-DP500](https://github.com/afelix-95/mslearn-fabric/raw/refs/heads/main/Allfiles/Labs/00-Setup/DatabaseBackup/AdventureWorksDW2022-DP500.bak) データベース バックアップ
+
+>**注**:SSMS を使用してデータベース バックアップを復元する方法の詳細については、[こちら](https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/restore-a-database-backup-using-ssms?view=sql-server-ver16)を参照してください。
+ 
 ## 作業の開始
 
 この演習では、環境を準備します。
