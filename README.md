@@ -1,3 +1,5 @@
+**⚠️ This GitHub repo will retire on 31st October 2025.**
+
 # Microsoft Fabric の概要
 
 このリポジトリには、Microsoft Learn の「[Microsoft Fabric の概要](https://aka.ms/learn-fabric)」ラーニング パスの演習を完了するために必要な手順と資産が含まれています。
