@@ -10,7 +10,7 @@ lab:
 
 従来、データ エンジニアリング用のノートブックを使用するには、Python や Scala などの言語でコードを記述し、Apache Spark や Pandas などのフレームワークとライブラリをしっかりと理解する必要があります。 これは、プログラミングが初めての人や、これらのツールに慣れていない人にとっては困難な場合があります。 Fabric ノートブックの Copilot を使用すると、自然言語でデータ タスクを記述でき、Copilot に必要なコードを生成してもらえます。Copilot が技術的に複雑な部分の多くを担うため、ユーザーは分析に集中できます。
 
-この演習の所要時間は約 **30** 分です。
+この演習の所要時間は約**30** 分です。
 
 ## 学習内容
 
@@ -26,7 +26,7 @@ lab:
 
 ## 開始する前に
 
-この演習を完了するには、Copilot が有効になっている [Microsoft Fabric Capacity (F2 以上)](https://learn.microsoft.com/fabric/fundamentals/copilot-enable-fabric) が必要です。
+この演習を完了するには、Copilot が有効になっている[Microsoft Fabric Capacity (F2 以上)](https://learn.microsoft.com/fabric/fundamentals/copilot-enable-fabric) が必要です。
 
 > **注**:参考までに、この演習で使用するすべてのプロンプトが掲載されたノートブックを以下からダウンロードできます。
 
@@ -42,11 +42,11 @@ lab:
 
 Fabric でデータを操作する前に、Fabric を有効にしてワークスペースを作成します。 Microsoft Fabric のワークスペースは、レイクハウス、ノートブック、データセットなど、データ エンジニアリングのすべての成果物を整理して管理できる、コラボレーション環境として機能します。 これは、データ分析に必要なすべてのリソースが入ったプロジェクト フォルダーと考えてください。
 
-1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
+1. ブラウザーの`https://app.fabric.microsoft.com/home?experience=fabric` で[Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
 
-1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
+1. 左側のメニュー バーで、**[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 
-1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード (*Premium* または *Fabric*) を選択します。 "試用版" はサポートされていないのでご注意ください。**
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード (*Premium* または*Fabric*) を選択します。 "試用版" はサポートされていないのでご注意ください。**
    
     > **この重要性について**: Copilot が機能するには、有料の Fabric 容量が必要です。 これにより、このラボ全体を通してコードの生成を支援する、AI 搭載機能にアクセスできます。
 
@@ -60,7 +60,7 @@ Fabric でデータを操作する前に、Fabric を有効にしてワークス
 
 1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの [*[Data Engineering]* セクションで、**[レイクハウス]** を選択します。 任意の一意の名前を設定します。
 
-    >**注**: **[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
+    >**注**:**[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
 
 ![Fabric の [作成] ボタンのスクリーンショット。](./Images/copilot-fabric-notebook-create.png)
 
@@ -118,7 +118,7 @@ Fabric でデータを操作する前に、Fabric を有効にしてワークス
 
 次は、Copilot を使用して、Eurostat API からデータをダウンロードできるようにします。 Python コードをゼロから記述する代わりに、実行する内容を自然言語で記述すると、Copilot によって適切なコードが生成されます。 これは AI 支援コーディングの主な利点の 1 つを示しており、細かい技術的な実装ではなく、ビジネス ロジックに集中できます。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。 Copilot でコードを生成するよう指示するには、セルの最初の命令として `%%code` を使用します。 
+1. ノートブック内に新しいセルを作成し、次の命令をコピーします。 Copilot でコードを生成するよう指示するには、セルの最初の命令として`%%code` を使用します。 
 
     > **`%%code` マジック コマンドについて**: この特別な命令は、自然言語の記述に基づいて Python コードを生成するよう Copilot に指示します。 これは、Copilot との対話をより効果的に行うのに役立つ、"マジック コマンド" の 1 つです。
 
@@ -228,7 +228,7 @@ Fabric でデータを操作する前に、Fabric を有効にしてワークス
     ```copilot-prompt
     %%code
     
-    From the currently loaded DataFrame, split the first field 'freq,projection,sex,age,unit,geo\TIME_PERIOD' using a comma into 6 separate fields.
+    From the currently loaded DataFrame, split the first field 'freq,projection,sex,age,unit,geo\TIME_PERIOD' using a comma into 6 separate fields. Then, remove the original column.
     ```
 
 1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
@@ -590,7 +590,7 @@ Fabric でデータを操作する前に、Fabric を有効にしてワークス
 
 データの探索が終了したら、Spark セッションを終了し、この演習用に作成したワークスペースを削除できます。
 
-1.  ノートブック メニューで、 **[セッションの停止]** を選択して Spark セッションを終了します。
+1.  ノートブック メニューで、**[セッションの停止]** を選択して Spark セッションを終了します。
 1.  左側のバーで、ワークスペースのアイコンを選択して、それに含まれるすべての項目を表示します。
 1.  **[ワークスペースの設定]** を選択し、**[全般]** セクションで下にスクロールし、**[このワークスペースを削除する]** を選択します。
 1.  **[削除]** を選択して、ワークスペースを削除します。
