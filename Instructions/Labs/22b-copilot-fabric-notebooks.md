@@ -58,7 +58,7 @@ Fabric でデータを操作する前に、Fabric を有効にしてワークス
 
 ワークスペースが作成されたので、次はデータを取り込むレイクハウスを作成します。 レイクハウスは、データ レイクの利点 (生データをさまざまな形式で格納できる) とデータ ウェアハウスの利点 (分析用に最適化された構造化データ) の両方を兼ね備えています。 これは、人口の生データの格納場所と、クリーニングされて変換されたデータセットのターゲットの両方として機能します。
 
-1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの [*[Data Engineering]* セクションで、**[レイクハウス]** を選択します。 任意の一意の名前を設定します。
+1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの [*[Data Engineering]* セクションで、**[レイクハウス]** を選択します。 任意の一意の名前を設定します。 [Lakehouse スキーマ (パブリック プレビュー)] オプションが無効になっていることを確認します。
 
     >**注**: **[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
 
@@ -228,7 +228,7 @@ Fabric でデータを操作する前に、Fabric を有効にしてワークス
     ```copilot-prompt
     %%code
     
-    From the currently loaded DataFrame, split the first field 'freq,projection,sex,age,unit,geo\TIME_PERIOD' using a comma into 6 separate fields.
+    From the currently loaded DataFrame, split the first field 'freq,projection,sex,age,unit,geo\TIME_PERIOD' using a comma into 6 separate fields. Then, remove the original column.
     ```
 
 1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。

@@ -24,11 +24,6 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
 
-1. ワークスペース設定に移動し、**[データ モデル設定]** プレビュー機能が有効になっているのを確認します。 これにより、Power BI セマンティック モデルを使用して、レイクハウス内のテーブル間のリレーションシップを作成できるようになります。
-
-    ![Fabric のワークスペース設定ページを示すスクリーンショット。](./Images/workspace-settings.png)
-
-    > **注**: プレビュー機能を有効にした後、ブラウザー タブを最新の情報に更新する必要がある場合があります。
 
 ## レイクハウスを作成し、ブロンズ レイヤーにデータをアップロードする
 
@@ -83,7 +78,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
        ])
     
    # Import all files from bronze folder of lakehouse
-   df = spark.read.format("csv").option("header", "true").schema(orderSchema).load("Files/bronze/*.csv")
+   df = spark.read.format("csv").option("header", "false").schema(orderSchema).load("Files/bronze/*.csv")
     
    # Display the first 10 rows of the dataframe to preview your data
    display(df.head(10))
