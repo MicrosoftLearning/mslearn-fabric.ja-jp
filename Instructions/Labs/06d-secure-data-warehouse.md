@@ -1,10 +1,10 @@
 ---
 lab:
-  title: Microsoft Fabric データ ウェアハウスをセキュリティで保護する
-  module: Secure a Microsoft Fabric data warehouse
----
+  title: データ ウェアハウス内のデータをセキュリティで保護する
+  module: Secure data in a data warehouse
+--- 
 
-# Microsoft Fabric データ ウェアハウスをセキュリティで保護する
+# データ ウェアハウス内のデータをセキュリティで保護する
 
 Microsoft Fabric のアクセス許可と詳細な SQL アクセス許可を組み合わせて使用し、ウェアハウスのアクセスとユーザーのアクセス許可を管理します。 この演習では、詳細なアクセス許可、列レベル セキュリティ、行レベル セキュリティ、動的データ マスクを使用してデータをセキュリティで保護します。
 
