@@ -213,11 +213,11 @@ Power BI Desktop の変更が .tmdl ファイルにどのように反映され�
 1. **[表示]** リボンで、**[詳細エディター]** を選択します。
 1. クエリが region-north.csv にハードコーディングされていることに注目してください
 
-    ```m
+    ```powerquery
     let
         Source = Csv.Document(File.Contents("C:\Users\Student\Downloads\16-reusable-assets\data\region-north.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
         #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-        #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Region", type text}, {"Product", type text}, {"Units", Int64.Type}, {"Revenue", Int64.Type}})
+        #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{ {"Date", type date}, {"Region", type text}, {"Product", type text}, {"Units", Int64.Type}, {"Revenue", Int64.Type} })
     in
         #"Changed Type"
     ```
@@ -228,7 +228,7 @@ Power BI Desktop の変更が .tmdl ファイルにどのように反映され�
     let
         Source = Csv.Document(File.Contents("C:\Users\Student\Downloads\16-reusable-assets\data\region-" & Region & ".csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
         #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-        #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Date", type date}, {"Region", type text}, {"Product", type text}, {"Units", Int64.Type}, {"Revenue", Int64.Type}})
+        #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{ {"Date", type date}, {"Region", type text}, {"Product", type text}, {"Units", Int64.Type}, {"Revenue", Int64.Type} })
     in
         #"Changed Type"
     ```
