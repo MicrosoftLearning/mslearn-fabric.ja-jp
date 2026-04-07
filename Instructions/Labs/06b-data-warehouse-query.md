@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric のデータ ウェアハウスにクエリを実行する
   module: Query a data warehouse in Microsoft Fabric
+  description: このラボでは、SQL を使って Microsoft Fabric データ ウェアハウスのクエリを実行し、データの分析、テーブルの結合、結果の集計を行います。 また、異常を特定して処理することでデータの整合性を検証し、特定のレポートのニーズに合わせてデータをフィルター処理するビューを作成します。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric のデータ ウェアハウスにクエリを実行する

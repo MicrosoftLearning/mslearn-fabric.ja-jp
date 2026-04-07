@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric 内のデータ ウェアハウスを監視する
   module: Monitor a data warehouse in Microsoft Fabric
+  description: このラボでは、Microsoft Fabric データ ウェアハウスでアクティビティとクエリを監視する方法を学びます。 動的管理ビュー (DMV) を使って、接続、セッション、実行中の要求を追跡し、クエリの分析情報を調べてクエリ履歴とパフォーマンスを分析します。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric 内のデータ ウェアハウスを監視する

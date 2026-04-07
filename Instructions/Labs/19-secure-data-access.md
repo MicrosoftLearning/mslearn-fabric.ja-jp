@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric でデータ アクセスをセキュリティで保護する
   module: Secure data access in Microsoft Fabric
+  description: このラボでは、多層セキュリティ手法を使って Microsoft Fabric のデータをセキュリティ保護する方法を学びます。 ワークスペースのロールを適用してワークスペース全体へのアクセスを制御し、Fabric 項目レベルのアクセス許可を構成して特定の項目へのアクセスを制限し、OneLake データ アクセス ロールを作成してレイクハウス内の特定のフォルダーとテーブルに対するきめ細かいアクセス許可を付与します。
+  duration: 45 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric でデータ アクセスをセキュリティで保護する

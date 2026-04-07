@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric のリアルタイム ダッシュボードの概要
   module: Get started with Real-Time Dashboards in Microsoft Fabric
+  description: このラボでは、KQL クエリを使ってストリーミング データから視覚エフェクトを構築し、Microsoft Fabric で対話型のリアルタイム ダッシュボードを作成する方法を学びます。 Eventstream からのデータ インジェストの構成、グラフとマップを含む複数のダッシュボード タイルの作成、対話機能用の再利用可能な基本クエリとパラメーターの実装、自動更新機能の設定を行います。
+  duration: 25 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric のリアルタイム ダッシュボードの概要

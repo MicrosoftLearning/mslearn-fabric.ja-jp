@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric でデプロイされたモデルを使ってバッチ予測を生成する
   module: Generate batch predictions using a deployed model in Microsoft Fabric
+  description: 機械学習モデルをトレーニングして登録した後、それを使って、レイクハウスに格納されているテスト データのバッチ予測を生成します。 このラボでは、デプロイされたモデルを適用して新しい患者データのスコアを付け、結果を保存する方法を見ていきます。
+  duration: 20 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric でデプロイされたモデルを使ってバッチ予測を生成する

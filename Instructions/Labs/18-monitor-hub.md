@@ -2,6 +2,12 @@
 lab:
   title: 監視ハブで Fabric アクティビティを監視する
   module: Monitoring Fabric
+  description: Microsoft Fabric の監視ハブを使って、データフローや Spark ノートブックなどのさまざまな項目のアクティビティを追跡および表示する方法を学びます。 Fabric ワークスペースのアクティビティを効果的に監視するために、実行履歴を調べ、フィルターを適用し、ビューをカスタマイズします。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # 監視ハブで Fabric アクティビティを監視する

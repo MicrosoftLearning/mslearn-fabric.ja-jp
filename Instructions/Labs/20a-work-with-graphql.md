@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric で GraphQL 用 API を使用する
   module: Get started with GraphQL in Microsoft Fabric
+  description: このラボでは、SQL データベースからデータを公開するための GraphQL 用 API を Microsoft Fabric で作成します。 GraphQL エンドポイントを構成し、それをデータ ソースに接続し、GraphQL 構文とフィルターを使ってデータのクエリを実行する方法を学びます。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric で GraphQL 用 API を使用する

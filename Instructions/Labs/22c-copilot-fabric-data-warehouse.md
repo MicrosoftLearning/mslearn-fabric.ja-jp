@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric Data Warehouse で Copilot を使用する
   module: Get started with Copilot in Fabric for Data Warehouse
+  description: Microsoft Fabric で Copilot を使い、自然言語プロンプトを使って SQL クエリの生成、調整、トラブルシューティングを行う方法を学びます。 小売販売データ ウェアハウスでの実践的な演習を通じて、AI によってどのように複雑な SQL クエリの記述が高速化され、構文エラーが自動的に修正され、データ分析のビューが作成されるかを経験します。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric Data Warehouse で Copilot を使用する

@@ -2,6 +2,12 @@
 lab:
   title: データ ウェアハウスでデータを分析する
   module: Get started with data warehouses in Microsoft Fabric
+  description: Microsoft Fabric データ ウェアハウスにテーブルを作成し、SQL を使ってデータを読み込み、T-SQL の結合と集計を使ってディメンション モデルのクエリを実行します。 また、ビジュアル クエリ デザイナーを使用し、必要に応じてダウンストリーム分析のためにデータ モデルでリレーションシップを定義します。
+  duration: 30 minutes
+  level: 100
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # データ ウェアハウスでデータを分析する

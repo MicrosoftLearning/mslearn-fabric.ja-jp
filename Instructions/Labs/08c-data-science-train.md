@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric で MLflow を使用して機械学習モデルをトレーニングおよび追跡する
   module: Train and track machine learning models with MLflow in Microsoft Fabric
+  description: このラボでは、糖尿病の測定値を予測するように scikit-learn を使って回帰モデルをトレーニングし、MLflow を使ってモデルのパフォーマンスを追跡、比較、評価します。 実験を検索し、メトリックを視覚化し、将来使用するために最適なパフォーマンス モデルを保存する方法を学びます。
+  duration: 25 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric で MLflow を使用して機械学習モデルをトレーニングおよび追跡する

@@ -2,7 +2,14 @@
 lab:
   title: Microsoft Fabric で Activator を使用する
   module: Use Activator in Microsoft Fabric
+  description: このラボでは、Microsoft Fabric で Activator を使ってリアルタイム データ ストリームを監視し、データの条件に基づいてアクションをトリガーするアラート ルールを作成する方法を学びます。 Eventstream の操作、オブジェクトとプロパティの定義、フィルターを用いた条件付きトリガーの設定、特定のしきい値を超えたときの自動メール通知の構成を行います。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
+
 # Fabric で Activator を使用する
 
 Microsoft Fabric の Activator は、データで発生している内容に基づいてアクションを実行します。 Activator を使用すると、データを監視し、データの変更に対応するトリガーを作成できます。
