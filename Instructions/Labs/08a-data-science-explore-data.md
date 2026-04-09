@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric のノートブックを使用してデータ サイエンスのためにデータを探索する
   module: Explore data for data science with notebooks in Microsoft Fabric
+  description: このラボでは、Microsoft Fabric でノートブックを使って、データセットの探索的データ分析を実行します。 データフレームへのデータの読み込み、データの構造と品質のチェック、説明的な統計情報の生成、分布とリレーションシップを理解するための視覚エフェクトの作成、相関関係分析の実行を行います。 このラボを終了すると、対話型データ探索にノートブックを使用する実践経験が得られます。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric のノートブックを使用してデータ サイエンスのためにデータを探索する

@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric データ エージェントを使用してデータとチャットする
   module: Implement Fabric Data Agents
+  description: このラボでは、Microsoft Fabric データ エージェントを作成して構成した後、簡単な英語の質問を使ってそれを操作し、販売ウェアハウスから分析情報を取得します。 データ エージェントによってどのように自然言語が SQL クエリに変換され、SQL の専門知識がなくてもデータ分析にアクセスできるようになるかを学びます。 この実践経験を通じて、データ アクセスを民主化する AI 支援分析の力がわかります。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric データ エージェントを使用してデータとチャットする

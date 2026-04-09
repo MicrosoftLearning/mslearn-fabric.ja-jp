@@ -2,7 +2,14 @@
 lab:
   title: Microsoft Fabric の Eventstream を使用してリアルタイム データを取り込む
   module: Ingest real-time data with Eventstream in Microsoft Fabric
+  description: このラボでは、サンプルの自転車データをキャプチャし、それをイベントハウス データベースに読み込み、集計を使って変換する Eventstream を作成することで、Microsoft Fabric でリアルタイム データを取り込んで分析する方法を学びます。 データ ソースと格納先を構成した後、KQL を使って生データと変換後データの両方のクエリを実行して、ストリーミング イベントから分析情報を得ます。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
+
 # Microsoft Fabric の Eventstream を使用してリアルタイム データを取り込む
 
 Eventstream とは、リアルタイム イベントをキャプチャし、変換し、さまざまな宛先にルーティングする Microsoft Fabric の機能です。 イベント データ ソース、変換先、変換を eventstream に追加できます。

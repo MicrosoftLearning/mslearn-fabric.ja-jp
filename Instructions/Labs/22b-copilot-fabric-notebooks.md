@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric ノートブックで Apache Spark と Copilot を使用してデータを分析する
   module: Get started with Copilot in Fabric for data engineering
+  description: このラボでは、Fabric ノートブックで Copilot を使い、クリーニング、フィルター処理、再整形操作を通じて生の母集団データを変換してから結果を探索するための視覚エフェクトを作成する Apache Spark コードを、自然言語プロンプトから生成します。 コーディングを AI で支援すると、ユーザーはコーディング方法ではなく達成したいことに集中できるようになり、Data Engineering が高速化されることを学びます。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric ノートブックで Apache Spark と Copilot を使用してデータを分析する

@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric イベントハウスでリアルタイム データを操作する
   module: Work with data in a Microsoft Fabric eventhouse
+  description: このラボでは、Kusto 照会言語 (KQL) と Transact-SQL の両方を使って、KQL データベース内のデータのクエリを実行する方法を学びます。 Microsoft Fabric イベントハウスに格納されているリアルタイム イベント データから分析情報を得るための、データの検索、フィルター処理、集計、並べ替えなどの基本的なデータ クエリ操作を練習します。
+  duration: 25 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric イベントハウスでリアルタイム データを操作する

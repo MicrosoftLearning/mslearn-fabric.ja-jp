@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric で Data Wrangler を使用してデータを前処理する
   module: Preprocess data with Data Wrangler in Microsoft Fabric
+  description: Data Wrangler を使って、テキストの書式設定、フィルター処理、並べ替え、集計などの一般的なデータ前処理タスクを実行し、並行して再利用可能な Python コードを自動的に生成します。 この実践的な経験は、コードを一から記述することなく、機械学習モデル用のデータを効率よく準備するのに役立ちます。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric で Data Wrangler を使用してデータを前処理する

@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric データフロー Gen2 で Copilot を使用してよりスマートに作業する
   module: Get started with Copilot in Fabric for data engineering
+  description: このラボでは、Microsoft Fabric Dataflow Gen2 で Copilot を使い、自然言語プロンプトを使ってデータ変換タスクを高速化する方法を学びます。 不要な文字を削除し、XML の内容を解析し、カテゴリ別のグループ化を作成して、適切なデータ型を設定することで、小売店のデータをクリーンアップして変換します。そのすべてで AI の支援を受けます。 最後に、Copilot を活用して一般的なデータ エンジニアリング ワークフローを効率化し、生産性を向上させる方法を理解します。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric データフロー Gen2 で Copilot を使用してよりスマートに作業する

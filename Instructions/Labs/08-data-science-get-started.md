@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric でデータ サイエンスを始める
   module: Get started with data science in Microsoft Fabric
+  description: このラボでは、ノートブックと Data Wrangler を使ってデータの探索と変換を行った後、回帰と分類両方の機械学習モデルをトレーニングして比較する方法を学びます。 MLflow を使って実験を追跡し、パフォーマンスが最高のモデルを保存して、Microsoft Fabric のデータ サイエンスのコア機能に関する実用的なスキルを習得します。
+  duration: 20 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric でデータ サイエンスを始める

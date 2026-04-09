@@ -2,6 +2,12 @@
 lab:
   title: T-SQL を使用してウェアハウスにデータを読み込む
   module: Load data into a warehouse in Microsoft Fabric
+  description: このラボでは、T-SQL を使って Microsoft Fabric データ ウェアハウスにデータを読み込む方法を学びます。 ファクト テーブルとディメンション テーブルを作成し、データベース間クエリを使ってレイクハウスからウェアハウスにデータを読み込むストアド プロシージャを構築し、分析クエリを実行してデータを検証します。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # T-SQL を使用してウェアハウスにデータを読み込む

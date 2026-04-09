@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric で SQL Database を操作する
   module: Get started with SQL Database in Microsoft Fabric
+  description: このラボでは、Microsoft Fabric で SQL データベースを作成してクエリを実行し、外部データ ソースを統合し、ビューとロールベースのアクセス制御を使ってデータをセキュリティ保護します。
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric で SQL Database を操作する

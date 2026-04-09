@@ -2,6 +2,12 @@
 lab:
   title: Microsoft Fabric にデプロイ パイプラインを実装する
   module: Implement CI/CD in Microsoft Fabric
+  description: このラボでは、デプロイ パイプラインを使って Microsoft Fabric に CI/CD プラクティスを実装する方法を学びます。 複数ステージのパイプラインを構成し、開発、テスト、運用環境全体にコンテンツをデプロイして、Fabric でのコンテンツ プロモーションの自動化に関する実践経験を得ます。
+  duration: 20 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Microsoft Fabric
 ---
 
 # Microsoft Fabric にデプロイ パイプラインを実装する
