@@ -46,7 +46,7 @@ Lamna Healthcare のオントロジには、病院、診療部門、病室、患
 
 > **注**: オントロジをステップバイステップで構築する方法については、[手動でのオントロジの作成](https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/23-build-ontology-manually.html)または[セマンティック モデルからのオントロジの生成](https://microsoftlearning.github.io/mslearn-fabric/Instructions/Labs/24-build-ontology-semantic-model.html)に関する演習を参照してください。
 
-1. ノートブック ファイル [**setup-ontology.ipynb**](https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/27-28/setup-ontology.ipynb) をローカル コンピューターにダウンロードします。 ブラウザーで `setup-ontology.ipynb.txt` として保存される場合は、`.txt` 拡張子を削除するようにファイルの名前を変更します。
+1. [**[setup-ontology.ipynb**](https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/27-28/setup-ontology.ipynb) を選択してブラウザーでノートブック ファイルを開き、右クリックしてローカ]ル コンピューターに保存します。 ブラウザーで `setup-ontology.ipynb.txt` として保存される場合は、`.txt` 拡張子を削除するようにファイルの名前を変更します。
 
 1. ワークスペースで、リボンから **[インポート]** を選択します。
 
