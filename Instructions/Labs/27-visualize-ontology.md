@@ -14,6 +14,9 @@ lab:
 
 このラボでは、Lamna Healthcare という架空の会社のノートブックからオントロジを作成します。 エンティティ インスタンスを視覚化し、対話型グラフを使用してエンティティ リレーションシップを探索し、プロパティ チャートと時系列の視覚化を使用してデータを表示します。
 
+> [!IMPORTANT]
+> Microsoft Fabric のオントロジは現在[プレビュー段階](https://learn.microsoft.com/fabric/fundamentals/preview)です。
+
 このラボの所要時間は約 **30** 分です。
 
 > **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。 また、次の[テナント設定](https://learn.microsoft.com/fabric/iq/ontology/overview-tenant-settings)を有効にする必要があります: **オントロジ項目を有効にする (プレビュー)** および**ユーザーは Graph を作成可能 (プレビュー)**。

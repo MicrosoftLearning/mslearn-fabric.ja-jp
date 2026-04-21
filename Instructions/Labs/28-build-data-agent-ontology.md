@@ -1,7 +1,7 @@
 ---
 lab:
-  title: オントロジベースの Fabric データ エージェントを構築する
-  module: Build an ontology-grounded Fabric data agent
+  title: オントロジを使用する Fabric データ エージェントを構築する
+  module: Build a Fabric data agent with an ontology
   description: このラボでは、Lamna Healthcare のオントロジをデータ ソースとして使用する Fabric データ エージェントを作成します。 エージェントの指示を構成し、自然言語クエリをテストして、同僚が使用できるようにエージェントを公開します。
   duration: 30 minutes
   level: 200
@@ -10,9 +10,12 @@ lab:
     - Microsoft Fabric
 ---
 
-# オントロジベースの Fabric データ エージェントを構築する
+# オントロジを使用する Fabric データ エージェントを構築する
 
 このラボでは、Lamna Healthcare という架空の会社の Fabric データ エージェントを作成します。 データ ソースとして使用するオントロジにエージェントを接続し、クエリの精度を向上させる指示を構成し、自然言語の質問をテストし、臨床スタッフが "占有されている ICU のベッドは何床ですか?" などの質問に対する回答を得ることができるようにエージェントを公開します。
+
+> [!IMPORTANT]
+> Microsoft Fabric のオントロジは現在[プレビュー段階](https://learn.microsoft.com/fabric/fundamentals/preview)です。
 
 このラボの所要時間は約 **30** 分です。
 
