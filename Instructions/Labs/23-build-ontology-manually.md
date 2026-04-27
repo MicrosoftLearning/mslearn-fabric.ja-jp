@@ -1,12 +1,21 @@
 ---
-lab: title: Fabric IQ を使用してオントロジ (プレビュー) を作成する module: Microsoft Fabric IQ を使用してオントロジを作成する description: 'このラボでは、完全な Fabric IQ オントロジを手動で構築します。具体的にはエンティティ型を作成してプロパティとキーを指定し、リレーションシップを定義し、レイクハウス テーブルとイベントハウス ストリームからのデータをバインドします。 このハンズオン演習では静的と時系列の両方のデータを使用して、ある医療シナリオをモデル化します、これには病院、診療部門、患者、生存徴候モニタリング機器が含まれます。'
-duration: 40 分 level: 300 islab: true primarytopics: 
+lab:
+  title: Fabric IQ を使用してオントロジを作成する
+  module: Create ontology with Microsoft Fabric IQ
+  description: このラボでは、完全な Fabric IQ オントロジを手動で構築します。具体的には、プロパティとキーを使用してエンティティの種類を作成し、リレーションシップを定義し、レイクハウス テーブルとイベントハウス ストリームからのデータをバインドします。 このハンズオン演習では、静的および時系列の両方のデータ (病院、診療部門、患者、バイタル サイン監視機器など) を使用して、医療シナリオをモデル化します。
+  duration: 40 minutes
+  level: 200
+  islab: true
+  primarytopics:
     - Microsoft Fabric
 ---
 
-# Fabric IQ を使用してオントロジ (プレビュー) を作成する
+# Fabric IQ を使用してオントロジを作成する
 
 このラボでは、ある架空の医療機関向けの完全な Fabric IQ オントロジを作成するために、各コンポーネント (エンティティ型、プロパティ、キー、リレーションシップ、データ バインディング) を手動で構築します。 サンプル データは、病院、診療部門、病室、患者、生存徴候機器、生存徴候測定値を表します。
+
+> [!IMPORTANT]
+> Microsoft Fabric のオントロジは現在[プレビュー段階](https://learn.microsoft.com/fabric/fundamentals/preview)です。
 
 このラボの所要時間は約 **40** 分です。
 
