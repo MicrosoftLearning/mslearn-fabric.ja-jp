@@ -8,6 +8,11 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Semantic models
+    - Get started with Fabric
+  courses:
+    - DP-600
 ---
 
 # スケールのセマンティック モデルを設計する
@@ -21,9 +26,11 @@ lab:
 
 このラボの所要時間は約 **30** 分です。
 
+> **ヒント:** 関連するトレーニング コンテンツについては、「[Microsoft Fabric でのスケールの設計セマンティック モデル](https://learn.microsoft.com/training/modules/design-semantic-models-scale/)」を参照してください。
+
 ## 環境を設定する
 
-この演習を完了するには、Fabric 対応ワークスペースが必要です。 Fabric 試用版の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 有料容量には Power BI 機能が含まれている必要があります。または、別の Power BI Pro か Premium Per User ライセンスが必要です。 無料の Fabric 試用版については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
