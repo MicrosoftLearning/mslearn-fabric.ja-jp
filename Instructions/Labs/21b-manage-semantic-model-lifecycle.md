@@ -11,6 +11,10 @@ lab:
     - Power BI
     - Semantic Link
     - Deployment pipelines
+  categories:
+    - Operations and lifecycle management
+  courses:
+    - DP-600
 ---
 
 # セマンティック モデルのライフサイクルを管理する
@@ -21,9 +25,11 @@ lab:
 
 このラボの所要時間は約 **45** 分です。
 
+> **ヒント:** 関連するトレーニング コンテンツについては、「[セマンティック モデル開発ライフサイクルを管理する](https://learn.microsoft.com/training/modules/manage-semantic-model-lifecycle/)」を参照してください。
+
 ## 環境を設定する
 
-この演習を完了するには、Fabric 対応ワークスペースが必要です。 Fabric 試用版の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 有料容量には Power BI 機能が含まれている必要があります。または、別の Power BI Pro か Premium Per User ライセンスが必要です。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 ### ワークスペースを作成する
 

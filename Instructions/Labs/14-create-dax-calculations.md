@@ -1,16 +1,20 @@
 ---
 lab:
-  title: Power BI Desktop で DAX 計算を作成する
-  module: Create DAX calculations in Power BI Desktop
-  description: DAX を使って計算テーブル、計算列、メジャーを作成し、Power BI データ モデルを向上させる方法を学びます。 実践的な練習を通じて、日付テーブルの作成、並べ替え動作の制御、メジャーの表示フォルダーへの整理、データを効果的に集計して比較する計算の作成を行います。
+  title: セマンティック モデルで DAX 計算を作成する
+  module: Create DAX calculations in semantic models
+  description: セマンティック モデルをより良いものにするために DAX を使って計算テーブル、計算列、メジャーを作成する方法を学びます。 実践的な練習を通じて、日付テーブルの作成、並べ替え動作の制御、メジャーの表示フォルダーへの整理、データを効果的に集計して比較する計算の作成を行います。
   duration: 45 minutes
   level: 300
   islab: true
   primarytopics:
     - Power BI
+  categories:
+    - Semantic models
+  courses:
+    - DP-600
 ---
 
-# Power BI Desktop で DAX 計算を作成する
+# セマンティック モデルで DAX 計算を作成する
 
 ## **ラボのストーリー**
 
@@ -24,7 +28,11 @@ lab:
 
 **この配信には約 45 分かかります。**
 
+> **ヒント:** 関連するトレーニング コンテンツについては、「[セマンティック モデルでの DAX 計算の作成](https://learn.microsoft.com/training/modules/dax-power-bi-create-calculations/)」を参照してください。
+
 ## 作業の開始
+
+> **注**: この演習を完了するには、[Power BI Desktop](https://www.microsoft.com/download/details.aspx?id=58494) (2025 年 11 月以降) をインストールする必要があります。
 
 この演習を完了するには、まず Web ブラウザーを開き、次の URL を入力して zip フォルダーをダウンロードします。
 

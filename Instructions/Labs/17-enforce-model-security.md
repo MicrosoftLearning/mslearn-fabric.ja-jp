@@ -9,11 +9,6 @@ lab:
   primarytopics:
     - Power BI
     - Row-level security
-  categories:
-    - Semantic models
-    - Security and governance
-  courses:
-    - DP-600
 ---
 
 # セマンティック モデルのセキュリティを適用する
@@ -28,8 +23,6 @@ lab:
 - さまざまなユーザー ID を使用してテストを行い、ロールの動作を検証する。
 
 このラボの所要時間は約 **30** 分です。
-
-> **ヒント:** 関連するトレーニング コンテンツについては、「[セマンティック モデルのセキュリティを適用する](https://learn.microsoft.com/training/modules/enforce-semantic-model-security/)」を参照してください。
 
 ## 環境を設定する
 

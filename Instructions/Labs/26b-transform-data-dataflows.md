@@ -8,6 +8,10 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Data engineering
+  courses:
+    - DP-600
 ---
 
 # Microsoft Fabric でデータフローを使用してデータを変換する
@@ -18,9 +22,11 @@ Microsoft Fabric のデータフローでは、分析データの準備用にロ
 
 このラボの所要時間は約 **30** 分です。
 
+> **ヒント:** 関連するトレーニング コンテンツについては、「[Microsoft Fabric のデータフローを使用した変換](https://learn.microsoft.com/training/modules/fabric-transform-data-dataflows/)」を参照してください。
+
 ## 環境を設定する
 
-この演習を完了するには、Fabric 対応ワークスペースが必要です。 Fabric 試用版の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 ### ワークスペースの作成
 

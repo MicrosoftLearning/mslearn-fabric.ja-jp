@@ -10,10 +10,6 @@ lab:
     - Microsoft Fabric
     - Data governance
     - OneLake catalog
-  categories:
-    - Security and governance
-  courses:
-    - DP-600
 ---
 
 # Microsoft Fabric で分析データを管理する
@@ -26,11 +22,9 @@ Microsoft Fabric には、追加のライセンスや外部ツールを必要と
 
 このラボの所要時間は約 **30** 分です。
 
-> **ヒント:** 関連するトレーニング コンテンツについては、「[Microsoft Fabric のガバナンス分析データ](https://learn.microsoft.com/training/modules/fabric-govern-analytics-data/)」を参照してください。
-
 ## 環境を設定する
 
-> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 有料容量には Power BI 機能が含まれている必要があります。または、別の Power BI Pro か Premium Per User ライセンスが必要です。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
+この演習を完了するには、Fabric 対応ワークスペースが必要です。 Fabric 試用版の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。
 
 ### ワークスペースの作成
 

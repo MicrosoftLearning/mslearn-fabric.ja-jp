@@ -11,7 +11,7 @@ lab:
     - T-SQL
     - Data warehouse
   categories:
-    - Ingestion and transformation
+    - Data warehouse
   courses:
     - DP-600
 ---
@@ -24,11 +24,13 @@ Microsoft Fabric ウェアハウスは、データを変換するための T-SQL
 
 この演習の所要時間は約 **45** 分です。
 
+> **ヒント:** 関連するトレーニング コンテンツについては、「[Microsoft Fabric の T-SQL を使用したデータを変換する](https://learn.microsoft.com/training/modules/fabric-transform-data-tsql/)」を参照してください。
+
 > **注意**: この演習には、Copilot の機能を調べるためのオプションのプロンプトが含まれています。
 
 ## 環境を設定する
 
-この演習を完了するには、Fabric 対応ワークスペースが必要です。 Fabric 試用版の詳細については、[Fabric の概要](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関するページを参照してください。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 ### ワークスペースの作成
 

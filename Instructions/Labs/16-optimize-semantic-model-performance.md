@@ -11,10 +11,6 @@ lab:
     - Semantic models
     - DAX optimization
     - Performance analyzer
-  categories:
-    - Semantic models
-  courses:
-    - DP-600
 ---
 
 # セマンティック モデルのパフォーマンスを最適化する
@@ -28,8 +24,6 @@ lab:
 - 測定前と測定後を比較して、パフォーマンスの向上を確認する。
 
 このラボの所要時間は約 **30** 分です。
-
-> **ヒント:** 関連するトレーニング コンテンツについては、「[セマンティック モデルのパフォーマンスを最適化する](https://learn.microsoft.com/training/modules/optimize-semantic-model-performance/)」を参照してください。
 
 ## 開始する前に
 
