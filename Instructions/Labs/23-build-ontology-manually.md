@@ -8,6 +8,10 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Get started with Fabric
+    - Fabric IQ
+  courses: null
 ---
 
 # Fabric IQ を使用してオントロジを作成する
@@ -19,11 +23,9 @@ lab:
 
 このラボの所要時間は約 **40** 分です。
 
-> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。 また、次の[テナント設定](https://learn.microsoft.com/fabric/iq/ontology/overview-tenant-settings)を有効にする必要があります: **オントロジ項目を有効にする (プレビュー)** および**ユーザーは Graph を作成可能 (プレビュー)**。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。 また、次の[テナント設定](https://learn.microsoft.com/fabric/iq/ontology/overview-tenant-settings)を有効にする必要があります: **オントロジ項目を有効にする (プレビュー)** および**ユーザーは Graph を作成可能 (プレビュー)**。
 
 ## ワークスペースの作成
-
-Fabric でオントロジの作業を行うには、Fabric 容量が割り当てられたワークスペースが必要です。
 
 1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。

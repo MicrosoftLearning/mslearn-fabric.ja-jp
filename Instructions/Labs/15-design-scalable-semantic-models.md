@@ -24,6 +24,8 @@ lab:
 
 ## 開始する前に
 
+> **注**: この演習を完了するには、[Power BI Desktop](https://www.microsoft.com/download/details.aspx?id=58494) (2025 年 11 月以降) をインストールする必要があります。
+
 1. `https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/15/15-scalable-semantic-models.zip` から[売上分析スターター ファイル](https://github.com/MicrosoftLearning/mslearn-fabric/raw/main/Allfiles/Labs/15/15-scalable-semantic-models.zip)をダウンロードし、ローカルに保存します。
 
 2. フォルダーを **C:\Users\Student\Downloads\15-scalable-semantic-models** フォルダーに展開します。

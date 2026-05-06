@@ -14,13 +14,13 @@ lab:
 
 この演習では、セマンティック モデルとレポートの開発をサポートする再利用可能な資産を作成します。 これらの資産には、Power BI のプロジェクトとテンプレートのファイルが含まれます。
 
-   > 注: この演習では、Fabric ライセンスは必要なく、Power BI または Power BI ライセンスを使用した Microsoft Fabric 環境で完了できます。
-
 この演習の所要時間は約 **30** 分です。
 
 ## 開始する前に
 
-この演習を開始するには、Web ブラウザーを開き、次の URL を入力して zip フォルダーをダウンロードする必要があります。
+> **注**: この演習を完了するには、[Power BI Desktop](https://www.microsoft.com/download/details.aspx?id=58494) (2025 年 11 月以降) をインストールする必要があります。
+
+Web ブラウザーを開き、次の URL を入力して zip フォルダーをダウンロードします。
 
 `https://github.com/MicrosoftLearning/mslearn-fabric/raw/refs/heads/main/Allfiles/Labs/16b/16-reusable-assets.zip`
 

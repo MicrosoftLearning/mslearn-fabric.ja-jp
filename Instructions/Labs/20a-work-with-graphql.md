@@ -8,6 +8,9 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Fabric SQL database
+  courses: null
 ---
 
 # Microsoft Fabric で GraphQL 用 API を使用する
@@ -16,11 +19,9 @@ GraphQL 用 Microsoft Fabric APIは、広く導入されている使い慣れた
 
 このラボは完了するまで、約 **30** 分かかります。
 
-> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
-
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric) (`https://app.fabric.microsoft.com/home?experience=fabric`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、**[新しいワークスペース]** を選択します。
@@ -44,7 +45,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
     ![サンプル データが読み込まれた新しいデータベースのスクリーンショット。](./Images/sql-database-sample.png)
 
-## SQL データベースのクエリを実行する
+## SQL データベースにクエリを実行する
 
 SQL クエリ エディターでは、IntelliSense、コード補完、構文の強調表示、クライアント側の解析と検証がサポートされます。 データ定義言語 (DDL)、データ操作言語 (DML)、およびデータ制御言語 (DCL) ステートメントを実行できます。
 

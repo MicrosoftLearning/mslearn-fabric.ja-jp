@@ -8,6 +8,11 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Data engineering
+  courses:
+    - DP-700
+    - DP-601
 ---
 
 # Microsoft Fabric でデータフロー (Gen2) を作成して使用する
@@ -16,11 +21,9 @@ Microsoft Fabric では、データフロー (Gen2) でさまざまなデータ 
 
 このラボの目的は、データフロー (Gen2) のさまざまな要素を紹介することであり、エンタープライズに存在する可能性のある複雑なソリューションを作成することではありません。 このラボの所要時間は**約 30 分**です。
 
-> **注**:この演習を完了するには、[Microsoft Fabric 試用版](https://learn.microsoft.com/fabric/get-started/fabric-trial)が必要です。
-
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
