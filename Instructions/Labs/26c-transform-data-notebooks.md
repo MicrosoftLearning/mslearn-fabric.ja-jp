@@ -8,10 +8,6 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
-  categories:
-    - Data engineering
-  courses:
-    - DP-600
 ---
 
 # Microsoft Fabric でノートブックを使用してデータを変換する
@@ -22,11 +18,9 @@ Microsoft Fabric の中のノートブックは対話型のコードベースの
 
 この演習の所要時間は約 **30** 分です。
 
-> **ヒント:** 関連するトレーニング コンテンツについては、「[Microsoft Fabric のノートブックを使用したデータの変換](https://learn.microsoft.com/training/modules/fabric-transform-data-notebooks/)」を参照してください。
-
 ## 環境を設定する
 
-> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
+この演習を完了するには、Fabric が有効化されたワークスペースが必要です。 Fabric 試用版の詳細については、[Fabric の始め方](https://learn.microsoft.com/fabric/get-started/fabric-trial)に関する記事を参照してください。
 
 ### ワークスペースの作成
 

@@ -12,7 +12,7 @@ lab:
     - Copilot
     - Prep for AI
   categories:
-    - Semantic models
+    - Semantic modeling
   courses:
     - DP-600
 ---
@@ -32,11 +32,9 @@ Copilot in Power BI によって正確な応答が生成されるかどうかは
 
 このラボの所要時間は約 **30** 分です。
 
-> **ヒント:** 関連するトレーニング コンテンツについては、「[ Microsoft Fabric で AI のセマンティック レイヤーを準備する](https://learn.microsoft.com/training/modules/fabric-prepare-semantic-layer/)」を参照してください。
-
 ## 環境を設定する
 
-> **注**: この演習を完了するには、有料の Fabric 容量が必要です。 Fabric 試用版では、Copilot 機能はサポートされていません。 Fabric ライセンスの詳細については、[Microsoft Fabric ライセンス](https://learn.microsoft.com/fabric/enterprise/licenses)に関するページを参照してください。
+この演習を完了するには有料の Fabric 容量 (F2 以上) が必要です。Copilot は試用版容量ではサポートされていないためです。 詳細については、[Fabric ライセンス](https://learn.microsoft.com/fabric/enterprise/licenses)に関するページをご覧ください。
 
 この演習を完了するには、[Power BI Desktop](https://www.microsoft.com/download/details.aspx?id=58494) (2025 年 11 月以降) がインストールされている必要があります。 注: UI 要素は、お使いのバージョンによって多少異なる場合があります。**
 

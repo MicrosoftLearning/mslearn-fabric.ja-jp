@@ -8,10 +8,6 @@ lab:
   islab: true
   primarytopics:
     - Power BI
-  categories:
-    - Semantic models
-  courses:
-    - DP-600
 ---
 
 # セマンティック モデルで DAX 計算を作成する
@@ -28,11 +24,7 @@ lab:
 
 **この配信には約 45 分かかります。**
 
-> **ヒント:** 関連するトレーニング コンテンツについては、「[セマンティック モデルでの DAX 計算の作成](https://learn.microsoft.com/training/modules/dax-power-bi-create-calculations/)」を参照してください。
-
 ## 作業の開始
-
-> **注**: この演習を完了するには、[Power BI Desktop](https://www.microsoft.com/download/details.aspx?id=58494) (2025 年 11 月以降) をインストールする必要があります。
 
 この演習を完了するには、まず Web ブラウザーを開き、次の URL を入力して zip フォルダーをダウンロードします。
 
