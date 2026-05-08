@@ -8,6 +8,11 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Operations and lifecycle management
+  courses:
+    - DP-700
+    - DP-601
 ---
 
 # Microsoft Fabric でパイプラインを使用してデータを取り込む
@@ -18,12 +23,9 @@ Fabric では、Apache Spark もサポートされるため、データを大規
 
 このラボは完了するまで、約 **45** 分かかります。
 
-> [!Note]
-> 注: この演習を完了するには、[Microsoft Fabric テナント](https://learn.microsoft.com/fabric/get-started/fabric-trial)へのアクセス権が必要です。
-
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric-developer) (`https://app.fabric.microsoft.com/home?experience=fabric-developer`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のナビゲーション ウィンドウで、**[ワークスペース]** (&#128455; のようなアイコン) を選択します。

@@ -1,16 +1,108 @@
 ---
-title: オンラインでホスティングされている手順
+title: Microsoft Fabric の対話型演習
 permalink: index.html
 layout: home
 ---
 
-# Microsoft Fabric の演習
+# Microsoft Fabric の対話型演習
 
-次の演習は、[Microsoft Learn](https://aka.ms/learn-fabric) のモジュールをサポートするように設計されています。
+[Microsoft Fabric](https://learn.microsoft.com/fabric) は統合分析プラットフォームであり、ここにデータ エンジニアリング、データ ウェアハウス、リアルタイム インテリジェンス、データ サイエンス、ビジネス インテリジェンスが集められ 1 つの統合 SaaS (サービスとしてのソフトウェア) エクスペリエンスとして提供されます。
+
+これらの対話型の演習では、Fabric の中核的な機能について実際に体験できるので、自信を持てるようになり、実務のプロジェクトや認定試験に向けて準備を整えることができます。
+
+<style> .tab-toggle { display: none; } .tab-label { display: inline-block; padding: 8px 20px; cursor: pointer; font-weight: bold; border: 1px solid #ccc; border-bottom: none; border-radius: 6px 6px 0 0; background: #f0f0f0; margin-right: 4px; } .tab-toggle:checked + .tab-label { background: #fff; border-bottom: 1px solid #fff; margin-bottom: -1px; position: relative; z-index: 1; } .tab-panels { border-top: 1px solid #ccc; padding-top: 16px; } .tab-panel { display: none; } #tab-topic:checked ~ .tab-panels .panel-topic { display: block; } #tab-course:checked ~ .tab-panels .panel-course { display: block; } .tab-bar { margin-top: 16px; } </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var hash = window.location.hash.substring(1);
+  if (hash) {
+    var target = document.getElementById(hash);
+    if (target && target.closest('.panel-course')) {
+      document.getElementById('tab-course').checked = true;
+      target.open = true;
+      target.scrollIntoView();
+      var title = target.querySelector('summary strong');
+      if (title) document.title = title.textContent;
+    } else if (target && target.closest('.panel-topic')) {
+      document.getElementById('tab-topic').checked = true;
+      target.open = true;
+      target.scrollIntoView();
+      var title = target.querySelector('summary strong');
+      if (title) document.title = title.textContent;
+    }
+  }
+  document.querySelectorAll('details[id] summary').forEach(function(summary) {
+    summary.addEventListener('click', function() {
+      var details = summary.parentElement;
+      if (!details.open) {
+        history.replaceState(null, '', '#' + details.id);
+      }
+    });
+  });
+});
+</script>
 
 {% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Labs'" %}
-| モジュール | ラボ |
-| --- | --- | 
-{% for activity in labs %}| {{ activity.lab.module }} | [{{ activity.lab.title }}{% if activity.lab.type %} - {{ activity.lab.type }}{% endif %}]({{ site.github.url }}{{ activity.url }}) |
+{% assign defined_categories = site.data.lab-metadata.categories %}
+{% assign defined_courses = site.data.lab-metadata.courses %}
+
+<div class="tab-bar">
+<input type="radio" name="tabs" id="tab-topic" class="tab-toggle" checked>
+<label for="tab-topic" class="tab-label">トピック別</label>
+<input type="radio" name="tabs" id="tab-course" class="tab-toggle">
+<label for="tab-course" class="tab-label">コース別</label>
+<div class="tab-panels">
+<div class="tab-panel panel-topic">
+
+{% for cat in defined_categories %}
+{% assign count = 0 %}
+{% for activity in labs %}{% if activity.lab.categories contains cat %}{% assign count = count | plus: 1 %}{% endif %}{% endfor %}
+{% if count > 0 %}
+{% if forloop.first %}
+{% assign cat_id = cat | slugify %}
+<details open id="{{ cat_id }}">
+{% else %}
+{% assign cat_id = cat | slugify %}
+<details id="{{ cat_id }}">
+{% endif %}
+<summary><strong>{{ cat }}</strong> (演習 {{ count }} 件)</summary>
+
+{% for activity in labs %}{% if activity.lab.categories contains cat %}
+<p><a href="{{ site.github.url }}{{ activity.url }}">{{ activity.lab.title }}</a> ({{ activity.lab.duration }})<br>{{ activity.lab.description }}</p>
+{% endif %}{% endfor %}
+
+</details>
+{% endif %}
 {% endfor %}
+
+</div>
+<div class="tab-panel panel-course">
+
+{% for course in defined_courses %}
+{% assign count = 0 %}
+{% for activity in labs %}{% if activity.lab.courses contains course.id %}{% assign count = count | plus: 1 %}{% endif %}{% endfor %}
+{% if count > 0 %}
+<details id="{{ course.id }}">
+<summary><strong>{{ course.id }}: {{ course.name }}</strong> (演習 {{ count }} 件)</summary>
+
+{% if course.order %}
+{% for filename in course.order %}
+{% assign activity = labs | where_exp:"page", "page.path contains filename" | first %}
+{% if activity %}
+<p><a href="{{ site.github.url }}{{ activity.url }}">{{ activity.lab.title }}</a> ({{ activity.lab.duration }})<br>{{ activity.lab.description }}</p>
+{% endif %}
+{% endfor %}
+{% else %}
+{% for activity in labs %}{% if activity.lab.courses contains course.id %}
+<p><a href="{{ site.github.url }}{{ activity.url }}">{{ activity.lab.title }}</a> ({{ activity.lab.duration }})<br>{{ activity.lab.description }}</p>
+{% endif %}{% endfor %}
+{% endif %}
+
+</details>
+{% endif %}
+{% endfor %}
+
+</div>
+</div>
+</div>
 

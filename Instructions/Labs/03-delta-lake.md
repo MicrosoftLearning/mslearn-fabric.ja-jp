@@ -8,6 +8,11 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Data engineering
+  courses:
+    - DP-700
+    - DP-601
 ---
 
 # Apache Spark で Delta テーブルを使用する
@@ -16,12 +21,9 @@ Microsoft Fabric レイクハウスのテーブルは、オープンソースの
 
 この演習の完了に要する時間は約 **45** 分です
 
-> [!Note] 
-> 注: この演習を完了するには、[Microsoft Fabric テナント](https://learn.microsoft.com/fabric/get-started/fabric-trial)へのアクセス権が必要です。
-
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 容量を有効にしてテナントにワークスペースを作成します。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric-developer) (`https://app.fabric.microsoft.com/home?experience=fabric-developer`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。

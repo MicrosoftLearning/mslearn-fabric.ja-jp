@@ -8,6 +8,11 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Data engineering
+  courses:
+    - DP-700
+    - DP-601
 ---
 
 # Microsoft Fabric レイクハウスでメダリオン アーキテクチャを作成する
@@ -16,12 +21,9 @@ lab:
 
 この演習の完了に要する時間は約 **45** 分です
 
-> [!Note] 
-> 注: この演習を完了するには、[Microsoft Fabric テナント](https://learn.microsoft.com/fabric/get-started/fabric-trial)へのアクセス権が必要です。
-
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric 試用版を有効にしてワークスペースを作成してください。
+> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric-developer) (`https://app.fabric.microsoft.com/home?experience=fabric-developer`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
@@ -592,7 +594,7 @@ Fabric でデータを操作する前に、Fabric 試用版を有効にしてワ
 
 これで、ゴールド レイヤーをレポートの作成とデータの分析に使用できるようになりました。 まず、レポート用にリレーションシップとメジャーを定義するセマンティック モデルを作成する必要があります。
 
-> **注**: このタスクを完了するには、Power BI のアイテムを作成するために Fabric 試用版または Fabric F64 SKU に加えて Power BI のライセンスが必要です。__
+> **注**: この省略可能なタスクを完了するには、有料容量に Power BI 機能が含まれている必要があります。または、別の Power BI Pro あるいは Premium Per User ライセンスが必要です。
 
 1. ワークスペースで、**Sales** レイクハウスに移動します。
 1. エクスプローラー ビューのリボンから **[新しいセマンティック モデル]** を選択します。

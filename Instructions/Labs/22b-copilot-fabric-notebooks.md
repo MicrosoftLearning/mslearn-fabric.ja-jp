@@ -8,6 +8,11 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Copilot in Fabric
+    - Data engineering
+  courses:
+    - DP-3029
 ---
 
 # Microsoft Fabric ノートブックで Apache Spark と Copilot を使用してデータを分析する
@@ -32,7 +37,7 @@ lab:
 
 ## 開始する前に
 
-この演習を完了するには、Copilot が有効になっている [Microsoft Fabric Capacity (F2 以上)](https://learn.microsoft.com/fabric/fundamentals/copilot-enable-fabric) が必要です。
+> **注**: この演習を完了するには、有料の Fabric 容量が必要です。 Fabric 試用版では、Copilot 機能はサポートされていません。 Fabric ライセンスの詳細については、[Microsoft Fabric ライセンス](https://learn.microsoft.com/fabric/enterprise/licenses)に関するページを参照してください。
 
 > **注**:参考までに、この演習で使用するすべてのプロンプトが掲載されたノートブックを以下からダウンロードできます。
 
@@ -46,15 +51,11 @@ lab:
 
 ## ワークスペースの作成
 
-Fabric でデータを操作する前に、Fabric を有効にしてワークスペースを作成します。 Microsoft Fabric のワークスペースは、レイクハウス、ノートブック、データセットなど、データ エンジニアリングのすべての成果物を整理して管理できる、コラボレーション環境として機能します。 これは、データ分析に必要なすべてのリソースが入ったプロジェクト フォルダーと考えてください。
-
 1. ブラウザーの `https://app.fabric.microsoft.com/home?experience=fabric` で [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
 
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
 
-1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード (*Premium* または *Fabric*) を選択します。 "試用版" はサポートされていないのでご注意ください。**
-   
-    > **この重要性について**: Copilot が機能するには、有料の Fabric 容量が必要です。 これにより、このラボ全体を通してコードの生成を支援する、AI 搭載機能にアクセスできます。
+1. 任意の名前で新しいワークスペースを作成し、Fabric 容量を含むライセンス モード (*Premium* または *Fabric*) を選択します。
 
 1. 開いた新しいワークスペースは空のはずです。
 

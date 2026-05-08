@@ -8,6 +8,9 @@ lab:
   islab: true
   primarytopics:
     - Microsoft Fabric
+  categories:
+    - Fabric IQ
+  courses: null
 ---
 
 # オントロジを使用する Fabric データ エージェントを構築する
@@ -21,7 +24,7 @@ lab:
 
 ## 開始する前に
 
-この演習を完了するには、Microsoft Fabric Capacity (F2 以上) が必要です。 
+> **注**: この演習を完了するには、有料の Fabric 容量が必要です。 Fabric 試用版では、Copilot 機能はサポートされていません。 Fabric ライセンスの詳細については、[Microsoft Fabric ライセンス](https://learn.microsoft.com/fabric/enterprise/licenses)に関するページを参照してください。
 
 また、ファブリック管理者によって次の[テナント設定](https://learn.microsoft.com/fabric/data-science/data-agent-tenant-settings)が有効にされている必要があります。
 
@@ -30,8 +33,6 @@ lab:
 - **Azure OpenAI に送信されるデータは、容量の地理的リージョン、コンプライアンス境界、または国内のクラウド インスタンスの外部に保存できる** - Fabric 容量がヨーロッパまたは米国外にある場合にのみ必要
 
 ## ワークスペースの作成
-
-Fabric データ エージェントを操作する前に、Fabric 容量が割り当てられたワークスペースが必要です。
 
 1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric)に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
