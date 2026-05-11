@@ -186,7 +186,7 @@ Microsoft Fabric のデータフローでは、分析データの準備用にロ
 
 1. **[保存して実行]** を選び、更新されたデータフローを発行します。 更新が完了するまで待ってから、レイクハウスに戻り、`Unit Price` 列が一貫して小数点以下 2 桁の書式で表示されていることを確認します。
 
-![変換された注文テーブルのスクリーンショット。](./images/dataflow-transformed-table.png)
+![変換された注文テーブルのスクリーンショット。](./Images/dataflow-transformed-table.png)
 
 ## Copilot を使ってみる (省略可能)
 
