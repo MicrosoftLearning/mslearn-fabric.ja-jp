@@ -2,7 +2,7 @@
 lab:
   title: Apache Spark で差分テーブルを使用する
   module: Work with Delta Lake tables in Microsoft Fabric
-  description: このラボでは、Microsoft Fabric レイクハウスに Delta テーブルを作成し、SQL クエリを使用してデータを探索します。 Delta Lake 形式で、バッチとストリーミングの両方のデータ操作のリレーショナル セマンティクスをサポートします。
+  description: このラボでは、PySpark と SQL の両方を使用して、Microsoft Fabric レイクハウスで Delta テーブルを作成して管理します。 マネージド テーブル、テーブルのバージョン管理、ストリーミング データ、Delta Lake データに対する SQL クエリについて説明します。
   duration: 45 minutes
   level: 300
   islab: true
@@ -17,17 +17,17 @@ lab:
 
 # Apache Spark で Delta テーブルを使用する
 
-Microsoft Fabric レイクハウスのテーブルは、オープンソースの Delta Lake 形式に基づいています。 Delta Lake では、バッチ データとストリーミング データの両方に対するリレーショナル セマンティクスのサポートが追加されます。 この演習では、Delta テーブルを作成し、SQL クエリを使用してデータを探索します。
+Microsoft Fabric レイクハウスのテーブルは、オープンソースの Delta Lake 形式に基づいています。 Delta Lake では、バッチ データとストリーミング データの両方に対するリレーショナル セマンティクスのサポートが追加されます。 この演習では、PySpark と SQL を使用してマネージド Delta テーブルを作成し、テーブルのバージョン管理を調べて、ストリーミング データを操作します。
 
 この演習の完了に要する時間は約 **45** 分です
 
 ## ワークスペースの作成
 
-> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
+> **注**: この演習を完了するには、Fabric の有料版または試用版の容量にアクセスできることが必要です。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric-developer) (`https://app.fabric.microsoft.com/home?experience=fabric-developer`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
-1. 新しいワークスペースを任意の名前で作成し、 **[詳細]** セクションで、Fabric 容量を含むライセンス モード ("*試用版*"、*Premium*、または *Fabric*) を選択します。
+1. **dp_workspace** という名前で新しいワークスペースを作成し、**[詳細]** セクションで、Fabric 容量を含むライセンス モード ("試用版"、*Premium*、または *Fabric*) を選択します。**
 1. 開いた新しいワークスペースは空のはずです。
 
     ![Fabric の空のワークスペースを示すスクリーンショット。](./Images/new-workspace.png)
@@ -36,9 +36,7 @@ Microsoft Fabric レイクハウスのテーブルは、オープンソースの
 
 ワークスペースが作成されたので、次に自分のデータ用のデータ レイクハウスを作成します。
 
-1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの [*[Data Engineering]* セクションで、**[レイクハウス]** を選択します。 任意の一意の名前を設定します。 [Lakehouse スキーマ (パブリック プレビュー)] オプションが無効になっていることを確認します。
-
-    >**注**: **[作成]** オプションがサイド バーにピン留めされていない場合は、最初に省略記号 (**...**) オプションを選択する必要があります。
+1. ワークスペースで、**[+ 新しい項目]** を選択し、**delta_lakehouse** という名前の新しい**レイクハウス**を作成します。 **[レイクハウス スキーマ]** チェック ボックスはオンにしたままにします。
 
     1 分ほどすると、新しいレイクハウスが作成されます。
 
@@ -46,24 +44,24 @@ Microsoft Fabric レイクハウスのテーブルは、オープンソースの
 
 1. 新しいレイクハウスを表示します。左側の **[エクスプローラー]** ペインでレイクハウス内のテーブルやファイルを参照できます。
 
-これでレイクハウスにデータを取り込めます。 これを行う方法はいくつかありますが、今は、ローカル コンピューター (または該当する場合はラボ VM) にテキスト ファイルをダウンロードし、レイクハウスにアップロードします。 
+これでレイクハウスにデータを取り込めます。 これを行う方法はいくつかありますが、ここでは、テキスト ファイルを自分のコンピューターにダウンロードし、それをレイクハウスにアップロードします。
 
 1. `https://github.com/MicrosoftLearning/dp-data/raw/main/products.csv` から[データ ファイル](https://github.com/MicrosoftLearning/dp-data/raw/main/products.csv)をダウンロードし、*products.csv* として保存します。
 1. レイクハウスを含む Web ブラウザー タブに戻り、[エクスプローラー] ペインで、**Files** フォルダーの横にある [...]  メニューを選択します。  *products* という**新しいサブフォルダー**を作成します。 名前はすべて小文字にする必要があります。
-1. MMC コンソールで、[ファイル] を選択し、 products フォルダーの [...] メニューで、ローカル コンピューター (または該当する場合はラボ VM) から *products.csv* ファイルを**アップロード**します。
+1. MMC コンソールで、[ファイル] を選択し、 products フォルダーの [...] メニューで、コンピューターから *products.csv* ファイルの **[アップロード]** を実行します。
 1. ファイルがアップロードされたら、**products** フォルダーを選択し、次に示すようにファイルがアップロードされていることを確認します。
 
-    ![レイクハウスにアップロードされた products.csv の画面画像。](Images/upload-products.png)
+    ![レイクハウスにアップロードされた products.csv の画面画像。](Images/03-upload-products.png)
   
 ## DataFrame 内のデータを探索する
 
 これで、データを操作する Fabric ノートブックを作成できるようになりました。 ノートブックは、コードを記述して実行できる対話型環境を提供します。
 
-1. 左側のメニュー バーで、**[作成]** を選択します。 *[新規]* ページの [*[Data Engineering]* セクションで、**[Notebook]** を選択します。
+1. レイクハウスで、**[ノートブックを開く]**  >  **[新しいノートブック]** の順に選択します。
 
     **Notebook 1** という名前の新しいノートブックが作成されて開きます。
 
-    ![新しいノートブックのスクリーンショット。](./Images/new-notebook.png)
+    ![新しいノートブックのスクリーンショット。](./Images/03-new-notebook.png)
 
 1. Fabric は、Notebook 1、Notebook 2 などのように、作成する各ノートブックに名前を割り当てます。名前をよりわかりやすいものに変更するには、メニューの **[ホーム]** タブの上にある名前パネルをクリックします。
 1. 最初のセル (今はコード セル) を選択し、右上のツール バーで **[M↓]** ボタンを使用して Markdown セルに変換します。 セルに含まれるテキストは、書式設定されたテキストで表示されます。
@@ -75,8 +73,10 @@ Microsoft Fabric レイクハウスのテーブルは、オープンソースの
     ```
 
 1. セルの外側のノートブック内の任意の場所をクリックして編集を停止します。
-1. **[エクスプローラー]** ペインで、**[データ項目の追加]** を選択し、**[OneLake カタログ]** を選択します。 前に作成したレイクハウスに接続します。
 1. 新しいコード セルを追加し、次のコードを追加して、定義したスキーマにより製品データを DataFrame に読み取ります。
+
+    > [!TIP]
+    > コード セルを追加するには、現在のセルまたはその出力の上または下にマウス ポインターを置くと表示される **[+ コード]** を選択します。 または、リボン メニューで **[編集]**、**[+ コード セルを下に挿入する]** の順に選択します。
 
     ```python
    from pyspark.sql.types import StructType, IntegerType, StringType, DoubleType
@@ -103,175 +103,83 @@ Microsoft Fabric レイクハウスのテーブルは、オープンソースの
 
 1. セル コードが完了したら、セルの下にある出力を確認します。これは次のようになるはずです。
 
-    ![products.csv データの画面画像。](Images/products-schema.png)
+    ![products.csv データの画面画像。](Images/03-products-schema.png)
  
 ## Delta テーブルを作成する
 
-*saveAsTable* メソッドを使用すると、DataFrame を Delta テーブルとして保存できます。 Delta Lake では、マネージド テーブルと外部テーブルの両方の作成がサポートされています。
+これで、製品データを DataFrame に読み込んだので、それをレイクハウスの Delta テーブルとして保持できます。 これを行う最も簡単な方法は、`saveAsTable` メソッドを使用することです。
 
-   * **マネージド** Delta テーブルでは、スキーマ メタデータとデータ ファイルの両方が Fabric によって管理されるため、パフォーマンスが向上します。
-   * **外部**テーブルを使用すると、Fabric によって管理されるメタデータを使用して、データを外部に格納できます。
-
-### マネージド テーブルを作成する
-
-データ ファイルは、**Tables** フォルダーに作成されます。
-
-1. 最初のコード セルから返された結果の下で、[+ コード] アイコンを使用して新しいコード セルを追加します。
-
-> [!TIP]
-> [+ コード] アイコンを表示するには、マウスを現在のセルの出力のすぐ下の左側に移動します。 または、メニュー バーの [編集] タブで、**[+ コード セルの追加]** を選択します。
-
-1. マネージド Delta テーブルを作成するには、新しいセルを追加し、次のコードを入力して、セルを実行します。
+1. 新しいコード セルを追加し、次のコードを入力して、セルを実行します。
 
     ```python
-   df.write.format("delta").saveAsTable("managed_products")
+   df.write.format("delta").saveAsTable("dbo.products_table")
     ```
 
-1. [エクスプローラー] ペインで **[更新]** を選択して Tables フォルダーを更新し、Tables ノードを展開して **[managed_products]** テーブルが作成されていることを確認します。
+1. [エクスプローラー] ペインで **[更新]** を選択して **Tables** フォルダーを更新し、Tables ノードを展開して **products_table** テーブルが作成されていることを確認します。
 
 > [!NOTE]
 > ファイル名の横にある三角形アイコンは Delta テーブルを示します。
 
-マネージド テーブルのファイルは、レイクハウス内の **Tables** フォルダーに格納されます。 Parquet ファイルと、テーブルの delta_log フォルダーが格納される、*managed_products* というフォルダーが作成されています。
-
-### 外部テーブルを作成する
-
-レイクハウスに格納されているスキーマ メタデータを使用して、レイクハウス以外の場所に格納できる外部テーブルを作成することもできます。
-
-1. [エクスプローラー] ペインで、 **Files** フォルダーの [...] メニューにある **[ABFS パスのコピー]** を選択します。 ABFS パスは、レイクハウスの Files フォルダーへの完全修飾パスです。
-
-1. 新しいコード セルに、ABFS パスを貼り付けます。 切り取りと貼り付けを使用して、コード内の正しい場所に abfs_path を挿入して、次のコードを追加します。
-
-    ```python
-   df.write.format("delta").saveAsTable("external_products", path="abfs_path/external_products")
-    ```
-
-1. 完全なパスは次のようになります。
-
-    ```python
-   abfss://workspace@tenant-onelake.dfs.fabric.microsoft.com/lakehousename.Lakehouse/Files/external_products
-    ```
-
-1. セルを**実行**し、DataFrame を外部テーブルとして Files/external_products フォルダーに保存します。
-
-1. [エクスプローラー] ペインで **[更新]** を選択して Tables フォルダーを更新し、Tables ノードを展開して、スキーマ メタデータを含む external_products テーブルが作成されていることを確認します。
-
-1. [エクスプローラー] ペインで、 Files フォルダーの [...] メニューにある **[更新]** を選択します。 次に、Files ノードを展開し、テーブルのデータ ファイル用に external_products フォルダーが作成されていることを確認します。
-
-### "マネージド" テーブルと "外部" テーブルを比較する 
-
-%%sql マジック コマンドを使用して、マネージド テーブルと外部テーブルの違いを調べましょう。
-
-1. 新しいコード セルで、次のコードを実行します。
-
-    ```python
-   %%sql
-   DESCRIBE FORMATTED managed_products;
-    ```
-
-1. 結果で、テーブルの "場所" プロパティを確認します。 [データ型] 列の [場所] 値をクリックすると、完全なパスが表示されます。 OneLake ストレージの場所が /Tables/managed_products で終わることに注意してください。
-
-1. 次のように、external_products テーブルの詳細を表示するように DESCRIBE コマンドを変更します。
-
-    ```python
-   %%sql
-   DESCRIBE FORMATTED external_products;
-    ```
-
-1. セルを実行し、結果でテーブルの "場所" プロパティを確認します。 [データ型] 列の幅を広げて完全なパスを表示し、OneLake ストレージの場所が /Files/external_products で終わることに注意してください。
-
-1. 新しいコード セルで、次のコードを実行します。
-
-    ```python
-   %%sql
-   DROP TABLE managed_products;
-   DROP TABLE external_products;
-    ```
-
-1. [エクスプローラー] ペインで **[更新]** を選択して　Tables フォルダーを更新し、Tables ノードにテーブルが表示されていないことを確認します。
-1. [エクスプローラー] ペインで **[更新]** を選択して Files フォルダーを更新し、external_products ファイルが*削除されていない*ことを確認します。 このフォルダーを選択して、Parquet データ ファイルと _delta_log フォルダーを表示します。 
-
-外部テーブルのメタデータは削除されましたが、データ ファイルは削除されていません。
-
-## SQL を使用して Delta テーブルを作成する
-
-今度は、%%sql マジック コマンドを使用して Delta テーブルを作成します。 
-
-1. 別のコード セルを追加し、次のコードを実行します。
-
-    ```python
-   %%sql
-   CREATE TABLE products
-   USING DELTA
-   LOCATION 'Files/external_products';
-    ```
-
-1. [エクスプローラー] ペインで、 **Tables** フォルダーの [...] メニューにある **[更新]** を選択します。 次に、Tables ノードを展開し、*products* という名前の新しいテーブルが表示されていることを確認します。 そして、テーブルを展開してスキーマを表示します。
-1. 別のコード セルを追加し、次のコードを実行します。
-
-    ```python
-   %%sql
-   SELECT * FROM products;
-    ```
-
 ## テーブルのバージョン管理を調べる
 
-Delta テーブルのトランザクション履歴は、delta_log フォルダー内の JSON ファイルに格納されます。 このトランザクション ログを使用して、データのバージョンを管理できます。
+Delta Lake では、テーブルに対するすべての変更がトランザクション ログに自動的に記録されます。 このログを使用して、変更の履歴を表示し、データの以前のバージョンに対してクエリを実行できます。この機能は "タイム トラベル" と呼ばれます。**
 
-1. ノートブックに新しいコード セルを追加し、マウンテン バイクの価格を 10% 値下げする次のコードを実行します。
+実際の動作を確認するために、いくつかのデータを更新し、Delta Lake で記録された内容を調べてみましょう。
+
+1. 新しいコード セルを追加し、次のコードを実行して、マウンテン バイクの定価を 10% 値下げします。
 
     ```python
    %%sql
-   UPDATE products
+   UPDATE dbo.products_table
    SET ListPrice = ListPrice * 0.9
    WHERE Category = 'Mountain Bikes';
     ```
 
-1. 別のコード セルを追加し、次のコードを実行します。
+1. 別のコード セルを追加し、次のコードを実行して、テーブルのトランザクション履歴を表示します。
 
     ```python
    %%sql
-   DESCRIBE HISTORY products;
+   DESCRIBE HISTORY dbo.products_table;
     ```
 
-結果には、テーブルに関して記録されたトランザクションの履歴が表示されます。
+   結果には、テーブルに対して記録された各トランザクションが表示されます。バージョン 0 は元の書き込みであり、バージョン 1 は先ほど実行した更新です。
 
-1. 別のコード セルを追加し、次のコードを実行します。
+1. 別のコード セルを追加し、次のコードを実行して、マウンテン バイクの元の価格と更新された価格を比較します。
 
     ```python
-   delta_table_path = 'Files/external_products'
-   # Get the current data
-   current_data = spark.read.format("delta").load(delta_table_path)
-   display(current_data)
-
-   # Get the version 0 data
-   original_data = spark.read.format("delta").option("versionAsOf", 0).load(delta_table_path)
-   display(original_data)
+   %%sql
+   SELECT
+       o.ProductName,
+       o.ListPrice AS OriginalPrice,
+       u.ListPrice AS UpdatedPrice
+   FROM dbo.products_table VERSION AS OF 0 o
+   JOIN dbo.products_table u ON o.ProductID = u.ProductID
+   WHERE o.Category = 'Mountain Bikes'
+   ORDER BY o.ProductName;
     ```
 
-2 つの結果セットが返されます。1 つは値下げ後のデータが入っており、もう 1 つはデータの元のバージョンが表示されます。
+   各行にはマウンテン バイクが表示され、元の価格と更新された価格が別々の列に表示されます。
 
 ## SQL クエリを使用してデルタ テーブルのデータを分析する
 
-SQL マジック コマンドを使用すると、Pyspark の代わりに SQL 構文を使用できます。 ここでは、`SELECT` ステートメントを使用して、製品テーブルから一時ビューを作成します。
+SQL を使用して、Delta テーブルに対して分析クエリを実行できます。 便利な手法の 1 つは、"一時ビュー" を作成することです。これは、セッション期間中に存在する名前付きクエリです。** テーブルのように参照できるため、後続のクエリを短く、読みやすくすることができます。
 
-1. 新しいコード セルを追加し、次のコードを実行して、一時ビューを作成および表示します。
+1. 新しいコード セルを追加し、次のコードを実行して、製品データをカテゴリ別に集計する一時ビューを作成します。
 
     ```python
    %%sql
-   -- Create a temporary view
    CREATE OR REPLACE TEMPORARY VIEW products_view
    AS
        SELECT Category, COUNT(*) AS NumProducts, MIN(ListPrice) AS MinPrice, MAX(ListPrice) AS MaxPrice, AVG(ListPrice) AS AvgPrice
-       FROM products
+       FROM dp_workspace.delta_lakehouse.dbo.products_table
        GROUP BY Category;
 
    SELECT *
    FROM products_view
-   ORDER BY Category;    
+   ORDER BY Category;
     ```
 
-1. 新しいコード セルを追加し、次のコードを実行して、製品の数で上位 10 のカテゴリを返します。
+1. 新しいコード セルを追加し、次のコードを実行して、製品数の多い上位 10 カテゴリのビューに対してクエリを実行します。集計ロジックを繰り返さずに、ビューに対して直接クエリを実行していることに注意してください。
 
     ```python
    %%sql
@@ -285,7 +193,7 @@ SQL マジック コマンドを使用すると、Pyspark の代わりに SQL �
 
     ![SQL select ステートメントと結果の画面画像。](Images/sql-select.png)
 
-または、PySpark を使用して SQL クエリを実行することもできます。
+PySpark を使用してビューのクエリを実行することもできます。これは、DataFrame 操作または視覚化を SQL 結果に適用する場合に便利です。
 
 1. 新しいコード セルを追加し、次のコードを実行します。
 
@@ -340,7 +248,7 @@ Delta Lake ではストリーミング データがサポートされていま�
 
     ```python
    # Write the stream to a delta table
-   delta_stream_table_path = 'Tables/iotdevicedata'
+   delta_stream_table_path = 'Tables/dbo/iotdevicedata'
    checkpointpath = 'Files/delta/checkpoint'
    deltastream = iotstream.writeStream.format("delta").option("checkpointLocation", checkpointpath).start(delta_stream_table_path)
    print("Streaming to delta sink...")
@@ -352,7 +260,7 @@ Delta Lake ではストリーミング データがサポートされていま�
 
     ```python
    %%sql
-   SELECT * FROM IotDeviceData;
+   SELECT * FROM dbo.IotDeviceData;
     ```
 
 このコードを実行して、ストリーミング ソースのデバイス データが含まれる IotDeviceData テーブルに対してクエリを実行します。
@@ -378,7 +286,7 @@ Delta Lake ではストリーミング データがサポートされていま�
 
     ```python
    %%sql
-   SELECT * FROM IotDeviceData;
+   SELECT * FROM dbo.IotDeviceData;
     ```
 
 このコードを実行して、IotDeviceData テーブルに対してもう一度クエリを実行します。今度は、ストリーミング ソースに追加された追加データが含まれるはずです。
