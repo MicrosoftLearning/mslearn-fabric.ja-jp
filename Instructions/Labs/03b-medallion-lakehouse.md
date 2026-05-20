@@ -23,7 +23,7 @@ lab:
 
 ## ワークスペースの作成
 
-> **注**: この演習を完了するには、Fabric の有料または試用版の容量にアクセスする必要があります。 無料の Fabric 試用版については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
+> **注**: この演習を完了するには、Fabric の有料版または試用版の容量にアクセスできることが必要です。 無料の Fabric 試用版の詳細については、[Fabric 試用版](https://aka.ms/fabrictrial)に関するページを参照してください。
 
 1. ブラウザーで [Microsoft Fabric ホーム ページ](https://app.fabric.microsoft.com/home?experience=fabric-developer) (`https://app.fabric.microsoft.com/home?experience=fabric-developer`) に移動し、Fabric 資格情報でサインインします。
 1. 左側のメニュー バーで、 **[ワークスペース]** を選択します (アイコンは &#128455; に似ています)。
@@ -37,7 +37,7 @@ lab:
 
 ワークスペースが作成されたので、次に分析するデータ用のデータ レイクハウスを作成します。
 
-1. 作成したワークスペースで **[+ 新しい項目]** ボタンを選択して、**[Sales]** という名前の新しい **[レイクハウス]** を作成します。 [Lakehouse schemas] オプションが無効になっていることを確認します。
+1. 作成したワークスペースで **[+ 新しい項目]** ボタンを選択して、**[Sales]** という名前の新しい **[レイクハウス]** を作成します。 **[レイクハウス スキーマ]** チェック ボックスはオンにしたままにします。
 
     1 分ほどすると、新しい空のレイクハウスが作成されます。 次に、分析のために、データ レイクハウスにいくつかのデータを取り込みます。 これを行うには複数の方法がありますが、この演習では、テキスト ファイルをローカル コンピューター (または、該当する場合はラボ VM) にダウンロードし、レイクハウスにアップロードするだけです。
 
@@ -137,7 +137,7 @@ lab:
    from delta.tables import *
     
    DeltaTable.createIfNotExists(spark) \
-       .tableName("sales.sales_silver") \
+       .tableName("sales.dbo.sales_silver") \
        .addColumn("SalesOrderNumber", StringType()) \
        .addColumn("SalesOrderLineNumber", IntegerType()) \
        .addColumn("OrderDate", DateType()) \
@@ -167,7 +167,7 @@ lab:
 
    from delta.tables import *
     
-   deltaTable = DeltaTable.forPath(spark, 'Tables/sales_silver')
+   deltaTable = DeltaTable.forPath(spark, 'Tables/dbo/sales_silver')
     
    dfUpdates = df
     
@@ -226,7 +226,7 @@ lab:
     ```sql
    SELECT YEAR(OrderDate) AS Year
        , CAST (SUM(Quantity * (UnitPrice + Tax)) AS DECIMAL(12, 2)) AS TotalSales
-   FROM sales_silver
+   FROM dbo.sales_silver
    GROUP BY YEAR(OrderDate) 
    ORDER BY YEAR(OrderDate)
     ```
@@ -238,10 +238,11 @@ lab:
 1. 次に、(数量の観点から) 最も多く購入している顧客を確認します。 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
 
     ```sql
-   SELECT TOP 10 CustomerName, SUM(Quantity) AS TotalQuantity
-   FROM sales_silver
+   SELECT CustomerName, SUM(Quantity) AS TotalQuantity
+   FROM dbo.sales_silver
    GROUP BY CustomerName
    ORDER BY TotalQuantity DESC
+   LIMIT 10
     ```
 
     このクエリでは、sales_silver テーブルで各顧客が購入した品目の合計数量を計算し、数量の観点から上位 10 人の顧客を返します。
@@ -262,7 +263,7 @@ lab:
 
     ```python
    # Load data to the dataframe as a starting point to create the gold layer
-   df = spark.read.table("Sales.sales_silver")
+   df = spark.read.table("Sales.dbo.sales_silver")
     ```
 
     > **注**:最初のセルの実行時に `[TooManyRequestsForCapacity]` エラーが発生した場合は、最初のノートブックで以前に実行されていたセッションを停止したことを確認します。
@@ -275,7 +276,7 @@ lab:
     
    # Define the schema for the dimdate_gold table
    DeltaTable.createIfNotExists(spark) \
-       .tableName("sales.dimdate_gold") \
+       .tableName("sales.dbo.dimdate_gold") \
        .addColumn("OrderDate", DateType()) \
        .addColumn("Day", IntegerType()) \
        .addColumn("Month", IntegerType()) \
@@ -312,7 +313,7 @@ lab:
     ```python
    from delta.tables import *
     
-   deltaTable = DeltaTable.forPath(spark, 'Tables/dimdate_gold')
+   deltaTable = DeltaTable.forPath(spark, 'Tables/dbo/dimdate_gold')
     
    dfUpdates = dfdimDate_gold
     
@@ -348,7 +349,7 @@ lab:
     
    # Create customer_gold dimension delta table
    DeltaTable.createIfNotExists(spark) \
-       .tableName("sales.dimcustomer_gold") \
+       .tableName("sales.dbo.dimcustomer_gold") \
        .addColumn("CustomerName", StringType()) \
        .addColumn("Email",  StringType()) \
        .addColumn("First", StringType()) \
@@ -380,7 +381,7 @@ lab:
     ```python
    from pyspark.sql.functions import monotonically_increasing_id, col, when, coalesce, max, lit
     
-   dfdimCustomer_temp = spark.read.table("Sales.dimCustomer_gold")
+   dfdimCustomer_temp = spark.read.table("Sales.dbo.dimCustomer_gold")
     
    MAXCustomerID = dfdimCustomer_temp.select(coalesce(max(col("CustomerID")),lit(0)).alias("MAXCustomerID")).first()[0]
     
@@ -400,7 +401,7 @@ lab:
     ```python
    from delta.tables import *
 
-   deltaTable = DeltaTable.forPath(spark, 'Tables/dimcustomer_gold')
+   deltaTable = DeltaTable.forPath(spark, 'Tables/dbo/dimcustomer_gold')
     
    dfUpdates = dfdimCustomer_gold
     
@@ -433,7 +434,7 @@ lab:
    from delta.tables import *
     
    DeltaTable.createIfNotExists(spark) \
-       .tableName("sales.dimproduct_gold") \
+       .tableName("sales.dbo.dimproduct_gold") \
        .addColumn("ItemName", StringType()) \
        .addColumn("ItemID", LongType()) \
        .addColumn("ItemInfo", StringType()) \
@@ -462,7 +463,7 @@ lab:
    from pyspark.sql.functions import monotonically_increasing_id, col, lit, max, coalesce
     
    #dfdimProduct_temp = dfdimProduct_silver
-   dfdimProduct_temp = spark.read.table("Sales.dimProduct_gold")
+   dfdimProduct_temp = spark.read.table("Sales.dbo.dimProduct_gold")
     
    MAXProductID = dfdimProduct_temp.select(coalesce(max(col("ItemID")),lit(0)).alias("MAXItemID")).first()[0]
     
@@ -482,7 +483,7 @@ lab:
     ```python
    from delta.tables import *
     
-   deltaTable = DeltaTable.forPath(spark, 'Tables/dimproduct_gold')
+   deltaTable = DeltaTable.forPath(spark, 'Tables/dbo/dimproduct_gold')
             
    dfUpdates = dfdimProduct_gold
             
@@ -515,7 +516,7 @@ lab:
    from delta.tables import *
     
    DeltaTable.createIfNotExists(spark) \
-       .tableName("sales.factsales_gold") \
+       .tableName("sales.dbo.factsales_gold") \
        .addColumn("CustomerID", LongType()) \
        .addColumn("ItemID", LongType()) \
        .addColumn("OrderDate", DateType()) \
@@ -530,8 +531,8 @@ lab:
     ```python
    from pyspark.sql.functions import col
     
-   dfdimCustomer_temp = spark.read.table("Sales.dimCustomer_gold")
-   dfdimProduct_temp = spark.read.table("Sales.dimProduct_gold")
+   dfdimCustomer_temp = spark.read.table("Sales.dbo.dimCustomer_gold")
+   dfdimProduct_temp = spark.read.table("Sales.dbo.dimProduct_gold")
     
    df = df.withColumn("ItemName",split(col("Item"), ", ").getItem(0)) \
        .withColumn("ItemInfo",when((split(col("Item"), ", ").getItem(1).isNull() | (split(col("Item"), ", ").getItem(1)=="")),lit("")).otherwise(split(col("Item"), ", ").getItem(1))) \
@@ -559,7 +560,7 @@ lab:
     ```python
    from delta.tables import *
     
-   deltaTable = DeltaTable.forPath(spark, 'Tables/factsales_gold')
+   deltaTable = DeltaTable.forPath(spark, 'Tables/dbo/factsales_gold')
     
    dfUpdates = dffactSales_gold
     
