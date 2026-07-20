@@ -238,14 +238,16 @@ lab:
 1. 次に、(数量の観点から) 最も多く購入している顧客を確認します。 次のクエリをクエリ エディターに貼り付けて、 **[実行]** を選択します。
 
     ```sql
-   SELECT CustomerName, SUM(Quantity) AS TotalQuantity
-   FROM dbo.sales_silver
-   GROUP BY CustomerName
-   ORDER BY TotalQuantity DESC
-   LIMIT 10
+    SELECT TOP (10) CustomerName, SUM(Quantity) AS TotalQuantity
+    FROM dbo.sales_silver
+    GROUP BY CustomerName
+    ORDER BY TotalQuantity DESC
     ```
 
-    このクエリでは、sales_silver テーブルで各顧客が購入した品目の合計数量を計算し、数量の観点から上位 10 人の顧客を返します。
+    このクエリでは、`sales_silver` テーブルで各顧客が購入した品目の合計数量を計算し、購入数量の順に上位 10 人の顧客を返します。
+
+    > [!NOTE]
+    > SQL 分析エンドポイントは T-SQL 構文を使用します。 他の SQL 方言のクエリを適応させる場合は、`LIMIT 10` ではなく `TOP (10)` を使います。
 
     シルバー レイヤーでのデータ探索は基本的な分析に役立ちますが、データをさらに変換し、それをスター スキーマにモデル化して、より高度な分析とレポートを可能にする必要があります。 これは、次のセクションで行います。
 
