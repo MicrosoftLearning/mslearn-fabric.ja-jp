@@ -110,11 +110,13 @@ lab:
 
 ノートブックからレイクハウス内のデータを操作するには、ノートブックにレイクハウスをアタッチする必要があります。 この接続により、ノートブックとストレージ間で読み取りと書き込みを行うことができます。これにより、分析環境とデータ ストレージの間にシームレスな統合が作成されます。
 
-1. 左側のバーから新しいワークスペースを選択します。 ワークスペースに含まれるアイテム (レイクハウスやノートブックなど) の一覧が表示されます。
+1. ノートブックの**エクスプローラー** ペインで、**[データ項目の追加]** を選択し、**[OneLake カタログから]** を選択します。
 
-1. レイクハウスを選択して、[エクスプローラー] ペインを表示します。
+    ![ノートブックのエクスプローラー ペインで [データ項目の追加] メニューの [OneLake カタログから] が強調表示されたスクリーンショット。](Images/22b-attach-lakehouse.png)
 
-1. 上部のメニューから **[ノートブックを開く]**、**[既存のノートブック]** を選択し、前に作成したノートブックを開きます。 これで [エクスプローラー] ペインの横にノートブックが開くはずです。 [レイクハウス] を展開し、Files リストを展開します。 次のように、ノートブック エディターの横にテーブルやファイルはまだ表示されていないので注意してください。
+1. **[OneLake カタログ]** で、先に作成したレイクハウスを選択し、**[接続]** を選択します。
+
+1. **エクスプローラー** ペインで、レイクハウスとその**ファイル** リストを展開します。 レイクハウスにはまだテーブルもファイルも含まれていないことがわかります。
 
     ![[エクスプローラー] ビューの CSV ファイルの画面画像。](Images/copilot-fabric-notebook-step-2-lakehouse-attached.png)
 
@@ -125,13 +127,13 @@ lab:
 
 次は、Copilot を使用して、Eurostat API からデータをダウンロードできるようにします。 Python コードをゼロから記述する代わりに、実行する内容を自然言語で記述すると、Copilot によって適切なコードが生成されます。 これは AI 支援コーディングの主な利点の 1 つを示しており、細かい技術的な実装ではなく、ビジネス ロジックに集中できます。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。 Copilot でコードを生成するよう指示するには、セルの最初の命令として `%%code` を使用します。 
+1. **[ホーム]** リボンで、**[Copilot]** を選択して、ノートブックの右端に [Copilot] チャット ペインを開きます。
 
-    > **`%%code` マジック コマンドについて**: この特別な命令は、自然言語の記述に基づいて Python コードを生成するよう Copilot に指示します。 これは、Copilot との対話をより効果的に行うのに役立つ、"マジック コマンド" の 1 つです。
+    ![[Copilot] パネルが開いているノートブックのスクリーンショット。](Images/copilot-fabric-notebook-step-6-copilot-pane.png)
+
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
-    %%code
-    
     Download the following file from this URL:
     
     https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/proj_23np$defaultview/?format=TSV
@@ -139,11 +141,9 @@ lab:
     Then write the file to the default lakehouse into a folder named temp. Create the folder if it doesn't exist yet.
     ```
     
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードは、実行する前にレビューしてください。
 
-    Copilot によって次のコードが生成されます。これは、環境と Copilot の最新の更新プログラムによって若干異なる場合があります。
-    
-    ![Copilot で生成されたコードのスクリーンショット。](Images/copilot-fabric-notebook-step-3-code-magic.png)
+    Copilot はコードを新しいセルで生成します。 コードは、環境と Copilot の最新の更新プログラムによって若干異なる場合があります。
     
     > **Copilot のしくみ**: Copilot が自然言語の要求を、どのようにして動作する Python コードに変換するかに注目してください。 HTTP 要求を行い、ファイル システムを処理し、レイクハウス内の特定の場所にデータを保存する必要があることを理解しています。
     
@@ -176,19 +176,17 @@ lab:
     print(f"File downloaded and saved to {file_path}")
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 ファイルはダウンロードされ、レイクハウスの一時フォルダーに保存されます。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、セルの左側にある ▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。 ファイルはダウンロードされ、レイクハウスの一時フォルダーに保存されます。
 
     > **注**: 3 つのドット (...) を選択してレイクハウスの Files を更新する必要がある場合があります。
     
     ![レイクハウスで作成された一時ファイルのスクリーンショット。](Images/copilot-fabric-notebook-step-4-lakehouse-refreshed.png)
 
-1. これでレイクハウスに生データ ファイルが作成されたので、それを分析して変換できるように Spark DataFrame に読み込む必要があります。 ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. これでレイクハウスに生データ ファイルが作成されたので、それを分析して変換できるように Spark DataFrame に読み込みます。 [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     > **Information**:DataFrame は、データベースやスプレッドシート内のテーブルと同様に、名前付き列に編成されたデータの分散コレクションです。
 
     ```copilot-prompt
-    %%code
-    
     Load the file 'Files/temp/proj_23np.tsv' into a spark dataframe.
     
     The fields are separated with a tab.
@@ -196,7 +194,7 @@ lab:
     Show the contents of the DataFrame using display method.
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 データフレームには、TSV ファイルのデータが含まれているはずです。 生成されたコードは、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -210,6 +208,8 @@ lab:
     # Show the contents of the DataFrame using display method
     display(spark_df)
     ```
+
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
 出力は、たとえば、次のようになります。
 
@@ -229,16 +229,14 @@ lab:
 
 > **フィールドを分割する必要がある理由**: 最初の列には、複数の情報 (頻度、予測型、性別、年齢グループ、単位、地理コード) が連結されています。 適切な分析を行うには、これらを別個の列に配置する必要があります。 このプロセスは、データ構造の "正規化" と呼ばれます。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
 
     ```copilot-prompt
-    %%code
-    
     From the currently loaded DataFrame, split the first field 'freq,projection,sex,age,unit,geo\TIME_PERIOD' using a comma into 6 separate fields. Then, remove the original column.
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -257,7 +255,7 @@ lab:
     display(spark_df)
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。 テーブルに追加された新しいフィールドを表示するには、テーブルを右にスクロールすることが必要な場合があります。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。 新しいフィールドを表示するには、テーブルを右にスクロールしなければならない場合があります。
 
     ![フィールドが追加された結果のテーブルのスクリーンショット。](Images/copilot-fabric-notebook-split-fields.png)
 
@@ -267,15 +265,13 @@ lab:
 
 > **データ クリーニングの原則**: 一意の値が 1 つのみの列では分析値が提供されないため、データセットが不必要に複雑になるおそれがあります。 これらを削除すると、データ構造が簡略化され、パフォーマンスが向上します。 この場合、'freq' (頻度)、'age' (すべてのレコードは TOTAL)、'unit' (すべてのレコードは PER (person: 人)) はすべての行で一定です。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
-    %%code
-    
     From the currently loaded DataFrame, remove the fields 'freq', 'age', 'unit'.
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -287,21 +283,19 @@ lab:
     display(spark_df)
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
 ## データの変換: フィールドの位置変更
 
 最も重要な識別列を最初に配置してデータを整理すると、読みやすく理解しやすくなります。 データ分析では、数値/メジャー列 (年ごとの人口値) の前にカテゴリ/ディメンション列 (予測型、性別、地理的位置など) を配置するのが一般的です。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
-    %%code
-    
     From the currently loaded DataFrame, the fields 'projection', 'sex', 'geo' should be positioned first.
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -314,7 +308,7 @@ lab:
     display(spark_df)
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
 ## データの変換: 値の置換
 
@@ -322,12 +316,10 @@ lab:
 
 > **予測シナリオを理解する**: 統計の組織は、多くの場合、さまざまなシナリオを使用して将来の人口変化をモデル化します。 ベースラインは最もあり得るシナリオを表し、感度テストでは、出生率、死亡率、人口移動パターンに関するさまざまな仮定の下で、人口がどのように変化するかを示します。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
 
     ```copilot-prompt
-    %%code
-    
     The 'projection' field contains codes that should be replaced with the following values:
         _'BSL' -> 'Baseline projections'.
         _'LFRT' -> 'Sensitivity test: lower fertility'.
@@ -337,7 +329,7 @@ lab:
         _'NMIGR' -> 'Sensitivity test: no migration'.
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -358,7 +350,7 @@ lab:
     display(spark_df)
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
     ![予測フィールドの値が置き換えられた結果のテーブルのスクリーンショット。](Images/copilot-fabric-notebook-replace-values.png)
     
@@ -370,15 +362,13 @@ lab:
 
 ![地理的地域 EA20 とEU2_2020 が強調表示されているテーブルのスクリーンショット。](Images/copilot-fabric-notebook-europe.png)
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
-    %%code
-    
     Filter the 'geo' field and remove values 'EA20' and 'EU27_2020' (these are not countries).
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -390,7 +380,7 @@ lab:
     display(spark_df)
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
     人口予測テーブルにはフィールド 'sex' もあり、次の一意の値が入っています。
     
@@ -402,15 +392,13 @@ lab:
 
     > **合計を削除する理由**: 地理的集計と同様に、個々の性別カテゴリ (男性と女性) のみを保持するために、合計値を除外する必要があります。 これにより、より柔軟な分析が可能になります。合計は男性と女性の値を足していつでも取得できますが、合計を構成要素に分割することはできません。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
-    %%code
-    
     Filter the 'sex' field and remove 'T' (these are totals).
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -422,7 +410,7 @@ lab:
     display(spark_df)
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
 ## データの変換: スペースのトリミング
 
@@ -430,15 +418,13 @@ lab:
 
 > **データ品質に関する懸念**: 列名に余分なスペースが入っていると、データのクエリや視覚化の作成時に問題が発生することがあります。 これはデータ品質に関してよく見られる問題です。特に外部ソースから取得したデータであったり、他のシステムからエクスポートされたデータであったりする場合に見られます。 スペースをトリミングすると、一貫性が確保され、後でデバッグが困難になる問題を回避できます。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
-    %%code
-    
     Strip spaces from all field names in the dataframe.
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -452,7 +438,7 @@ lab:
     display(spark_df)
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
 ## データの変換: データ型の変換
 
@@ -460,15 +446,13 @@ lab:
 
 > **データ型が正しいことの重要性**: テキスト ファイルから読み込まれたデータは、すべての列が最初は文字列として扱われます。 年の列を整数に変換すると、算術演算 (計算や集計など) ができるようになり、適切に並べ替えができるようになります。 このステップは、ダウンストリーム分析や視覚化ツールにとって非常に重要です。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
-    %%code
-    
     Convert the data type of all the year fields to integer.
     ```
 
-1. セルの左側にある ▷ **[セルの実行]** を選択してコードを実行し、出力を確認します。 出力は、たとえば、次のようになります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -483,7 +467,7 @@ lab:
     display(spark_df)
     ```
     
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。 出力の例を次に示します (簡潔にするために列と行を削除しています)。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。 出力の例を次に示します (簡潔にするために列と行を削除しています)。
 
 |          投影 (projection)|性別|geo|    2022|    2023|     ...|    2100|
 |--------------------|---|---|--------|--------|--------|--------| 
@@ -502,15 +486,13 @@ lab:
 
 > **変換したデータを保存する理由**: データのクリーニングと変換が完了したら、結果を保持しましょう。 データをレイクハウスのテーブルとして保存すると、変換プロセスを何度も実行する必要がなくなり、さまざまな分析シナリオでこのクリーンなデータセットを使用できます。 また、Microsoft Fabric エコシステム内の他のツール (Power BI、SQL 分析エンドポイント、Data Factory など) でもこのデータを使用できます。
 
-1. ノートブック内に新しいセルを作成し、次の命令をコピーします。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
-    %%code
-    
     Save the dataframe as a new table named 'Population' in the default lakehouse.
     ```
     
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。 Copilot によってコードが生成されます。これは、環境と Copilot の最新の更新プログラムによって若干異なる場合があります。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -518,7 +500,7 @@ lab:
     spark_df.write.format("delta").saveAsTable("Population")
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
 ## 検証: 質問する
 
@@ -528,13 +510,7 @@ lab:
 
     !['Population' という名前の新しいテーブルが追加されたレイクハウスのスクリーンショット。](Images/copilot-fabric-notebook-step-5-lakehouse-refreshed.png)
 
-1. [ホーム] リボンで、[Copilot] オプションを選択します。
-
-    > **Copilot のチャット インターフェイス**: [Copilot] パネルには、データに関する質問を自然言語で行うことができる会話インターフェイスが用意されています。 分析用のコードを生成したり、視覚化を作成したり、データセット内のパターンを探したりするのに役立ちます。
-
-    ![[Copilot] パネルが開いているノートブックのスクリーンショット。](Images/copilot-fabric-notebook-step-6-copilot-pane.png)
-
-1. 次のプロンプトを入力します。
+1. [Copilot] チャット ボックスに次のプロンプトを入力します。
 
     ```copilot-prompt
     What are the projected population trends for geo BE  from 2020 to 2050 as a line chart visualization. Make sure to sum up male and female numbers. Use only existing columns from the population table. Perform the query using SQL.
@@ -542,7 +518,7 @@ lab:
 
     > **これが示す内容**: このプロンプトは、コンテキスト (Population テーブル) を理解し、SQL クエリを生成して、視覚化を作成する Copilot の能力を示します。 これは、データ クエリと視覚化が 1 つの要求にまとめられているため、特に強力です。
 
-1. 生成された出力を観察します。これは、環境と Copilot の最新の更新プログラムによって若干異なる場合があります。 コード フラグメントを新しいセルにコピーします。
+1. プロンプト  を送信します。 Copilot からコード セルを追加するための権限を要求されたら、**[許可]** を選択します。 生成されたコードをレビューしてください。この例とは異なる場合があります。
 
     ```python
     #### ATTENTION: AI-generated code can include errors or operations you didn't intend. Review the code in this cell carefully before running it.
@@ -583,7 +559,7 @@ lab:
     fig.show()
     ```
 
-1. セルの左側にある ▷ **[セルの実行** を選択してコードを実行します。 
+1. Copilot から新しいセルを実行するための権限を要求されたら、**[許可]** を選択します。 または、▷ **[セルの実行]** を選択します。 セルが正常に動作した後、Copilot ペインで **[保持]** を選択します。
 
     作成されたグラフを観察します。
     
